@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragment::header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div th:replace="fragment::spinner"></div>
+    <nav th:replace="fragment::sidebar"></nav>
+
+    <!-- <table>
+    <tr th:each="eclass : ${schedule}">
+        <th scope="row" th:text="${eclass.id}"></th>
+        <td th:text="${eclass.studytime}"></td>
+        <td th:text="${eclass.eclass.name}"></td>
+        <td th:text="${eclass.datelearn}"></td>
+        </tr>
+   </table>
+
+   <table>
+    <tr th:each="eclass : ${schedule7}">
+        <td th:text="${eclass}"></td>
+       
+        </tr>
+   </table> -->
+
+    
+
+    <div class="container">
+
+        <form action="/schedulestudent" method="post" style="margin-top: 100px;" >
+            <label for="date-input">Ngày:</label>
+
+            <input type="date" th:value="${currentDate.toString()}" id="date-input" name="date"/>
+
+            <button type="submit">Gửi</button>
+        </form>
+
+
+        <div class="timetable-img text-center">
+            <img src="img/content/timetable.png" alt="">
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered text-center" style="margin-bottom: 100px;">
+                <thead>
+                    <tr class="bg-light-gray">
+                        <th th:each="data : ${schedule7}">
+                            <!-- <h3 th:text="${eclass}"></h3> -->
+                        <span th:text="${data.keySet().iterator().next()}"></span><br>
+                        <span th:text="${data.values().iterator().next()}"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                        <td th:each="eclass : ${valueschedule}">
+                            <h4 class="bg-primary" th:if="${eclass != null}" th:text="${eclass.eclass.name}"></h4>
+                            <br>
+                            <!-- <h6 th:if="${eclass != null}" th:text="${eclass.studytime} == 'Sáng' ? ${eclass.studytime + '8:30-10:30'} : ${eclass.studytime}">
+                            <h6 th:if="${eclass != null}" th:text="${eclass.studytime} == 'Chiều' ? ${eclass.studytime + '14:00-16:00'} : ${eclass.studytime}">
+                            <h6 th:if="${eclass != null}" th:text="${eclass.studytime} == 'Tối' ? ${eclass.studytime + '17:30-19:30'} : ${eclass.studytime}"></h6>
+                         -->
+                         <h6 th:if="${eclass != null}" th:text="${eclass.studytime == 'Sáng' ? eclass.studytime + ' 8:30-10:30' : (eclass.studytime == 'Chiều' ? eclass.studytime + ' 14:00-16:00' : (eclass.studytime == 'Tối' ? eclass.studytime + ' 17:30-19:30' : ''))}"></h6>
+                        
+                         <span th:if="${eclass == null}">
+                         </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="fragment::footer"></div>
+    <div th:replace="fragment::script"></div>
+</body>
+
+</html>

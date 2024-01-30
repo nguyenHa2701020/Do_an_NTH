@@ -1,0 +1,17 @@
+package com.doan.elearning.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.doan.elearning.entity.Eclass;
+
+@Repository
+public interface ClassRepository  extends JpaRepository<Eclass, Long>{
+     @Query("select p from Eclass p")
+    List<Eclass> findAll();
+    @Query("select o from Eclass o where o.id = ?1")
+   Eclass findByLgid(Long id);
+}
