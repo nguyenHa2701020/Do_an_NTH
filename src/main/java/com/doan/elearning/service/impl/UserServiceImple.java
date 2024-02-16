@@ -47,4 +47,10 @@ public class UserServiceImple implements UserService{
     public Users findByLgid(String idlg) {
         return userRepository.findByLgid(idlg);
     }
+
+    // @Override
+    // public List<Users> findGV() {
+    //     return userRepository.findIdGV();
+    // }
+
 }

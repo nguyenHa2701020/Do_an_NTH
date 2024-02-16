@@ -13,4 +13,5 @@ public interface UserService{
  Users findByLgid(String idlg);
 
  List<Users> findALl();
+//  List<Users> findGV();
 }

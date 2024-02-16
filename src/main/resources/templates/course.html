@@ -21,7 +21,13 @@
                 <!-- Topbar -->
                 <nav th:replace="~{fragments::topbar}"></nav>
                 <!-- End of Topbar -->
-    
+                <div class="input-group" style="width: 30%; margin-bottom: 20px;">
+                    <form th:action = "@{/search-course/0}" method = "get">
+                        <input type="text" class="form-control rounded" placeholder="Search" name = "keyword" aria-label="Search"
+                               aria-describedby="search-addon" />
+                        <button type="submit" class="btn btn-outline-primary">search</button>
+                    </form>
+                </div>
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
                         data-whatever="@mdo">Add new category
@@ -55,13 +61,13 @@
                         </td>
                         <td>
                             <a id="editButton"
-                               th:href="@{/findById(id = ${users.id})}"
+                               th:href="@{/findByCourseId(id = ${users.id})}"
                                class="btn btn-primary">Update</a>
                         </td>
                         <td>
                             <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
                                class="btn btn-primary">Enable</a>
-                            <a th:if="${users.id} == false" th:href="@{/delete-users(id = ${users.id})}"
+                            <a th:href="@{/delete-course(id = ${users.id})}"
                                class=" btn btn-danger">Delete</a>
                         </td>
                     </tr>
@@ -132,7 +138,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/update-category}" method="put">
+                    <form th:action="@{/update-course}" method="put">
                         <div class="form-group">
                             <label for="idEdit" class="col-form-label">ID
                             </label> <input type="text" class="form-control" id="idEdit" name="id" readonly>

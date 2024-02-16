@@ -25,6 +25,7 @@ private final ClassRepository cr;
        c.setName(classdto.getName());
        c.setStart(classdto.getStart());
        c.setLevel(classdto.getLevel());
+       c.setIdGV(classdto.getIdGV());
        return cr.save(c);
 
     }
@@ -33,6 +34,11 @@ private final ClassRepository cr;
     public Eclass findByLgid(Long idlg) {
         
         return cr.findByLgid(idlg);
+    }
+
+    @Override
+    public List<Eclass> findByidGV(Long id) {
+      return cr.findByidGV(id);
     }
     
 }

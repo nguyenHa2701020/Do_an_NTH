@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class ClassDto {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	//@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+7")
-    private Date start; 
+    // @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+7")
+    private Date start;
 
- 
     private Level level;
+    private Long idGV;
 }

@@ -9,4 +9,5 @@ public interface LevelService {
     Level save(LevelDto leveldto);
 
  List<Level> findAll();
+ void delete(Long id);
 }

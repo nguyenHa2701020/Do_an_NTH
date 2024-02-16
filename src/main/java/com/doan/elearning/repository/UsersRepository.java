@@ -15,4 +15,7 @@ public interface UsersRepository  extends JpaRepository<Users, Long>{
    Users findByLgid(String lgid);
     @Query("select p from Users p")
     List<Users> findALl();
+   // @Query("select p from Users p where p.roles.role_id=3")
+//    @Query("SELECT u FROM Users u JOIN u.roles r WHERE r.role_id = 3")
+//     List<Users> findIdGV();
 }

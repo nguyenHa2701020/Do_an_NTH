@@ -14,4 +14,7 @@ public interface ClassRepository  extends JpaRepository<Eclass, Long>{
     List<Eclass> findAll();
     @Query("select o from Eclass o where o.id = ?1")
    Eclass findByLgid(Long id);
+   
+   @Query("select o from Eclass o where o.idGV = ?1")
+   List<Eclass> findByidGV(Long id);
 }

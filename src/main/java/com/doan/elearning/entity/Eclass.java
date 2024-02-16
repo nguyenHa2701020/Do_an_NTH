@@ -39,4 +39,7 @@ public class Eclass {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id", referencedColumnName = "level_id")
     private Level level;
+
+    private Long idGV;
+    
 }

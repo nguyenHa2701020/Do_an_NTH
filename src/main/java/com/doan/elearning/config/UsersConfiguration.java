@@ -47,7 +47,7 @@ public class UsersConfiguration {
                                 //.requestMatchers("/home").permitAll()
                                 .requestMatchers("/admin").hasAuthority("ADMIN")
                                 .requestMatchers("/forgot-password", "/register", "/register-new").permitAll()
-                                .requestMatchers("/user","/course","/eclass","/schedule").hasAuthority("ADMIN")
+                                .requestMatchers("/user","/course","/eclass","/schedule","/gv").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
 
                 )

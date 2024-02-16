@@ -28,7 +28,9 @@ public class Level {
     private Long id;
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
+
+    
 }

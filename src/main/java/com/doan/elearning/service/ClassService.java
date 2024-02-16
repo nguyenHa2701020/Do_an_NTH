@@ -12,4 +12,6 @@ public interface ClassService {
  List<Eclass> findAll();
 
   Eclass findByLgid(Long idlg);
+  List<Eclass> findByidGV(Long id);
+
 }
