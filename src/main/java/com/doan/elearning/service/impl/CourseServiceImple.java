@@ -54,10 +54,27 @@ public class CourseServiceImple implements CourseService {
     }
 
     @Override
-    public Course update(Course course) {
-        Course courseUpdate = courseRepository.getReferenceById(course.getId());
-        courseUpdate.setName(course.getName());
-        return courseRepository.save(courseUpdate);
+    public Course update(MultipartFile imgCourse, CourseDto coursedto ) {
+
+        try {
+            Course courseUpdate = courseRepository.getReferenceById(coursedto.getId());
+            if (imgCourse.getBytes().length > 0) {
+                if (imageUpload.checkExist(imgCourse)) {
+                    courseUpdate.setImage(courseUpdate.getImage());
+                } else {
+                    imageUpload.uploadFile(imgCourse);
+                    courseUpdate.setImage(Base64.getEncoder().encodeToString(imgCourse.getBytes()));
+                }
+            }
+         
+            courseUpdate.setId(courseUpdate.getId());
+            courseUpdate.setName(coursedto.getName());
+       
+            return courseRepository.save(courseUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

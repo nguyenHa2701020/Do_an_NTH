@@ -15,9 +15,10 @@ public interface CourseService {
 
     Optional<Course> findById(Long id);
 
-    Course update(Course course);
+    Course update(MultipartFile imgCourse, CourseDto coursedto);
     void delete(Long id);
      List<Course> findCourses(String keyword);
+
 
 
 }

@@ -45,4 +45,9 @@ public class ClientController {
     return "indexAd";
   }
 
+
+  @GetMapping("/gv")
+  public String lesson() {
+    return "lesson";
+  }
 }
