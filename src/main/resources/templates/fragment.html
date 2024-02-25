@@ -65,7 +65,7 @@
                 <a href="/schedulestudent" class="nav-item nav-link">Schedule</a>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
 
-                <a href="courses.html" class="nav-item nav-link">Courses</a>
+                <a href="/learningclass" class="nav-item nav-link">Eclass</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" th:text="${namelogin}"></a>
                     <div class="dropdown-menu fade-down m-0">
@@ -86,7 +86,7 @@
             <a href="/admin" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block" th:text="'Join Now ' + ${namelogin}"><i class="fa fa-arrow-right ms-3"></i></a>
         </div>
 
-        <div th:if="${rolelogin}==LECTURERS" class="collapse navbar-collapse" id="navbarCollapse">
+        <div th:if="${rolelogin}==LECTURER" class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="nav-item nav-link active">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>

@@ -61,6 +61,7 @@
                                class="btn btn-primary">Enable</a>
                             <a th:if="${eclass.id} == false" th:href="@{/delete-users(id = ${eclass.id})}"
                                class=" btn btn-danger">Delete</a>
+                            <a th:href="@{/lesson(id = ${eclass.id})}">Lesson By Class</a>
                         </td>
                     </tr>
                     </tbody>
@@ -124,7 +125,7 @@
                                     <option th:value = "null">-SELECT-</option>
                                     <option th:each = "category : ${lstLecture}"
                                             th:value = "${category.id}"
-                                            th:text = "${category.username}">
+                                            th:text = "${category.lgid}">
                                     </option>
                                 </select>
                             </div>

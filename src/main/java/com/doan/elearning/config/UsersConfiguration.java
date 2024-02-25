@@ -44,11 +44,11 @@ public class UsersConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( author ->
                         author.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                //.requestMatchers("/home").permitAll()
-                                .requestMatchers("/admin").hasAuthority("ADMIN")
-                                .requestMatchers("/forgot-password", "/register", "/register-new").permitAll()
-                                .requestMatchers("/user","/course","/eclass","/schedule","/gv").hasAuthority("ADMIN")
-                                .anyRequest().authenticated()
+                                // .requestMatchers("/home").permitAll()
+                                .requestMatchers("/lesson").hasAnyAuthority("LECTURER","STUDENT","ADMIN") 
+                                .requestMatchers("/forgot-password").permitAll()
+                                .requestMatchers("/user","/course","/eclass","/schedule","/lesson", "/admin",  "/register", "/register-new").hasAuthority("ADMIN")
+                                .anyRequest().permitAll()
 
                 )
                 .formLogin(login ->

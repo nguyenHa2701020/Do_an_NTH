@@ -100,4 +100,23 @@ public class EclassController {
         }
         return "teachingclass";
     }
+
+    @RequestMapping("/learningclass")
+    public String learningclass(Model model, Principal principal, Authentication authentication) {
+        if (principal != null) {
+            model.addAttribute("namelogin", principal.getName());
+            Users usk = us.findByLgid(principal.getName());
+
+            List<Role> rl = usk.getRoles();
+            if (rl.size() == 1) {
+                model.addAttribute("rolelogin", rl.get(0).getName());
+            }
+            
+            Eclass ec = cs.findByLgid(usk.getIdClass());
+            model.addAttribute("eclass", ec);
+
+
+        }
+        return "teachingclass";
+    }
 }

@@ -46,8 +46,5 @@ public class ClientController {
   }
 
 
-  @GetMapping("/gv")
-  public String lesson() {
-    return "lesson";
-  }
+  
 }

@@ -8,7 +8,10 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-5 d-none d-lg-block">
+                        <img class="img-fluid position-absolute w-100 h-100" src="img/course-2.jpg" alt="" style="object-fit: cover;">
+
+                    </div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
@@ -32,7 +35,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" th:field = "*{id}" id="exampleFirstName"
-                                            placeholder="ID">
+                                            placeholder="Full Name">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('id')}"
                                              th:errors = "*{id}"
                                         ></div>
@@ -40,7 +43,7 @@
 
                                     <div class="col-sm-6">
                                         <input type="text" th:field = "*{username}" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="User Name">
+                                            placeholder="ID Login">
                                         <div class="alert alert-danger" th:if = "${#fields.hasErrors('username')}"
                                             th:errors = "*{username}"
                                         ></div>
@@ -70,13 +73,21 @@
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <select th:field="*{Role}">
-                                    <option th:value="ADMIN">ADMIN</option>
-                                    <option th:value="STUDENT">STUDENT</option>
-                                    <option th:value="LECTURERS">LECTURERS</option>
-                                </select>
+                        
 
-                                <div class="form-group">
+                                <div class="form-group row">
+                                    <div style="margin-left: 10px" class="col-md-2"> Role </div>
+                                    <div class="col-md-4">
+                                        <!-- File Button -->
+                                        <select id="product_categories" th:field = "*{Role}" name="product_categories" class="form-control">
+                                            <option th:value="STUDENT">STUDENT</option>
+                                            <option th:value="LECTURER">LECTURER</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div style="margin-left: 10px" class="col-md-2"> Class </div>
                                     <div class="col-md-4">
                                         <!-- File Button -->
                                         <select id="product_categories" th:field = "*{idClass}" name="product_categories" class="form-control">
@@ -95,11 +106,9 @@
                                 <hr>
                             </form>
                             <hr>
+                           
                             <div class="text-center">
-                                <a class="small" th:href = "@{/forgot-password}" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" th:href = "@{/login}">Already have an account? Login!</a>
+                                <a class="small" th:href = "@{/admin}">Back to Manager!</a>
                             </div>
                         </div>
                     </div>

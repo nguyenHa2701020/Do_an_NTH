@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.xml.sax.SAXException;
 
+import com.doan.elearning.dto.LessonDto;
 import com.doan.elearning.dto.LevelDto;
 import com.doan.elearning.dto.ScheduleDto;
 import com.doan.elearning.entity.Course;
@@ -33,8 +34,10 @@ import com.doan.elearning.entity.Level;
 import com.doan.elearning.entity.Role;
 import com.doan.elearning.entity.Schedule;
 import com.doan.elearning.entity.Users;
+import com.doan.elearning.repository.LessonRepository;
 import com.doan.elearning.service.ClassService;
 import com.doan.elearning.service.CourseService;
+import com.doan.elearning.service.LessonService;
 import com.doan.elearning.service.LevelService;
 import com.doan.elearning.service.ScheduleService;
 import com.doan.elearning.service.UserService;
@@ -48,6 +51,7 @@ public class ScheduleController {
     private final ClassService cs;
 
     private final UserService us;
+    private final LessonService lessonService;
 
     @RequestMapping("/schedule")
     public String lst(Model model) {
@@ -281,13 +285,22 @@ public class ScheduleController {
             Eclass cc = cs.findByLgid(scheduleDto.getIdclass());
             scheduleDto.setEclass(cc);
             LocalDate curent = cc.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            ;
-
+            
+            LessonDto lsd= new LessonDto();
+            Users userj= us.findByid(cc.getIdGV());
+            lsd.setEclass(cc);
+            lsd.setUserss(userj);
             int count = 0;
             while (count <= 20) {
                 if (dayOfWeeks.contains(curent.getDayOfWeek())) {
                     scheduleDto.setDatelearn(Date.from(curent.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                    // lv.save(scheduleDto);
+
+                    String numberLesson= "Lesson "+(count+1);
+                    lsd.setName(numberLesson);
+                    lessonService.save(lsd);
                     lv.save(scheduleDto);
+
                     count++;
                 }
                 curent = curent.plusDays(1);

@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.doan.elearning.entity.Eclass;
 
 @Repository
-public interface ClassRepository  extends JpaRepository<Eclass, Long>{
-     @Query("select p from Eclass p")
-    List<Eclass> findAll();
-    @Query("select o from Eclass o where o.id = ?1")
+public interface ClassRepository extends JpaRepository<Eclass, Long> {
+   @Query("select p from Eclass p")
+   List<Eclass> findAll();
+
+   @Query("select o from Eclass o where o.id = ?1")
    Eclass findByLgid(Long id);
-   
+
    @Query("select o from Eclass o where o.idGV = ?1")
    List<Eclass> findByidGV(Long id);
 }

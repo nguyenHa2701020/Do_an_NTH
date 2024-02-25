@@ -3,6 +3,7 @@ package com.doan.elearning.service.impl;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.doan.elearning.dto.UserDto;
@@ -15,10 +16,10 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImple implements UserService{
+public class UserServiceImple implements UserService {
     private final UsersRepository userRepository;
     private final RoleRepository roleRepository;
-
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Users save(UserDto userDto) {
@@ -48,9 +49,21 @@ public class UserServiceImple implements UserService{
         return userRepository.findByLgid(idlg);
     }
 
-    // @Override
-    // public List<Users> findGV() {
-    //     return userRepository.findIdGV();
-    // }
+    @Override
+    public Users saveAdmin() {
+        Users user = new Users();
+        user.setUsername("Admin");
+        user.setAddress("Admin");
+        user.setPhone("098765432");
+        user.setLgid("Admin");
+        user.setPassword(passwordEncoder.encode("123456"));
+        user.setRoles(Arrays.asList(roleRepository.findByName("ADMIN")));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Users findByid(Long id) {
+        return userRepository.findByid(id);
+    }
 
 }

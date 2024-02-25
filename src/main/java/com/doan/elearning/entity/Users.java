@@ -10,6 +10,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -35,5 +38,9 @@ public class Users {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private List<Role> roles;
 
+    @JsonIgnore
+    @JsonManagedReference
+    @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 
 }

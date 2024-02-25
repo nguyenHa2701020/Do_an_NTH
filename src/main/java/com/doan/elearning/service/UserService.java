@@ -5,13 +5,16 @@ import java.util.List;
 import com.doan.elearning.dto.UserDto;
 import com.doan.elearning.entity.Users;
 
-public interface UserService{
- Users save(UserDto userDto);
+public interface UserService {
+    Users save(UserDto userDto);
 
- Users findByUsername(String username);
+    Users findByUsername(String username);
 
- Users findByLgid(String idlg);
+    Users findByLgid(String idlg);
 
- List<Users> findALl();
-//  List<Users> findGV();
+    Users findByid(Long id);
+
+    List<Users> findALl();
+
+    Users saveAdmin();
 }
