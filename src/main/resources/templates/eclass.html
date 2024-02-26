@@ -24,7 +24,7 @@
     
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                        data-whatever="@mdo">Add new level
+                        data-whatever="@mdo">Add new class
                 </button>
                 <p th:if="${size == 0}">No level</p>
                 <div th:if="${success}" class="text-center alert alert-success">
@@ -38,10 +38,11 @@
                 <table class="table table-striped" th:if="${size > 0}">
                     <thead>
                     <tr>
-                        <th scope="col">User Index</th>
-                        <th scope="col">User Name</th>
-                        <th scope="col">User Address</th>
-                        
+                        <th scope="col">Class Index</th>
+                        <th scope="col">Class Name</th>
+                        <th scope="col">Level Class</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Action</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>

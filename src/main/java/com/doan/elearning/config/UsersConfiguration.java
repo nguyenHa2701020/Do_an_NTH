@@ -54,7 +54,7 @@ public class UsersConfiguration {
                 .formLogin(login ->
                         login.loginPage("/login")
                                 .loginProcessingUrl("/do-login")
-                                .defaultSuccessUrl("/home", true)
+                                .defaultSuccessUrl("/", true)
                                 .permitAll()
                 )
                 .logout(logout ->

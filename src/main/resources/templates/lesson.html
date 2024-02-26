@@ -14,7 +14,7 @@
         <div class="card border rounded-3">
             <!-- Card header START -->
             <div class="card-header border-bottom">
-                <h3 class="mb-0">Curriculum</h3>
+             
             </div>
             <!-- Card header END -->
 
@@ -28,14 +28,15 @@
                         <h5 class="mb-4" th:text="${less.name}"></h5>
                         <div class="d-sm-flex justify-content-sm-between align-items-center">
                             <div class="d-flex">
-                                <a href="#" class="btn btn-danger-soft btn-round mb-0"><i class="fas fa-play"></i></a>
+                                <a href="#" class="btn btn-danger-soft btn-round mb-0"><i class="fas fa-file"></i></a>
                                 <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
                                     <h6 class="mb-0">Document</h6>
-                                    <p class="mb-2 mb-sm-0 small" th:text="${less.document}"></p>
+                                    <a th:if="${less.document !=null}" th:href="@{/download/{fileName}(fileName=${less.document})}">Download Document Now </a>
                                 </div>
                             </div>
                             <!-- Button -->
-                            <a th:href="@{/addlesson(id = ${less.id})}" class="btn btn-sm btn-success mb-0" th:if="${rolelogin}==LECTURER">Update</a>
+                            
+                            <a th:href="@{/addlesson(id = ${less.id})}" class="btn btn-sm btn-success mb-0" th:if="${rolelogin}==LECTURER or ${rolelogin}==ADMIN">Update</a>
                         </div>
                         <!-- Divider -->
                         <hr>
@@ -44,10 +45,11 @@
                         <div class="d-sm-flex justify-content-sm-between align-items-center">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-danger-soft btn-round mb-0 flex-shrink-0"><i
-                                        class="fas fa-play"></i></a>
+                                        class="fas fa-link"></i></a>
                                 <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
                                     <h6 class="mb-0">Link meet</h6>
-                                    <p class="mb-2 mb-sm-0 small" th:text="${less.link}"></p>
+                                    <!-- <p class="mb-2 mb-sm-0 small" th:text="${less.link}"></p> -->
+                                    <a th:if="${less.link !=null}" th:href="${less.link}" target="_blank"> Go to Lesson</a>
                                 </div>
                             </div>
                             <!-- Button -->
@@ -60,7 +62,7 @@
                         <div class="d-sm-flex justify-content-sm-between align-items-center">
                             <div class="d-flex">
                                 <a href="#" class="btn btn-light btn-round mb-0 flex-shrink-0"><i
-                                        class="bi bi-lock-fill"></i></a>
+                                        class="fa fa-comment"></i></a>
                                 <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
                                     <h6 class="mb-0">Note</h6>
                                     <p class="mb-2 mb-sm-0 small" th:text="${less.note}"></p>
@@ -73,12 +75,7 @@
                     <!-- Lecture item END -->
 
                     <!-- Collapse button -->
-                    <a class="mb-0 mt-4 btn-more d-flex align-items-center justify-content-center"
-                        data-bs-toggle="collapse" href="#collapseCourse" role="button" aria-expanded="false"
-                        aria-controls="collapseCourse">
-                        See <span class="see-more mx-1">more</span><span class="see-less mx-1">less</span> video
-                        <i class="fas fa-angle-down ms-2"></i>
-                    </a>
+                    
 
                 </div>
             </div>

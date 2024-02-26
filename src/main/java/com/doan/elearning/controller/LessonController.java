@@ -1,14 +1,33 @@
 package com.doan.elearning.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.doan.elearning.dto.CourseDto;
 import com.doan.elearning.entity.Lesson;
 import com.doan.elearning.entity.Role;
 import com.doan.elearning.entity.Users;
@@ -41,8 +60,6 @@ public class LessonController {
 
     }
 
-    
-
     @GetMapping("/addlesson")
     public String addlesson(Long id, Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
@@ -52,14 +69,83 @@ public class LessonController {
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
             }
-            Lesson lesson= lessonService.findLessons(id);
+            Lesson lesson = lessonService.findLessons(id);
             model.addAttribute("lesson", lesson);
-            
 
         }
 
-
         return "addlesson";
+    }
+
+    @PostMapping("/update-lesson/{id}")
+    public String updateLesson(@ModelAttribute("lesson") Lesson lesson,
+            @RequestParam("file") MultipartFile document,
+            RedirectAttributes redirectAttributes, Principal principal) {
+        try {
+
+            String fileName = document.getOriginalFilename();
+            File file = new File("D:\\springboot\\elearning\\src\\main\\resources\\static\\Upload", fileName);
+            document.transferTo(file);
+
+            lesson.setDocument(fileName);
+            lessonService.updateLessons(lesson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error server, please try again!");
+        }
+        return "redirect:/lesson?id=" + lesson.getEclassId();
+    }
+
+    // @GetMapping("/download")
+    // @ResponseBody
+    // public ResponseEntity<?> downloadFile(String filename) {
+    //     String filePath = "D:\\springboot\\elearning\\src\\main\\resources\\static\\Upload" + filename; // Đường dẫn tới
+    //                                                                                                     // tệp tin
+
+    //     try {
+    //         Path file = Paths.get(filePath);
+    //         byte[] fileData = Files.readAllBytes(file);
+
+    //         MediaType mediaType = MediaType.APPLICATION_OCTET_STREAM;
+    //         String contentType = Files.probeContentType(file);
+    //         if (contentType != null) {
+    //             mediaType = MediaType.parseMediaType(contentType);
+    //         }
+
+    //         return ResponseEntity.ok()
+    //                 .contentType(mediaType)
+    //                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+    //                 .body(new ByteArrayResource(fileData));
+    //     } catch (Exception e) {
+    //         // Xử lý lỗi khi không tìm thấy hoặc không đọc được tệp tin
+    //         e.printStackTrace();
+    //         return ResponseEntity.notFound().build();
+    //     }
+    // }
+
+    @GetMapping("/download/{fileName}")
+    public ResponseEntity<InputStreamResource> downloadFile(@PathVariable String fileName) throws IOException {
+
+        // Tạo một đối tượng File từ tên tập tin được yêu cầu.
+        File file = new File("D:\\springboot\\elearning\\src\\main\\resources\\static\\Upload\\" + fileName);
+
+        // Tạo một InputStream từ đối tượng File.
+        InputStream inputStream = new FileInputStream(file);
+
+        // Tạo một đối tượng InputStreamResource từ InputStream.
+        InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
+
+        // Thiết lập các header để trình duyệt có thể tải xuống file.
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=" + fileName);
+
+        // Trả về đối tượng ResponseEntity bao lấy InputStreamResource và các header
+        // tương ứng.
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(inputStreamResource);
     }
 
 }

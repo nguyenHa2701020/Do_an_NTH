@@ -37,9 +37,9 @@
                 </form>
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                    data-whatever="@mdo">Add new category
+                    data-whatever="@mdo">Add new course
                 </button>
-                <p th:if="${size == 0}">No category</p>
+                <p th:if="${size == 0}">No course</p>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
                     </p>
@@ -51,10 +51,10 @@
                 <table class="table table-striped" th:if="${size > 0}">
                     <thead>
                         <tr>
-                            <th scope="col">User Index</th>
-                            <th scope="col">User Name</th>
-                            <th scope="col">User Address</th>
-
+                            <th scope="col">Course Index</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Course Image</th>
+                            <th scope="col">Action</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>

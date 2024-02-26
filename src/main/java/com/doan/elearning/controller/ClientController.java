@@ -24,7 +24,7 @@ public class ClientController {
   private final UserService us;
   private final CourseService usk;
 
-  @GetMapping("/home")
+  @GetMapping("/")
   public String home(Model model, Principal principal, Authentication authentication) {
     if (principal != null) {
       model.addAttribute("namelogin", principal.getName());
@@ -34,6 +34,8 @@ public class ClientController {
         model.addAttribute("rolelogin", rl.get(0).getName());
       }
 
+    }else{
+      return "redirect:/login";
     }
     List<Course> courses = usk.findAll();
     model.addAttribute("courses", courses);
@@ -45,6 +47,10 @@ public class ClientController {
     return "indexAd";
   }
 
+  @GetMapping("/about")
+  public String ab() {
+    return "about";
+  }
 
   
 }

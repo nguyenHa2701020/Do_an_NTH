@@ -103,17 +103,17 @@ public class AuthController {
                 model.addAttribute("emailError", "Your email has been registered!");
                 return "register";
             }
-            if (adminDto.getPassword().equals(adminDto.getRepeatPassword())) {
-                adminDto.setPassword(passwordEncoder.encode(adminDto.getPassword()));
+            //if (adminDto.getPassword().equals(adminDto.getRepeatPassword())) { 
+                adminDto.setPassword(passwordEncoder.encode("123456"));
                 adminService.save(adminDto);
                 System.out.println("success");
                 model.addAttribute("success", "Register successfully!");
                 model.addAttribute("adminDto", adminDto);
-            } else {
-                model.addAttribute("adminDto", adminDto);
-                model.addAttribute("passwordError", "Your password maybe wrong! Check again!");
-                System.out.println("password not same");
-            }
+            // } else {
+            //     model.addAttribute("adminDto", adminDto);
+            //     model.addAttribute("passwordError", "Your password maybe wrong! Check again!");
+            //     System.out.println("password not same");
+            // }
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errors", "The server has been wrong!");

@@ -1,54 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace = "fragment::header">
+
+<head th:replace="fragment::header">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <div th:replace = "fragment::spinner"></div>
-    <nav th:replace = "fragment::sidebar"></nav>
 
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/carousel-1.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Các khóa học trực tuyến tốt nhất</h5>
-                                <h1 class="display-3 text-white animated slideInDown">Nền tảng học tập trực tuyến tốt nhất</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Trước khi chúng ta có cơ hội gặp gỡ, cảm ơn bạn đã sẵn lòng tìm hiểu tại đây. Đội ngũ IELTS Fighter rất vui được cùng bạn chia sẻ những câu chuyện đằng sau thương hiệu đáng tự hào.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">
-                                    Đọc thêm</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">
-                                    Tham gia ngay</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="img/carousel-2.jpg" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Các khóa học trực tuyến tốt nhất</h5>
-                                <h1 class="display-3 text-white animated slideInDown">Giáo dục trực tuyến từ nhà của bạn</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Trước khi chúng ta có cơ hội gặp gỡ, cảm ơn bạn đã sẵn lòng tìm hiểu tại đây. Đội ngũ IELTS Fighter rất vui được cùng bạn chia sẻ những câu chuyện đằng sau thương hiệu đáng tự hào.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Đọc thêm</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight"> Tham gia ngay</a>
-                            </div>
-                        </div>
-                    </div>
+<body>
+    <div th:replace="fragment::spinner"></div>
+    <nav th:replace="fragment::sidebar"></nav>
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">About Us</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Carousel End -->
+    <!-- Header End -->
 
 
     <!-- Service Start -->
@@ -57,7 +37,7 @@
             <div class="row g-4">
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item text-center pt-3">
-                        <div class="p-4">
+                        <div class="p-4" style="height: 380px;">
                             <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
                             <h5 class="mb-3">Giảng viên có tay nghề cao</h5>
                             <p>Đội ngũ giáo viên chuyên môn giỏi, xuất thân từ các các trường học uy tín hàng đầu quốc tế hoặc trường ngoại ngữ có tiếng tại Việt Nam, đồng thời sở hữu chứng chỉ TESOL với phương pháp và kỹ năng giảng dạy chuyên sâu</p>
@@ -103,12 +83,12 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="img-fluid position-absolute w-100 h-100"  src="Images/about.jpg" alt="" style="object-fit: cover;">
+                        <img class="img-fluid position-absolute w-100 h-100" src="Images/ielts fighter.png" alt=""
+                            style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="section-title bg-white text-start text-primary pe-3">
-                        VỀ CHÚNG TÔI</h6>
+                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
                     <h1 class="mb-4">Câu chuyện của IELTS Fighter</h1>
                     <p class="mb-4">Từ khát khao lan tỏa tình yêu IELTS tới hành trình 7 năm - 60 cơ sở - chắp cánh cho hàng triệu người chinh phục ước mơ...</p>
                     
@@ -134,20 +114,20 @@
                             </p>
                         </div>
                     </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Đọc thêm</a>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- About End -->
 
-    <!-- Courses Start -->
+
+    <!-- Team Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">
-                    Giảng viên</h6>
-                <h1 class="mb-5">Giảng viên chuyên môn</h1>
+                <h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
+                <h1 class="mb-5">Expert Instructors</h1>
             </div>
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -227,7 +207,6 @@
                         <div class="text-center p-4">
                             <h5 class="mb-0">Mia Nguyễn</h5>
                           
-                          
                         </div>
                     </div>
                 </div>
@@ -237,52 +216,8 @@
     <!-- Team End -->
 
 
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="text-center">
-                <h6 class="section-title bg-white text-center text-primary px-3">Cảm nhận</h6>
-                <h1 class="mb-5">Sinh viên của chúng tôi nói!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel position-relative">
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="Images/nguyendat.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Nguyễn Đạt</h5>
-                    <p>Học viên</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Thực ra thì trước khi học online thì em cũng không expect quá nhiều thứ, nhưng mà đến hôm nay buổi cuối rồi và mình học cũng tương đối nhiều buổi thông qua việc học online rồi thì em thấy là nó thật là hợp lý, hiệu quả. May được 1 cái là trung tâm cũng ứng phó với vấn đề này kịp thời</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="Images/TranVietHaTalk.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Trần Việt Hà</h5>
-                    <p>Học viên</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Sau khoảng thời gian hai tháng học khóa PreF, khóa học đầu tiên của em với trung tâm, em cảm thấy bản thân đã học được thêm quá nhiều điểm bổ ích và thú vị.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="Images/trantranglinh.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Trần Thị Trang Linh</h5>
-                    <p>Học viên</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Trước đây em đã tùng học qua một trung tâm dạy IELTS khác, khi đến với lớp của thầy em đã có những trải nghiệm hoàn toàn khác về IELTS, đó là lần đầu tiên em có thể load được phần Reading.</p>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <img class="border rounded-circle p-2 mx-auto mb-3" src="Images/buithithao.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Bùi Thị Thảo</h5>
-                    <p>Học viên</p>
-                    <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Việc quen với phương pháp học mới làm em khá bỡ ngỡ nhưng được sự tận tâm giúp đỡ của các chị tư vấn và thầy quân người mà giúp đỡ em rất nhiều trong hơn một tháng qua. và em cũng cảm ơn các bạn cùng lớp pref620.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
-
     <div th:replace="fragment::footer"></div>
     <div th:replace="fragment::script"></div>
 </body>
+
 </html>
