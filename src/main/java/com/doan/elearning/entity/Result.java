@@ -32,7 +32,7 @@ public class Result {
     private String speakPoint;
     private String readPoint;
     private String writePoint;
-    private Long idTopic;
+   
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exam_id", referencedColumnName = "exam_id")

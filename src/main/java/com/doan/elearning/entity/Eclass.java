@@ -50,6 +50,7 @@ public class Eclass {
     @JsonManagedReference
     @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
     private List<Lesson> lessons;
-
+    @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
+    private List<Exam> exam;
     
 }
