@@ -30,9 +30,9 @@ public class TopicServiceImple implements TopicService{
     }
 
     @Override
-    public Optional<Topic> findById(Long id) {
+    public Topic findById(Long id) {
         // TODO Auto-generated method stub
-        return Optional.empty();
+        return topicRepository.findTopic(id);
     }
 
     @Override

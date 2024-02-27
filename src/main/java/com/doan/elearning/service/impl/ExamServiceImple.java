@@ -23,8 +23,7 @@ public class ExamServiceImple implements ExamService {
 
     @Override
     public Exam findExam(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+      return examRepository.findExam(id);
     }
 
     @Override

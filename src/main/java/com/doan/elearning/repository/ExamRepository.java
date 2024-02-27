@@ -13,5 +13,7 @@ public interface ExamRepository extends JpaRepository<Exam, Long>{
     List<Exam> findExamByClass(Long id);
     @Query("select o from Exam o ")
     List<Exam> findAll();
+    @Query("select o from Exam o where o.id = ?1")
+    Exam findExam(Long id);
     
 }

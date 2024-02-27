@@ -31,5 +31,10 @@ public class TopicDetailServiceImple implements TopicDetailService {
         tp.setTopic(topicDetailDto.getTopic());
         return topicDetailRepository.save(tp);
     }
+
+    @Override
+    public List<TopicDetail> findTopicDetailByTopic(Long idTopic) {
+       return topicDetailRepository.findTopicDetailByTopic(idTopic);
+    }
     
 }

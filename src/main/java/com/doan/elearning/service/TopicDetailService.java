@@ -11,4 +11,6 @@ public interface TopicDetailService {
     TopicDetail save(TopicDetailDto topicDetailDto);
 
       List<TopicDetail> findAll();
+      
+      List<TopicDetail> findTopicDetailByTopic(Long idTopic); 
 }

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragment::header">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="card-body">
+
+    <!-- quiz -->
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+      <div class="d-flex align-items-center">
+        <!-- quiz img -->
+        <a href="#"> <img src="../assets/images/course/course-react.jpg" alt="course" class="rounded img-4by3-lg"></a>
+        <!-- quiz content -->
+        <div class="ms-3">
+          <h3 class="mb-0"><a href="#" class="text-inherit">React Basic Quiz </a></h3>
+
+        </div>
+      </div>
+      <div>
+        <span class="text-danger"><i class="fe fe-clock me-1 align-middle"></i>00:05:55</span>
+      </div>
+    </div>
+    <div class="mt-3">
+      <!-- text -->
+      <div class="d-flex justify-content-between">
+        <span>Exam Progress:
+        </span>
+        <span> Question 1 out of 5</span>
+      </div>
+      <!-- progress bar -->
+      <div class="mt-2">
+        <div class="progress" style="height: 6px;">
+          <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15"
+            aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- text -->
+
+
+    <div class="mt-5" th:each="examSlip, iterationStatus : ${examSlip}">
+      <span th:text="'Question ' + ${iterationStatus.count}"></span>
+      <h3 class="mb-3 mt-1" th:text="${examSlip.topicDetail.questions.question}"></h3>
+      <!-- list group -->
+      <div class="list-group" th:if="${examSlip.topicDetail.questions.type != 'Writing'}">
+        <div class="list-group-item list-group-item-action " aria-current="true">
+          <!-- form check -->
+          <div class="form-check">
+            <!-- <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> -->
+            <label class="form-check-label stretched-link" for="flexRadioDefault1"
+              th:text="'A. '+ ${examSlip.topicDetail.questions.option1}">
+
+            </label>
+          </div>
+        </div>
+        <!-- list group -->
+        <div class="list-group-item list-group-item-action">
+          <!-- form check -->
+          <div class="form-check">
+            <!-- <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"> -->
+            <label class="form-check-label stretched-link" for="flexRadioDefault2"
+              th:text="'B. '+${examSlip.topicDetail.questions.option2}">
+
+            </label>
+          </div>
+        </div>
+        <!-- list group -->
+        <div class="list-group-item list-group-item-action">
+          <!-- form check -->
+          <div class="form-check">
+            <!-- <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"> -->
+            <label class="form-check-label stretched-link" for="flexRadioDefault3"
+              th:text="'C. '+${examSlip.topicDetail.questions.option3}">
+
+            </label>
+          </div>
+        </div>
+        <!-- list group -->
+        <div class="list-group-item list-group-item-action">
+          <!-- form check -->
+          <div class="form-check">
+            <!-- <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4"> -->
+            <label class="form-check-label stretched-link" for="flexRadioDefault4"
+              th:text="'D. '+${examSlip.topicDetail.questions.option4}">
+
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <form action="/updateExamSlip" method="post">
+        <select id="product_categories" name="answer" class="form-control" th:if="${examSlip.topicDetail.questions.type != 'Writing'}">
+          <option th:value="null" th:selected="${examSlip.answer == null}">-Chưa chọn-</option>
+          <option th:value="A" th:selected="${examSlip.answer == 'A'}">-A-</option>
+          <option th:value="B" th:selected="${examSlip.answer == 'B'}">-B-</option>
+          <option th:value="C" th:selected="${examSlip.answer == 'C'}">-C-</option>
+          <option th:value="D" th:selected="${examSlip.answer == 'D'}">-D-</option>
+        </select>
+
+        <textarea style="width: 100%;" th:if="${examSlip.topicDetail.questions.type == 'Writing'}" name="answer" th:text="${examSlip.answer}">
+        </textarea>
+
+        <input style="display: none;" type="text" name="id" th:value="${examSlip.id}">
+
+        <div class="mt-3 d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary ">
+            Save <i class="fe fe-arrow-right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  <!-- Button -->
+
+  </div>
+
+  <div th:replace="fragment::script"></div>
+</body>
+
+</html>

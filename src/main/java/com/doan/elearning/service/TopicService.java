@@ -12,7 +12,7 @@ public interface TopicService {
 
     List<Topic> findAll();
 
-    Optional<Topic> findById(Long id);
+   Topic findById(Long id);
 
     Topic update(TopicDto topicDto);
 

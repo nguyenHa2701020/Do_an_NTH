@@ -28,14 +28,18 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "result_id")
     private Long id;
-    private String listenPoint;
-    private String speakPoint;
-    private String readPoint;
-    private String writePoint;
+    private Float listenPoint;
+    private Float speakPoint;
+    private Float readPoint;
+    private Float writePoint;
    
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "exam_id", referencedColumnName = "exam_id")
     private Exam exam;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "users_id", referencedColumnName = "users_id")
+    private Users userss;
 
 }

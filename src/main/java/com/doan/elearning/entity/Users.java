@@ -43,5 +43,7 @@ public class Users {
     @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
     private List<Lesson> lessons;
 
+    @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
+    private List<Result> results;
     
 }

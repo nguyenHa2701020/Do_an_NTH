@@ -51,9 +51,5 @@ public class TopicController {
 
     }
 
-    @RequestMapping(value = "/findByTopicId", method = { RequestMethod.PUT, RequestMethod.GET })
-    @ResponseBody
-    public Optional<Topic> findTopicId(Long id) {
-        return topicService.findById(id);
-    }
+    
 }

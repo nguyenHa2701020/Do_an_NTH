@@ -45,8 +45,8 @@
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
                             <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
                         </div>
-                        <a th:href="@{/lesson(id = ${users.id})}">Click here to start</a>
-                        <a th:href="@{/examclass(id = ${users.id})}">Click here to start</a>
+                        <a th:href="@{/lesson(id = ${users.id})}" class="text-primary">Learning</a> <br>
+                        <a th:href="@{/examclass(id = ${users.id})}" class="text-info">Exam</a>
                     </div>
                 </div>
         </div>
