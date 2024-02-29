@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.doan.elearning.dto.ExamDto;
 import com.doan.elearning.entity.Exam;
+import com.doan.elearning.entity.ExamSlip;
 import com.doan.elearning.entity.Lesson;
 import com.doan.elearning.repository.ExamRepository;
 import com.doan.elearning.repository.LessonRepository;
@@ -40,9 +41,25 @@ public class ExamServiceImple implements ExamService {
            exam.setDateExam(examDto.getDateExam());
            exam.setStartExam(examDto.getStartExam());
            exam.setEndExam(examDto.getEndExam());
+           exam.setStatus(false);
            exam.setEclass(examDto.getEclass());
            exam.setIdTopic(examDto.getIdTopic()); 
         return examRepository.save(exam);
+    }
+
+    @Override
+    public Exam update(Exam exam) {
+        Exam exam1= examRepository.getReferenceById(exam.getId());
+        exam1.setStatus(exam.isStatus());
+      return examRepository.save(exam1);
+    }
+
+    @Override
+    public Exam updateExam(boolean status, Long id) {
+       Exam examUpdate = examRepository.getReferenceById(id);
+
+       examUpdate.setStatus(status);
+        return examRepository.save(examUpdate);
     }
     
 }

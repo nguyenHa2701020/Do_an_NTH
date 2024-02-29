@@ -45,4 +45,9 @@ public class ExamSlipServiceImple implements ExamSlipService {
         return examSlipRepository.save(examSlipUpdate);
     }
 
+    @Override
+    public ExamSlip finfExamSlip(Long id) {
+      return examSlipRepository .finfExamSlip(id);
+    }
+
 }

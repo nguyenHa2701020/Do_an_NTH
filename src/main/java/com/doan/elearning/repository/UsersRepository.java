@@ -19,7 +19,5 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     @Query("select o from Users o where o.id = ?1")
     Users findByid(Long id);
-    // @Query("select p from Users p where p.roles.role_id=3")
-    // @Query("SELECT u FROM Users u JOIN u.roles r WHERE r.role_id = 3")
-    // List<Users> findIdGV();
+  
 }

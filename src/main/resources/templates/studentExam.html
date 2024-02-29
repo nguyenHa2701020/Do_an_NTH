@@ -17,12 +17,14 @@
         <a href="#"> <img src="../assets/images/course/course-react.jpg" alt="course" class="rounded img-4by3-lg"></a>
         <!-- quiz content -->
         <div class="ms-3">
-          <h3 class="mb-0"><a href="#" class="text-inherit">React Basic Quiz </a></h3>
+          <h3 class="mb-0"><a href="#" class="text-inherit" th:text="${exam.name}"> </a></h3>
+          <h5 th:text="${'Name: '+ namelogin}"> </h5>
+          <h5> Link meet for listening and speaking:  <a  th:href="${exam.link}" target="_blank"> Go to Link</a> </h5>
 
         </div>
       </div>
       <div>
-        <span class="text-danger"><i class="fe fe-clock me-1 align-middle"></i>00:05:55</span>
+        <span class="text-danger"><i class="fe fe-clock me-1 align-middle" id="counter"></i></span>
       </div>
     </div>
     <div class="mt-3">
@@ -95,7 +97,8 @@
 
       </div>
       <form action="/updateExamSlip" method="post">
-        <select id="product_categories" name="answer" class="form-control" th:if="${examSlip.topicDetail.questions.type != 'Writing'}">
+        <select id="product_categories" name="answer" class="form-control"
+          th:if="${examSlip.topicDetail.questions.type != 'Writing'}">
           <option th:value="null" th:selected="${examSlip.answer == null}">-Chưa chọn-</option>
           <option th:value="A" th:selected="${examSlip.answer == 'A'}">-A-</option>
           <option th:value="B" th:selected="${examSlip.answer == 'B'}">-B-</option>
@@ -103,11 +106,12 @@
           <option th:value="D" th:selected="${examSlip.answer == 'D'}">-D-</option>
         </select>
 
-        <textarea style="width: 100%;" th:if="${examSlip.topicDetail.questions.type == 'Writing'}" name="answer" th:text="${examSlip.answer}">
+        <textarea style="width: 100%;" th:if="${examSlip.topicDetail.questions.type == 'Writing'}" name="answer"
+          th:text="${examSlip.answer}">
         </textarea>
 
         <input style="display: none;" type="text" name="id" th:value="${examSlip.id}">
-
+        <input style="display: none;" type="text" name="examId" th:value="${exam.id}">
         <div class="mt-3 d-flex justify-content-end">
           <button type="submit" class="btn btn-primary ">
             Save <i class="fe fe-arrow-right"></i>
@@ -115,13 +119,61 @@
         </div>
       </form>
     </div>
+    <form action="/submitExamSlip" method="post">
+
+      <input style="display: none;" type="text" name="idTopic" th:value="${exam.idTopic}">
+      <input style="display: none;" type="text" name="examId" th:value="${exam.id}">
+      <div class="mt-3 d-flex justify-content-end">
+        <button type="submit" class="btn btn-success ">
+          Submit <i class="fe fe-arrow-right"></i>
+        </button>
+      </div>
+    </form>
+
   </div>
   </div>
   <!-- Button -->
 
   </div>
-
+  <i class="fa fa-clock-o" aria-hidden="true"></i>
+  <input type="text" style="display: none;" id="hour" th:value="${h}">
+  <input type="text" style="display: none;" id="minute" th:value="${mn}">
   <div th:replace="fragment::script"></div>
+
+  <script>
+    //var loginTime = new Date(/*[[${date}]]*/);
+   
+    function countdown() {
+      var hours=document.getElementById("hour").value;
+      var minute=document.getElementById("minute").value;
+      var currentDate=new Date();
+      //var futureDate = new Date(/*[[${date}]]*/);
+      var futureDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minute, 0); 
+      // Tính toán khoảng thời gian chênh lệch
+      var timeDiff = futureDate - currentDate;
+      var secondsDiff = Math.floor(timeDiff / 1000);
+
+      if (secondsDiff >= 0) {
+        // Tính toán giờ, phút, giây
+        var hours = Math.floor(secondsDiff / 3600);
+        var minutes = Math.floor((secondsDiff % 3600) / 60);
+        var seconds = secondsDiff % 60;
+
+        // Hiển thị kết quả trên giao diện người dùng
+        var countdownElement = document.getElementById("counter");
+        countdownElement.textContent = "Còn lại: " + hours + " giờ " + minutes + " phút " + seconds + " giây";
+
+        // Cập nhật đếm ngược sau mỗi giây
+        //setTimeout(countdown, 1000);
+      } else {
+        // Hiển thị thông báo khi thời gian tương lai đã qua
+        var countdownElement = document.getElementById("counter");
+        countdownElement.textContent = "Thời gian thi đã kết thúc";
+      }
+    }
+   
+     setInterval(countdown, 1000);
+  </script>
 </body>
 
 </html>

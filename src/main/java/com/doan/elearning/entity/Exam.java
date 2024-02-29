@@ -38,6 +38,8 @@ public class Exam {
     
     private String dateExam;
     private String link;
+    private boolean status;
+    
     private Long idTopic;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "eclass_id", referencedColumnName = "eclass_id")

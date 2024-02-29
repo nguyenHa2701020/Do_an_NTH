@@ -4,7 +4,9 @@ import java.io.File;
 import java.security.Principal;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -90,10 +94,10 @@ public class ExamController {
             // examDto.setStartExam(Time.valueOf(examDto.getStartExam().toString()));
             // examDto.setEndExam(Time.valueOf(examDto.getEndExam().toString()));
             examService.save(examDto);
-            redirectAttributes.addFlashAttribute("success", "Add new level successfully!");
+            redirectAttributes.addFlashAttribute("success", "Add new exam successfully!");
         } catch (Exception e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "Failed to add new level!");
+            redirectAttributes.addFlashAttribute("error", "Failed to add new exam!");
         }
 
         return "redirect:/exam";
@@ -108,13 +112,44 @@ public class ExamController {
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
             }
-            
+
             List<Exam> exams = examService.findExamByClass(id);
-            model.addAttribute("exams", exams);
+            for (Exam exam : exams) {
+                boolean check=status(exam.getDateExam(), exam.getStartExam(), exam.getEndExam());
+                exam.setStatus(check);
+                examService.update(exam);
+                
+            }
+            List<Exam> examss = examService.findExamByClass(id);
+            model.addAttribute("exams", examss);
         }
 
         return "examclass";
     }
 
+    // @RequestMapping("/status")
+    // @ResponseBody
+    public boolean status(String dateExam, String startTime, String endTime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date currentTime = new Date();
+        Date startTimee = new Date();
+        Date endTimee = new Date();
+        try {
+
+            startTimee = dateFormat.parse(dateExam + " " + startTime + ":00");
+            endTimee = dateFormat.parse(dateExam + " " + endTime + ":00");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar current = Calendar.getInstance();
+        current.setTime(currentTime);
+        Calendar start = Calendar.getInstance();
+        start.setTime(startTimee);
+        Calendar end = Calendar.getInstance();
+        end.setTime(endTimee);
+        boolean check = (current.after(start) || current.equals(start)) && (current.before(end) || current.equals(end));
+        return check;
+    }
 
 }

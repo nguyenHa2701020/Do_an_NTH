@@ -25,9 +25,10 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <a  th:href="@{/addexam}"
-                class="btn btn-primary">Create exam</a>
-                <p th:if="${size == 0}">No exam</p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
+                    data-whatever="@mdo">Add new question
+                </button>
+                <p th:if="${size == 0}">No question</p>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
                     </p>
@@ -39,35 +40,33 @@
                 <table class="table table-striped" th:if="${size > 0}">
                     <thead>
                         <tr>
-                            <th scope="col">Question Index</th>
-                            <th scope="col">Question Name</th>
-                            <th scope="col">Start Exam </th>
-                            <th scope="col">End  exam </th>
-                            <th scope="col">Date Exam</th>
-                            <th scope="col">Topic </th>
-                            <th scope="col">Eclass </th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Result Index</th>
+                            <th scope="col">Users</th>
+                            <th scope="col">Listen Point</th>
+                            <th scope="col">Speak Point</th>
+
+                            <th scope="col">Read Point</th>
+
+                            <th scope="col">Write Point</th>
+                            <th scope="col">Submit Time</th>
+                           
                             <th scope="col">Action</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="users : ${exam}">
+                        <tr th:each="users : ${result}">
                             <th scope="row" th:text="${users.id}"></th>
-                            <td th:text="${users.name}"></td>
-                            <td th:text="${users.startExam}"></td>
-                            <td th:text="${users.endExam}"></td>
-                            <td th:text="${users.dateExam}"></td>
-                            <td th:text="${users.idTopic}"></td>
-                            <td th:text="${users.eclass.name}"></td>
-                          
+                            <td th:text="${users.userss.username}"></td>
+                            <td th:text="${users.listenPoint}"></td>
+                            <td th:text="${users.readPoint}"></td>
+                            <td th:text="${users.speakPoint}"></td>
+                            <td th:text="${users.writePoint}"></td>
+                            <td th:text="${users.submisTime}"></td>
+
                             <td>
                                 <a id="editButton" th:href="@{/findById(id = ${users.id})}"
-                                    class="btn btn-primary">Update</a>
-                            </td>
-                            <td>
-                                <a  th:href="@{/findResultByExam/{id}(id= ${users.id})}"
-                                    class="btn btn-primary">Results</a>
+                                class="btn btn-primary">Update</a>
                             </td>
                             <td>
                                 <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
@@ -95,19 +94,7 @@
     <a th:replace="~{fragments::scroll}"></a>
 
     <!--Add Categories Modal-->
-    <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleAddCategoryModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Course</h5>
-                </div>
-                <div class="modal-body">
-                 
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!--End-->
 

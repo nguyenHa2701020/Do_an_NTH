@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.doan.elearning.dto.ResultDto;
-import com.doan.elearning.entity.ExamSlip;
+
 import com.doan.elearning.entity.Result;
-import com.doan.elearning.repository.ExamSlipRepository;
+
 import com.doan.elearning.repository.ResultRepository;
 import com.doan.elearning.service.ResultService;
 
@@ -22,7 +22,7 @@ public class ResultServiceImple implements ResultService {
     }
 
     @Override
-    public List<Result> findResultByUser(Long idUser, Long idExam) {
+    public Result findResultByUser(Long idUser, Long idExam) {
        return resultRepository.findResultByUser(idUser,idExam );
     }
 
@@ -44,7 +44,18 @@ public class ResultServiceImple implements ResultService {
         Result resultUpdate = resultRepository.getReferenceById(result.getId());
         resultUpdate.setListenPoint(result.getListenPoint());
         resultUpdate.setWritePoint(result.getWritePoint());
+        resultUpdate.setSubmisTime(result.getSubmisTime());
+        resultUpdate.setReadPoint(result.getReadPoint());
+        resultUpdate.setSpeakPoint(result.getSpeakPoint());
+        resultUpdate.setUserss(result.getUserss());
+        resultUpdate.setExam(result.getExam());
+        
         return resultRepository.save(resultUpdate);
+    }
+
+    @Override
+    public List<Result> findResultByExam(Long idExam) {
+        return resultRepository.findResultByExam(idExam);
     }
     
 }

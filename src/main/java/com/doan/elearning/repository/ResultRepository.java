@@ -11,9 +11,10 @@ import com.doan.elearning.entity.Result;
 @Repository
 public interface ResultRepository extends JpaRepository<Result, Long> {
     @Query("select o from Result o where o.userss.id = ?1 and o.exam.id= ?2 ")
-    List<Result> findResultByUser(Long idUser, Long idExam);
+    Result findResultByUser(Long idUser, Long idExam);
 
     @Query("select o from Result o ")
     List<Result> findAll();
-
+    @Query("select o from Result o where o.exam.id= ?1 ")
+    List<Result> findResultByExam( Long idExam);
 }

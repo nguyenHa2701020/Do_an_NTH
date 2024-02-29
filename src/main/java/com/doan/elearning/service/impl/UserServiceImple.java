@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.doan.elearning.dto.UserDto;
-import com.doan.elearning.entity.Course;
+
 import com.doan.elearning.entity.Users;
 import com.doan.elearning.repository.RoleRepository;
 import com.doan.elearning.repository.UsersRepository;

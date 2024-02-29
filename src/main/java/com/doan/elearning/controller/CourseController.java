@@ -69,21 +69,7 @@ public class CourseController {
         return us.findById(id);
     }
 
-    // @GetMapping("/update-course")
-    // public String update(Course course, RedirectAttributes redirectAttributes) {
-    //     try {
-    //         us.update(course);
-    //         redirectAttributes.addFlashAttribute("success", "Update successfully!");
-    //     } catch (DataIntegrityViolationException e1) {
-    //         e1.printStackTrace();
-    //         redirectAttributes.addFlashAttribute("error", "Duplicate name of category, please check again!");
-    //     } catch (Exception e2) {
-    //         e2.printStackTrace();
-    //         redirectAttributes.addFlashAttribute("error",
-    //                 "Error from server or duplicate name of category, please check again!");
-    //     }
-    //     return "redirect:/course";
-    // }
+  
     @RequestMapping(value = "/delete-course", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
