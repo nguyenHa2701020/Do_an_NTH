@@ -3,6 +3,7 @@ package com.doan.elearning.controller;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -50,24 +52,13 @@ public class ExamSlipController {
             RedirectAttributes redirectAttributes) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
             }
             Exam exam = examService.findExam(id);
-            Boolean checkTime = checkTime(exam.getDateExam(), exam.getEndExam());
-            if (checkTime == false) {
-                redirectAttributes.addFlashAttribute("error", "Exam time is over!");
-                return "redirect:/examclass?id=" + exam.getEclass().getId();
-            }
-            else{
-                Result result = resultService.findResultByUser(usk.getId(), exam.getId());
-            if(result.getSubmisTime()!=null){
-                redirectAttributes.addFlashAttribute("error", "You have submitted your assignment!");
-                return "redirect:/examclass?id=" + exam.getEclass().getId();
-            }
-            }
+            
 
             List<ExamSlip> examSlips = examSlipService.findExamSlipByUser(usk.getId(), exam.getIdTopic());
             if (examSlips.isEmpty()) {
@@ -102,7 +93,18 @@ public class ExamSlipController {
             model.addAttribute("h", hour);
             model.addAttribute("mn", minute);
             model.addAttribute("exam", exam);
-            //model.addAttribute("idTopic", exam.getIdTopic());
+            Boolean checkTime = checkTime(exam.getDateExam(), exam.getEndExam());
+            if (checkTime == false) {
+                redirectAttributes.addFlashAttribute("error", "Exam time is over!");
+                return "redirect:/examclass?id=" + exam.getEclass().getId();
+            } else {
+                Result result = resultService.findResultByUser(usk.getId(), exam.getId());
+                if (result.getSubmisTime() != null) {
+                    redirectAttributes.addFlashAttribute("error", "You have submitted your assignment!");
+                    return "redirect:/examclass?id=" + exam.getEclass().getId();
+                }
+            }
+            // model.addAttribute("idTopic", exam.getIdTopic());
 
         }
 
@@ -136,19 +138,19 @@ public class ExamSlipController {
             @RequestParam("id") Long id, @RequestParam("examId") Long examId, HttpServletRequest request,
             Principal principal) {
         examSlipService.update(answer, id);
-        Users usk = us.findByLgid(principal.getName());
-        //ExamSlip examSlip = examSlipService.finfExamSlip(id);
-        Result result = updatResult( examId, usk);
+        Users usk = us.findByUsername(principal.getName());
+        // ExamSlip examSlip = examSlipService.finfExamSlip(id);
+        Result result = updatResult(examId, usk);
         resultService.update(result);
         return "redirect:" + request.getHeader("Referer");
     }
 
     @PostMapping("/submitExamSlip")
     public String submitExamSlip(
-         @RequestParam("examId") Long examId, HttpServletRequest request,
+            @RequestParam("examId") Long examId, HttpServletRequest request,
             Principal principal, RedirectAttributes redirectAttributes) {
 
-        Users usk = us.findByLgid(principal.getName());
+        Users usk = us.findByUsername(principal.getName());
         Result result = updatResult(examId, usk);
         result.setSubmisTime(new Date());
         resultService.update(result);
@@ -158,14 +160,14 @@ public class ExamSlipController {
         return "redirect:/examclass?id=" + exam.getEclass().getId();
     }
 
-    public Result updatResult( Long examId, Users users) {
+    public Result updatResult(Long examId, Users users) {
         Exam exam = examService.findExam(examId);
 
         Result result = resultService.findResultByUser(users.getId(), exam.getId());
         Result result2 = scoreCalculate(users.getId(), exam.getIdTopic());
         result.setListenPoint(result2.getListenPoint());
         result.setReadPoint(result2.getReadPoint());
-        result.setSpeakPoint(0f);
+        //result.setSpeakPoint(0f);
         result.setWritePoint(0f);
         result.setUserss(users);
         result.setExam(exam);
@@ -208,4 +210,22 @@ public class ExamSlipController {
         }
         return count;
     }
+
+    @GetMapping("/examDetail/{id}")
+    public String examDetail(
+            @PathVariable("id") Long id, HttpServletRequest request,
+            Principal principal, Model model) {
+
+        Result result = resultService.findResult(id);
+        List<ExamSlip> lstExamSlips= examSlipService.findExamSlipByUser(result.getUserss().getId(), result.getExam().getIdTopic());
+        List<ExamSlip> lstWrite= new ArrayList<ExamSlip>();
+        for (ExamSlip iterable_element : lstExamSlips) {
+            if(iterable_element.getTopicDetail().getQuestions().getType().equals("Writing")){
+                lstWrite.add(iterable_element);
+            }
+        }
+        model.addAttribute("lstWrite", lstWrite);
+        return "examDetail";
+    }
+
 }

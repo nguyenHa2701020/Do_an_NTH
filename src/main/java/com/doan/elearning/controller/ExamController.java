@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.ExamDto;
+import com.doan.elearning.entity.Course;
 import com.doan.elearning.entity.Eclass;
 import com.doan.elearning.entity.Exam;
 import com.doan.elearning.entity.Lesson;
@@ -49,7 +52,7 @@ public class ExamController {
     public String exam(Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
@@ -67,7 +70,7 @@ public class ExamController {
     public String addexam(Long id, Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
@@ -107,7 +110,7 @@ public class ExamController {
     public String examclass(Long id, Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
@@ -151,5 +154,9 @@ public class ExamController {
         boolean check = (current.after(start) || current.equals(start)) && (current.before(end) || current.equals(end));
         return check;
     }
-
+@RequestMapping(value = "/findExamId", method = { RequestMethod.PUT, RequestMethod.GET })
+    @ResponseBody
+    public Exam findExamId(Long id) {
+        return examService.findExam(id);
+    }
 }

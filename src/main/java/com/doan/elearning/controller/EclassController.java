@@ -86,7 +86,7 @@ public class EclassController {
     public String teachClass(Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
 
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
@@ -95,6 +95,7 @@ public class EclassController {
             
             List<Eclass> ec = cs.findByidGV(usk.getId());
             model.addAttribute("eclass", ec);
+            model.addAttribute("currentPages", "teachingclass");
 
 
         }
@@ -105,7 +106,7 @@ public class EclassController {
     public String learningclass(Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
 
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
@@ -114,7 +115,7 @@ public class EclassController {
             
             Eclass ec = cs.findByLgid(usk.getIdClass());
             model.addAttribute("eclass", ec);
-
+            model.addAttribute("currentPages", "learningclass");
 
         }
         return "teachingclass";

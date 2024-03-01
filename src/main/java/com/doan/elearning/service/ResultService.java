@@ -13,4 +13,5 @@ public interface ResultService {
     List<Result> findAll();
     Result update(Result result);
     List<Result> findResultByExam( Long idExam);
+    Result findResult(Long idResult);
 }

@@ -46,7 +46,7 @@ public class LessonController {
     public String lesson(Long id, Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
@@ -64,7 +64,7 @@ public class LessonController {
     public String addlesson(Long id, Model model, Principal principal, Authentication authentication) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());

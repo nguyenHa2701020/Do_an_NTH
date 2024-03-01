@@ -19,12 +19,13 @@ public class UsersServiceConfig implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.findByUsername(username);
+        //Users user = userRepository.findByUsername(username);
+        Users user = userRepository.findByLgid(username);
         if (user == null) {
             throw new UsernameNotFoundException("Could not find username");
         }
         return new User(
-            user.getLgid(),
+            user.getUsername(),
             user.getPassword(),
             user.getRoles()
                         .stream()

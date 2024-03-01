@@ -57,5 +57,10 @@ public class ResultServiceImple implements ResultService {
     public List<Result> findResultByExam(Long idExam) {
         return resultRepository.findResultByExam(idExam);
     }
+
+    @Override
+    public Result findResult(Long idResult) {
+        return resultRepository.findResult(idResult);
+    }
     
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{fragments::header}">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!--Sidebar-->
+      
+    <div class="card-body">
+
+        <!-- quiz -->
+        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+            <div class="d-flex align-items-center">
+                <!-- quiz img -->
+
+                <!-- quiz content -->
+                <div class="ms-3">
+                    <h3 class="mb-0"><a href="#" class="text-inherit"> </a> Exam Detail to QUesion Write</h3>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- text -->
+        <div class="mt-5" th:each="examSlip, iterationStatus : ${lstWrite}">
+            <span th:text="'Question ' + ${iterationStatus.count}"></span>
+            <h3 class="mb-3 mt-1" th:text="${examSlip.topicDetail.questions.question}"></h3>
+            <!-- list group -->
+            <textarea style="width: 100%;" th:if="${examSlip.topicDetail.questions.type == 'Writing'}" name="answer"
+                th:text="${examSlip.answer}" readonly>
+        </textarea>
+        </div>
+    </div>
+
+    <div th:replace="fragment::script"></div>
+
+</body>
+
+</html>

@@ -72,7 +72,7 @@ public class ScheduleController {
         if (principal != null) {
 
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
 
             List<Role> rl = usk.getRoles();
             if (rl.size() == 1) {
@@ -165,8 +165,11 @@ public class ScheduleController {
 
                 model.addAttribute("valueschedule", sc);
 
+                model.addAttribute("currentPages", "schedule");
+
                 return "schedulestudent";
             }
+
 
         }
         return "schedulestudent";
@@ -176,7 +179,7 @@ public class ScheduleController {
     public String lsuss(@RequestParam("date") LocalDate date, Model model, Principal principal) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
-            Users usk = us.findByLgid(principal.getName());
+            Users usk = us.findByUsername(principal.getName());
 
             model.addAttribute("currentDate", date);
 
