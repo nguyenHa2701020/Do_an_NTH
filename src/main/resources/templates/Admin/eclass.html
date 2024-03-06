@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"xmlns:th="https://www.thymeleaf.org/">
-    <head  th:replace="~{fragments::header}">
+    <head  th:replace="~{fragment/fragments::header}">
         
     </head>
     <body id="page-top">
@@ -9,7 +9,7 @@
     <div id="wrapper">
     
         <!--Sidebar-->
-        <ul th:replace="~{fragments::sidebar}"></ul>
+        <ul th:replace="~{fragment/fragments::sidebar}"></ul>
         <!-- End of Sidebar -->
     
         <!-- Content Wrapper -->
@@ -19,14 +19,24 @@
             <div id="content">
     
                 <!-- Topbar -->
-                <nav th:replace="~{fragments::topbar}"></nav>
+                <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
-    
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/search-course/0}" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." name="keyword" 
+                            aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                        data-whatever="@mdo">Add new level
+                        data-whatever="@mdo">Add new class
                 </button>
-                <p th:if="${size == 0}">No level</p>
+                <p th:if="${size == 0}">No class</p>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
                     </p>
@@ -38,28 +48,35 @@
                 <table class="table table-striped" th:if="${size > 0}">
                     <thead>
                     <tr>
-                        <th scope="col">Level Index</th>
-                        <th scope="col">Level Name</th>
-                        <th scope="col">Course Name</th>
+                        <th scope="col">Class Index</th>
+                        <th scope="col">Class Name</th>
+                        <th scope="col">Level Class</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Action</th>
                         <th scope="col">Action</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="users : ${level}">
-                        <th scope="row" th:text="${users.id}"></th>
-                        <td th:text="${users.name}"></td>
-                        <td th:text="${users.course.name}"></td>
+                    <tr th:each="eclass : ${eclass}">
+                        <th scope="row" th:text="${eclass.id}"></th>
+                        <td th:text="${eclass.name}"></td>
+                        <td th:text="${eclass.level.name}"></td>
+                        <td th:text="${eclass.start}"></td>
                         <td>
                             <a id="editButton"
-                               th:href="@{/findById(id = ${users.id})}"
+                               th:href="@{/findById(id = ${eclass.id})}"
                                class="btn btn-primary">Update</a>
                         </td>
                         <td>
-                            <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
+                            <a th:if="${eclass.id} == true" th:href="@{/enable-users(id = ${eclass.id})}"
                                class="btn btn-primary">Enable</a>
-                            <a th:href="@{/delete-level(id = ${users.id})}"
+                            <a th:if="${eclass.id}" th:href="@{/delete-users(id = ${eclass.id})}"
                                class=" btn btn-danger">Delete</a>
+                            
+                        </td>
+                        <td>
+                            <a th:href="@{/lesson(id = ${eclass.id})}">Lesson By Class</a>
                         </td>
                     </tr>
                     </tbody>
@@ -68,7 +85,7 @@
                 <!-- End of Main Content -->
     
                 <!-- Footer -->
-                <footer th:replace="~{fragments::footer}"></footer>
+                <footer th:replace="~{fragment/fragments::footer}"></footer>
                 <!-- End of Footer -->
     
             </div>
@@ -79,7 +96,7 @@
     <!-- End of Page Wrapper -->
     
     <!-- Scroll to Top Button-->
-    <a th:replace="~{fragments::scroll}"></a>
+    <a th:replace="~{fragment/fragments::scroll}"></a>
     
     <!--Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
@@ -88,27 +105,50 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Course</h5>
+                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Class</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-level}" method="post" th:object = "${levelDto}"
+                    <form th:action="@{/save-eclass}" method="post" th:object = "${classDto}"
                     enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Category Name:</label>
+                            <label for="name" class="col-form-label">Class Name:</label>
                             <input type="text" class="form-control" id="name" th:field = "*{name}" name="name">
                         </div>
+
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Class Start:</label>
+                            <input type="date" class="form-control" id="name" th:field = "*{start}" name="name">
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-4">
+                                <label for="name" class="col-form-label">Level:</label>
                                 <!-- File Button -->
-                                <select id="product_categories" th:field = "*{course}" name="product_categories" class="form-control">
+                                <select id="product_categories" th:field = "*{level}" name="product_categories" class="form-control">
                                     <option th:value = "null">-SELECT-</option>
-                                    <option th:each = "category : ${course}"
+                                    <option th:each = "category : ${level}"
                                             th:value = "${category.id}"
                                             th:text = "${category.name}">
                                     </option>
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label for="name" class="col-form-label">Lecturer:</label>
+                                <!-- File Button -->
+                                <select id="product_categories" th:field = "*{idGV}" name="product_categories" class="form-control">
+                                    <option th:value = "null">-SELECT-</option>
+                                    <option th:each = "category : ${lstLecture}"
+                                            th:value = "${category.id}"
+                                            th:text = "${category.lgid}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -147,7 +187,7 @@
     </div>
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
-    <div th:replace="~{fragments::script}"></div>
+    <div th:replace="~{fragment/fragments::script}"></div>
     
     <script th:src="@{/js/categories.js}"></script>
 </body>

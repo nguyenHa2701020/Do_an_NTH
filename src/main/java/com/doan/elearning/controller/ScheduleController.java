@@ -23,22 +23,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.xml.sax.SAXException;
+
 
 import com.doan.elearning.dto.LessonDto;
-import com.doan.elearning.dto.LevelDto;
+
 import com.doan.elearning.dto.ScheduleDto;
-import com.doan.elearning.entity.Course;
+
 import com.doan.elearning.entity.Eclass;
-import com.doan.elearning.entity.Level;
+
 import com.doan.elearning.entity.Role;
 import com.doan.elearning.entity.Schedule;
 import com.doan.elearning.entity.Users;
-import com.doan.elearning.repository.LessonRepository;
+
 import com.doan.elearning.service.ClassService;
-import com.doan.elearning.service.CourseService;
+
 import com.doan.elearning.service.LessonService;
-import com.doan.elearning.service.LevelService;
+
 import com.doan.elearning.service.ScheduleService;
 import com.doan.elearning.service.UserService;
 
@@ -62,7 +62,7 @@ public class ScheduleController {
         model.addAttribute("class", classs);
         model.addAttribute("size", schedule.size());
         model.addAttribute("scheduleDto", new ScheduleDto());
-        return "schedule";
+        return "Admin/schedule";
 
     }
 
@@ -172,7 +172,7 @@ public class ScheduleController {
 
 
         }
-        return "schedulestudent";
+        return "Student/schedulestudent";
     }
 
     @PostMapping("/schedulestudent")
@@ -263,11 +263,11 @@ public class ScheduleController {
                 model.addAttribute("schedule", ls);
 
                 model.addAttribute("valueschedule", sc);
-                return "schedulestudent";
+                return "Student/schedulestudent";
             }
 
         }
-        return "schedulestudent";
+        return "Student/schedulestudent";
     }
 
     @PostMapping("/save-schedule")

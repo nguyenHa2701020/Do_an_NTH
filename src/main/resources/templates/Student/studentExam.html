@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:replace="fragment::header">
+<head th:replace="fragment/fragment::header">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
@@ -138,7 +138,7 @@
   <i class="fa fa-clock-o" aria-hidden="true"></i>
   <input type="text" style="display: none;" id="hour" th:value="${h}">
   <input type="text" style="display: none;" id="minute" th:value="${mn}">
-  <div th:replace="fragment::script"></div>
+  <div th:replace="fragment/fragment::script"></div>
 
   <script>
     //var loginTime = new Date(/*[[${date}]]*/);

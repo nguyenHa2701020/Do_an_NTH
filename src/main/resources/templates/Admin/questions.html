@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
-<head th:replace="~{fragments::header}">
+<head th:replace="~{fragment/fragments::header}">
 
 </head>
 
@@ -11,7 +11,7 @@
     <div id="wrapper">
 
         <!--Sidebar-->
-        <ul th:replace="~{fragments::sidebar}"></ul>
+        <ul th:replace="~{fragment/fragments::sidebar}"></ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -21,13 +21,26 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav th:replace="~{fragments::topbar}"></nav>
+                <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
                     data-whatever="@mdo">Add new question
                 </button>
+
+                <form  class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/uploadex" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" accept=".xlsx, .xls">
+                    <select id="product_categories"  name="idLevel"
+                    class="form-control">
+                    <option th:value="null">-SELECT-</option>
+                    <option th:each="category : ${level}" th:value="${category.id}"
+                        th:text="${category.name}">
+                    </option>
+                </select>
+                    <input type="submit" value="Upload">
+                </form>
+                
                 <p th:if="${size == 0}">No question</p>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
@@ -81,7 +94,7 @@
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-                <footer th:replace="~{fragments::footer}"></footer>
+                <footer th:replace="~{fragment/fragments::footer}"></footer>
                 <!-- End of Footer -->
 
             </div>
@@ -92,7 +105,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a th:replace="~{fragments::scroll}"></a>
+    <a th:replace="~{fragment/fragments::scroll}"></a>
 
     <!--Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
@@ -143,6 +156,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-4">
+
                                 <!-- File Button -->
                                 <select id="product_categories" th:field="*{level}" name="product_categories"
                                     class="form-control">
@@ -191,7 +205,7 @@
     </div>
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
-    <div th:replace="~{fragments::script}"></div>
+    <div th:replace="~{fragment/fragments::script}"></div>
 
     <script th:src="@{/js/categories.js}"></script>
 </body>

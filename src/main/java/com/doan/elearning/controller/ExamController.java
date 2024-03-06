@@ -62,7 +62,7 @@ public class ExamController {
         List<Exam> ls = examService.findAll();
         model.addAttribute("exam", ls);
         model.addAttribute("size", ls.size());
-        return "exam";
+        return "Admin/exam";
 
     }
 
@@ -83,7 +83,7 @@ public class ExamController {
             model.addAttribute("eclass", eclass);
         }
 
-        return "addexam";
+        return "Admin/addexam";
     }
 
     @PostMapping("/addexam")
@@ -127,7 +127,7 @@ public class ExamController {
             model.addAttribute("exams", examss);
         }
 
-        return "examclass";
+        return "Student/examclass";
     }
 
     // @RequestMapping("/status")

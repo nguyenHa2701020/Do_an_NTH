@@ -1,6 +1,7 @@
 package com.doan.elearning.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,5 @@ import com.doan.elearning.entity.Level;
 public interface LevelRepository extends JpaRepository<Level, Long>{
  @Query("select p from Level p")
     List<Level> findAll();
+    Optional<Level> findById(Long id);
 }

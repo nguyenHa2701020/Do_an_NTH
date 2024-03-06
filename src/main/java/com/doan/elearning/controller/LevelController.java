@@ -38,7 +38,7 @@ public class LevelController {
         model.addAttribute("course", course);
         model.addAttribute("size", level.size());
         model.addAttribute("levelDto", new LevelDto());
-        return "level";
+        return "Admin/level";
 
     }
 

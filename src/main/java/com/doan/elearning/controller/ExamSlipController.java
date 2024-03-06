@@ -108,7 +108,7 @@ public class ExamSlipController {
 
         }
 
-        return "studentExam";
+        return "Student/studentExam";
 
     }
 
@@ -225,7 +225,7 @@ public class ExamSlipController {
             }
         }
         model.addAttribute("lstWrite", lstWrite);
-        return "examDetail";
+        return "Admin/examDetail";
     }
 
 }

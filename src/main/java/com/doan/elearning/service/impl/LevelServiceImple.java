@@ -40,5 +40,10 @@ private final LevelRepository levelRepository;
          
         
     }
+
+    @Override
+    public Optional<Level> findById(Long id) {
+       return levelRepository.findById(id);
+    }
     
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
-<head th:replace="~{fragments::header}">
+<head th:replace="~{fragment/fragments::header}">
 
 </head>
 
@@ -11,7 +11,7 @@
     <div id="wrapper">
 
         <!--Sidebar-->
-        <ul th:replace="~{fragments::sidebar}"></ul>
+        <ul th:replace="~{fragment/fragments::sidebar}"></ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -21,7 +21,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav th:replace="~{fragments::topbar}"></nav>
+                <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
 
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/search-course/0}" method="get">
@@ -37,9 +37,9 @@
                 </form>
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                    data-whatever="@mdo">Add new topic
+                    data-whatever="@mdo">Add new course
                 </button>
-                <p th:if="${size == 0}">No topic</p>
+                <p th:if="${size == 0}">No course</p>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
                     </p>
@@ -51,25 +51,28 @@
                 <table class="table table-striped" th:if="${size > 0}">
                     <thead>
                         <tr>
-                            <th scope="col">Topics Index</th>
-                            <th scope="col">Topics Name</th>
-                          
+                            <th scope="col">Course Index</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Course Image</th>
                             <th scope="col">Action</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="users : ${Topics}">
+                        <tr th:each="users : ${courses}">
                             <th scope="row" th:text="${users.id}"></th>
                             <td th:text="${users.name}"></td>
-                          
                             <td>
-                                <a th:href="@{/update-topic/{id}(id= ${users.id})}" class="btn btn-primary">Update</a>
+                                <img class="my-product-image" style="height: 40px; width: 40px;" alt=""
+                                    th:src="'data:image/jpeg;base64,' + ${users.image}">
+                            </td>
+                            <td>
+                                <a th:href="@{/update-course/{id}(id= ${users.id})}" class="btn btn-primary">Update</a>
                             </td>
                             <td>
                                 <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
                                     class="btn btn-primary">Enable</a>
-                                <a th:href="@{/delete-topic(id = ${users.id})}" class=" btn btn-danger">Delete</a>
+                                <a th:href="@{/delete-course(id = ${users.id})}" class=" btn btn-danger">Delete</a>
                                 
                             </td>
                         </tr>
@@ -79,7 +82,7 @@
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-                <footer th:replace="~{fragments::footer}"></footer>
+                <footer th:replace="~{fragment/fragments::footer}"></footer>
                 <!-- End of Footer -->
 
             </div>
@@ -90,7 +93,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a th:replace="~{fragments::scroll}"></a>
+    <a th:replace="~{fragment/fragments::scroll}"></a>
 
     <!--Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
@@ -101,13 +104,23 @@
                     <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Course</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-topic}" method="post" th:object="${TopicDto}"
+                    <form th:action="@{/save-course}" method="post" th:object="${courseDto}"
                         enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Topic Name:</label>
+                            <label for="name" class="col-form-label">Course Name:</label>
                             <input type="text" class="form-control" id="name" th:field="*{name}" name="name">
                         </div>
-                       
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <!-- File Button -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="image"> IMAGE</label>
+                                    <div class="col-md-4">
+                                        <input id="image" name="imageProduct" class="input-file" type="file">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -146,7 +159,7 @@
     </div>
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
-    <div th:replace="~{fragments::script}"></div>
+    <div th:replace="~{fragment/fragments::script}"></div>
 
     <script th:src="@{/js/categories.js}"></script>
 </body>

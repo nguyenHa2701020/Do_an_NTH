@@ -8,18 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.TopicDto;
 import com.doan.elearning.entity.Topic;
-import com.doan.elearning.entity.Users;
-import com.doan.elearning.repository.TopicRepository;
+
 import com.doan.elearning.service.TopicService;
-import com.doan.elearning.service.TopicService;
+
 
 import lombok.RequiredArgsConstructor;
 @Controller
@@ -35,7 +31,7 @@ public class TopicController {
         model.addAttribute("size", Topics.size());
         //model.addAttribute("usernew", new Users());
         model.addAttribute("TopicDto", new TopicDto());
-        return "topic";
+        return "Admin/topic";
 
     }
 

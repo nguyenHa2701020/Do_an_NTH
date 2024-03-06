@@ -1,13 +1,23 @@
 package com.doan.elearning.controller;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.LevelDto;
@@ -36,7 +46,7 @@ public class QuestionController {
         model.addAttribute("questions", questions);
         model.addAttribute("size", questions.size());
         model.addAttribute("questionDto", new QuestionDto());
-        return "questions";
+        return "Admin/questions";
 
     }
 
@@ -53,5 +63,65 @@ public class QuestionController {
         }
         return "redirect:/questions";
 
+    }
+
+    @PostMapping("/uploadex")
+    public String uploadFile(@RequestParam("file") MultipartFile file,     @RequestParam("idLevel") Long idLV) {
+        try {
+            // Đọc file Excel
+            Workbook workbook = WorkbookFactory.create(file.getInputStream());
+
+            // Chọn sheet trong file Excel
+            Sheet sheet = workbook.getSheetAt(0);
+
+            Optional<Level> level= lv.findById(idLV);
+            Level level2= new Level();
+            // Lặp qua từng hàng trong sheet
+            Iterator<Row> rowIterator = sheet.iterator();
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+
+                // Đọc giá trị từ các ô trong hàng
+                Cell type = row.getCell(0);
+                Cell ques = row.getCell(1);
+                Cell op1 = row.getCell(2);
+                Cell op2 = row.getCell(3);
+                Cell op3 = row.getCell(4);
+                Cell op4 = row.getCell(5);
+                Cell ans = row.getCell(6);
+
+                if(level.isPresent())
+                {   
+                    level2= level.get();
+                }
+                
+                QuestionDto quaDto=new QuestionDto();
+                quaDto.setType(type.getStringCellValue());
+                quaDto.setQuestion(ques.getStringCellValue());
+                quaDto.setOption1(op1.getStringCellValue());
+                quaDto.setOption2(op2.getStringCellValue());
+                quaDto.setOption3(op3.getStringCellValue());
+                quaDto.setOption4(op4.getStringCellValue());
+                quaDto.setAnswer(ans.getStringCellValue());
+                quaDto.setLevel(level2);
+                questionService.save(quaDto);
+
+
+                // Lấy nội dung câu hỏi và đáp án
+                
+
+                // Xử lý dữ liệu theo yêu cầu của bạn, ví dụ: lưu vào cơ sở dữ liệu
+                // TODO: Xử lý dữ liệu
+            }
+
+            // Đóng workbook
+            workbook.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Chuyển hướng trang sau khi upload thành công
+        return "redirect:/questions";
     }
 }

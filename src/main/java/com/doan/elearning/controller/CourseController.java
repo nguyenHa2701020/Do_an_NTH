@@ -43,7 +43,7 @@ public class CourseController {
         model.addAttribute("size", courses.size());
         model.addAttribute("usernew", new Users());
         model.addAttribute("courseDto", new CourseDto());
-        return "course";
+        return "Admin/course";
 
     }
 
@@ -99,15 +99,15 @@ public class CourseController {
         model.addAttribute("size", courses.size());
         model.addAttribute("usernew", new Users());
         model.addAttribute("courseDto", new CourseDto());
-        return "course";
+        return "Admin/course";
 
     }
 
     @GetMapping("/update-course/{id}")
-    public String updateCourse(@PathVariable("id") Long id, Model model, Principal principal) {
-        if (principal == null) {
-            return "redirect:/login";
-        }
+    public String updateCourse(@PathVariable("id") Long id, Model model) {
+        // if (principal == null) {
+        //     return "redirect:/login";
+        // }
        
         Optional<Course> vv=us.findById(id);
 
@@ -118,7 +118,7 @@ public class CourseController {
 
         model.addAttribute("title", "Add Product");
         model.addAttribute("courseDto", courseDto);
-        return "update-course";
+        return "Admin/update-course";
     }
 
     @PostMapping("/update-course/{id}")

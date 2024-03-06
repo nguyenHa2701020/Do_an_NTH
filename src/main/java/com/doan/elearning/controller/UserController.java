@@ -28,7 +28,7 @@ public class UserController {
         model.addAttribute("usersss", userss);
         model.addAttribute("size", userss.size());
         model.addAttribute("usernew", new Users());
-        return "users";
+        return "Admin/users";
        
     }
     @RequestMapping(value = "/delete-users", method = {RequestMethod.GET, RequestMethod.PUT})

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
-<head th:replace="~{fragments::header}">
+<head th:replace="~{fragment/fragments::header}">
 
 </head>
 
@@ -11,7 +11,7 @@
     <div id="wrapper">
 
         <!--Sidebar-->
-        <ul th:replace="~{fragments::sidebar}"></ul>
+        <ul th:replace="~{fragment/fragments::sidebar}"></ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -21,7 +21,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav th:replace="~{fragments::topbar}"></nav>
+                <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
 
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/search-course/0}" method="get">
@@ -52,19 +52,17 @@
                     <thead>
                         <tr>
                             <th scope="col">Topics Index</th>
-                            <th scope="col">Topics </th>
-                            <th scope="col">Question </th>
-                            <th scope="col">Question Type</th>
+                            <th scope="col">Topics Name</th>
+                          
                             <th scope="col">Action</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="users : ${TopicsDetail}">
+                        <tr th:each="users : ${Topics}">
                             <th scope="row" th:text="${users.id}"></th>
-                            <td th:text="${users.topic.name}"></td>
-                            <td th:text="${users.questions.question}"></td>
-                            <td th:text="${users.questions.type}"></td>
+                            <td th:text="${users.name}"></td>
+                          
                             <td>
                                 <a th:href="@{/update-topic/{id}(id= ${users.id})}" class="btn btn-primary">Update</a>
                             </td>
@@ -81,7 +79,7 @@
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-                <footer th:replace="~{fragments::footer}"></footer>
+                <footer th:replace="~{fragment/fragments::footer}"></footer>
                 <!-- End of Footer -->
 
             </div>
@@ -92,7 +90,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a th:replace="~{fragments::scroll}"></a>
+    <a th:replace="~{fragment/fragments::scroll}"></a>
 
     <!--Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
@@ -100,34 +98,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Topic Detail</h5>
+                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Topic</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-topicdetail}" method="post" th:object="${TopicDto}"
+                    <form th:action="@{/save-topic}" method="post" th:object="${TopicDto}"
                         enctype="multipart/form-data">
                         <div class="form-group">
-                            <div class="col-md-4">
-                                <!-- File Button -->
-                                <select id="product_categories" th:field="*{topic}" name="product_categories"
-                                    class="form-control">
-                                    <option th:value="null">-SELECT-</option>
-                                    <option th:each="category : ${topic}" th:value="${category.id}"
-                                        th:text="${category.name}">
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="col-form-label">Number Read:</label>
-                            <input type="number" class="form-control" id="name" th:field="*{numRead}" name="numRead">
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="col-form-label">Number Lister:</label>
-                            <input type="number" class="form-control" id="name" th:field="*{numListen}" name="numListen">
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="col-form-label">Number Write:</label>
-                            <input type="number" class="form-control" id="name" th:field="*{numWrite}" name="numWrite">
+                            <label for="name" class="col-form-label">Topic Name:</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" name="name">
                         </div>
                        
                         <div class="modal-footer">
@@ -168,7 +146,7 @@
     </div>
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
-    <div th:replace="~{fragments::script}"></div>
+    <div th:replace="~{fragment/fragments::script}"></div>
 
     <script th:src="@{/js/categories.js}"></script>
 </body>

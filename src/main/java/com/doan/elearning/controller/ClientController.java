@@ -41,12 +41,12 @@ public class ClientController {
     List<Course> courses = usk.findAll();
     model.addAttribute("courses", courses);
     model.addAttribute("currentPages", "home");
-    return "home";
+    return "Client/home";
   }
 
   @GetMapping("/admin")
   public String ad() {
-    return "indexAd";
+    return "Admin/indexAd";
   }
 
   @GetMapping("/about")
@@ -61,7 +61,7 @@ public class ClientController {
 
     }
     model.addAttribute("currentPages", "about");
-    return "about";
+    return "Client/about";
   }
 
   

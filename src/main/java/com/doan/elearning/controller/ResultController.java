@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.doan.elearning.dto.CourseDto;
-import com.doan.elearning.entity.Course;
-import com.doan.elearning.entity.Exam;
+
 import com.doan.elearning.entity.Result;
 import com.doan.elearning.service.ResultService;
 
@@ -41,7 +39,7 @@ public class ResultController {
 
         model.addAttribute("result", lstResult);
         model.addAttribute("size", lstResult.size());
-        return "result";
+        return "Admin/result";
     }
 
     @GetMapping("/result")
@@ -54,7 +52,7 @@ public class ResultController {
 
         model.addAttribute("result", lstResult);
         model.addAttribute("size", lstResult.size());
-        return "result";
+        return "Admin/result";
     }
 
     @RequestMapping(value = "/findResultId", method = { RequestMethod.PUT, RequestMethod.GET })
@@ -75,7 +73,7 @@ public class ResultController {
         model.addAttribute("id", result.getId());
         model.addAttribute("speak", result.getSpeakPoint());
         model.addAttribute("write", result.getWritePoint());
-        return "updateResult";
+        return "Admin/updateResult";
     }
 
     @PostMapping("/update-result")

@@ -49,7 +49,7 @@ public class EclassController {
         model.addAttribute("size", ec.size());
         model.addAttribute("classDto", new ClassDto());
 
-        return "eclass";
+        return "Admin/eclass";
 
     }
 
@@ -99,7 +99,7 @@ public class EclassController {
 
 
         }
-        return "teachingclass";
+        return "Lecturers/teachingclass";
     }
 
     @RequestMapping("/learningclass")
@@ -118,6 +118,6 @@ public class EclassController {
             model.addAttribute("currentPages", "learningclass");
 
         }
-        return "teachingclass";
+        return "Lecturers/teachingclass";
     }
 }

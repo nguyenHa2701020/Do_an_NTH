@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.TopicDetailDto;
-import com.doan.elearning.dto.TopicDto;
+
 import com.doan.elearning.entity.Questions;
 import com.doan.elearning.entity.Topic;
 import com.doan.elearning.entity.TopicDetail;
@@ -37,7 +37,7 @@ public class TopicDetailController {
         List<Topic> Topics = topicService.findAll();
          model.addAttribute("topic", Topics);
         model.addAttribute("TopicDto", new TopicDetailDto());
-        return "topicdetail";
+        return "Admin/topicdetail";
 
     }
 

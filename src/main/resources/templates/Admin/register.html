@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th = "https://www.thymeleaf.org/" >
-<head th:replace = "fragments::header">
+<head th:replace = "fragment/fragments::header">
 </head>
 <body class="bg-gradient-primary">
     <div class="container">
@@ -52,11 +52,17 @@
                                 <div class="form-group">
                                     <input type="text" th:field = "*{address}" class="form-control form-control-user" id="exampleInputEmail"
                                         placeholder="Adress">
+                                        <div class="alert alert-danger" th:if = "${#fields.hasErrors('address')}"
+                                            th:errors = "*{address}"
+                                        ></div>
                                 </div>
 
                                 <div class="form-group">
                                     <input type="tel" th:field = "*{phone}" class="form-control form-control-user" id="exampleInputEmail"
                                         placeholder="Tel">
+                                        <div class="alert alert-danger" th:if = "${#fields.hasErrors('phone')}"
+                                            th:errors = "*{phone}"
+                                        ></div>
                                 </div>
 
                                 <!-- <div class="form-group row">
@@ -79,18 +85,19 @@
                                     <div style="margin-left: 10px" class="col-md-2"> Role </div>
                                     <div class="col-md-4">
                                         <!-- File Button -->
-                                        <select id="product_categories" th:field = "*{Role}" name="product_categories" class="form-control">
+                                        <select id="roles" th:field = "*{Role}" name="product_categories" class="form-control">
                                             <option th:value="STUDENT">STUDENT</option>
                                             <option th:value="LECTURER">LECTURER</option>
                                         </select>
                                     </div>
                                 </div>
 
+                                <div id="classs">
                                 <div class="form-group row">
                                     <div style="margin-left: 10px" class="col-md-2"> Class </div>
                                     <div class="col-md-4">
                                         <!-- File Button -->
-                                        <select id="product_categories" th:field = "*{idClass}" name="product_categories" class="form-control">
+                                        <select  th:field = "*{idClass}" name="product_categories" class="form-control">
                                             <option th:value = "null">-SELECT-</option>
                                             <option th:each = "category : ${class}"
                                                     th:value = "${category.id}"
@@ -99,6 +106,7 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
@@ -118,8 +126,21 @@
 
     </div>
 
-    <div th:replace="fragments :: script"></div>
-
+    <div th:replace="fragment/fragments :: script"></div>
+    <script>
+        // Lắng nghe sự kiện khi thay đổi giá trị của select "Role"
+        document.getElementById("roles").addEventListener("change", function() {
+            var role = this.value;
+            var classField = document.getElementById("classs");
+    
+            // Nếu vai trò là "STUDENT", ẩn trường "Class", ngược lại hiển thị
+            if (role === "LECTURER") {
+                classField.style.display = "none";
+            } else {
+                classField.style.display = "block";
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"xmlns:th="https://www.thymeleaf.org/">
-    <head  th:replace="~{fragments::header}">
+    <head  th:replace="~{fragment/fragments::header}">
         
     </head>
     <body id="page-top">
@@ -9,7 +9,7 @@
     <div id="wrapper">
     
         <!--Sidebar-->
-        <ul th:replace="~{fragments::sidebar}"></ul>
+        <ul th:replace="~{fragment/fragments::sidebar}"></ul>
         <!-- End of Sidebar -->
     
         <!-- Content Wrapper -->
@@ -19,14 +19,14 @@
             <div id="content">
     
                 <!-- Topbar -->
-                <nav th:replace="~{fragments::topbar}"></nav>
+                <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
     
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                        data-whatever="@mdo">Add new class
+                        data-whatever="@mdo">Add new schedule
                 </button>
-                <p th:if="${size == 0}">No level</p>
+                <p th:if="${size == 0}">No shedule</p>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
                     </p>
@@ -38,20 +38,20 @@
                 <table class="table table-striped" th:if="${size > 0}">
                     <thead>
                     <tr>
-                        <th scope="col">Class Index</th>
+                        <th scope="col">Schedule Index</th>
+                        <th scope="col">Study Time</th>
                         <th scope="col">Class Name</th>
-                        <th scope="col">Level Class</th>
-                        <th scope="col">Start Date</th>
+                        <th scope="col">Date Learn</th>
                         <th scope="col">Action</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="eclass : ${eclass}">
+                    <tr th:each="eclass : ${schedule}">
                         <th scope="row" th:text="${eclass.id}"></th>
-                        <td th:text="${eclass.name}"></td>
-                        <td th:text="${eclass.level.name}"></td>
-                        <td th:text="${eclass.start}"></td>
+                        <td th:text="${eclass.studytime}"></td>
+                        <td th:text="${eclass.eclass.name}"></td>
+                        <td th:text="${eclass.datelearn}"></td>
                         <td>
                             <a id="editButton"
                                th:href="@{/findById(id = ${eclass.id})}"
@@ -60,9 +60,8 @@
                         <td>
                             <a th:if="${eclass.id} == true" th:href="@{/enable-users(id = ${eclass.id})}"
                                class="btn btn-primary">Enable</a>
-                            <a th:if="${eclass.id} == false" th:href="@{/delete-users(id = ${eclass.id})}"
+                            <a th:if="${eclass.id} " th:href="@{/delete-users(id = ${eclass.id})}"
                                class=" btn btn-danger">Delete</a>
-                            <a th:href="@{/lesson(id = ${eclass.id})}">Lesson By Class</a>
                         </td>
                     </tr>
                     </tbody>
@@ -71,7 +70,7 @@
                 <!-- End of Main Content -->
     
                 <!-- Footer -->
-                <footer th:replace="~{fragments::footer}"></footer>
+                <footer th:replace="~{fragment/fragments::footer}"></footer>
                 <!-- End of Footer -->
     
             </div>
@@ -82,7 +81,7 @@
     <!-- End of Page Wrapper -->
     
     <!-- Scroll to Top Button-->
-    <a th:replace="~{fragments::scroll}"></a>
+    <a th:replace="~{fragment/fragments::scroll}"></a>
     
     <!--Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
@@ -91,48 +90,41 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Course</h5>
+                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Schedule</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-eclass}" method="post" th:object = "${classDto}"
+                    <form th:action="@{/save-schedule}" method="post" th:object = "${scheduleDto}"
                     enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Class Name:</label>
-                            <input type="text" class="form-control" id="name" th:field = "*{name}" name="name">
+                            <label for="name" class="col-form-label">S/C/T:</label>
+                            <!-- <input type="text" class="form-control" id="name" th:field = "*{studytime}" name="name"> -->
+                            <select th:field="*{studytime}">
+                                <option th:value="Sáng">Sáng</option>
+                                <option th:value="Chiều">Chiều</option>
+                                <option th:value="Tối">Tối</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Class Start:</label>
-                            <input type="date" class="form-control" id="name" th:field = "*{start}" name="name">
+                            <label for="name" class="col-form-label">Thứ mấy??:</label>
+                            <input type="text" class="form-control" id="name" th:field = "*{numberdate}" name="name">
                         </div>
+
+ 
 
                         <div class="form-group">
                             <div class="col-md-4">
+                                <label for="name" class="col-form-label">Class:</label>
                                 <!-- File Button -->
-                                <select id="product_categories" th:field = "*{level}" name="product_categories" class="form-control">
+                                <select id="product_categories" th:field = "*{idclass}" name="product_categories" class="form-control">
                                     <option th:value = "null">-SELECT-</option>
-                                    <option th:each = "category : ${level}"
+                                    <option th:each = "category : ${class}"
                                             th:value = "${category.id}"
                                             th:text = "${category.name}">
                                     </option>
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <!-- File Button -->
-                                <select id="product_categories" th:field = "*{idGV}" name="product_categories" class="form-control">
-                                    <option th:value = "null">-SELECT-</option>
-                                    <option th:each = "category : ${lstLecture}"
-                                            th:value = "${category.id}"
-                                            th:text = "${category.lgid}">
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-
-
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -171,7 +163,7 @@
     </div>
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
-    <div th:replace="~{fragments::script}"></div>
+    <div th:replace="~{fragment/fragments::script}"></div>
     
     <script th:src="@{/js/categories.js}"></script>
 </body>
