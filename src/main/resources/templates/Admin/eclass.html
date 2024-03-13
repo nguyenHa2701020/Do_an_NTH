@@ -64,14 +64,13 @@
                         <td th:text="${eclass.level.name}"></td>
                         <td th:text="${eclass.start}"></td>
                         <td>
-                            <a id="editButton"
-                               th:href="@{/findById(id = ${eclass.id})}"
-                               class="btn btn-primary">Update</a>
+                            <a th:href="@{/update-class/{id}(id= ${eclass.id})}" class="btn btn-primary">Update</a>
                         </td>
+                        
                         <td>
                             <a th:if="${eclass.id} == true" th:href="@{/enable-users(id = ${eclass.id})}"
                                class="btn btn-primary">Enable</a>
-                            <a th:if="${eclass.id}" th:href="@{/delete-users(id = ${eclass.id})}"
+                            <a th:if="${eclass.id}" th:href="@{/delete-class(id = ${eclass.id})}"
                                class=" btn btn-danger">Delete</a>
                             
                         </td>

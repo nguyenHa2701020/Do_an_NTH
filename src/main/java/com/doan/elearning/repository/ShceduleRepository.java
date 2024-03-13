@@ -14,5 +14,5 @@ public interface ShceduleRepository extends JpaRepository<Schedule, Long> {
    List<Schedule> findAll();
 
    @Query("select o from Schedule o where o.eclass.id = ?1")
-   List<Schedule> findByLgid(Long eclass_id);
+   List<Schedule> findByIdClass(Long eclass_id);
 }

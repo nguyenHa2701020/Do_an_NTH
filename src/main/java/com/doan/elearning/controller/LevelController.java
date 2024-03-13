@@ -1,11 +1,15 @@
 package com.doan.elearning.controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,6 +73,58 @@ public class LevelController {
             redirectAttributes.addFlashAttribute("error", "Error server");
         }
         return "redirect:/level";
+    }
+
+     @GetMapping("/update-level/{id}")
+    public String updateLevel(@PathVariable("id") Long id, Model model) {
+    
+       
+        Optional<Level> level=lv.findById(id);
+
+        LevelDto levelDto = new LevelDto();
+        levelDto.setId(level.get().getId());
+        levelDto.setName(level.get().getName());
+        List<Course> course = cs.findAll();
+        model.addAttribute("course", course);
+
+        model.addAttribute("title", "Add Level");
+        model.addAttribute("levelDto", levelDto);
+        return "Admin/update-level";
+    }
+
+    @PostMapping("/update-level/{id}")
+    public String updateProduct(@ModelAttribute("levelDto") LevelDto levelDto,
+                                RedirectAttributes redirectAttributes, Principal principal) {
+        try {
+            if (principal == null) {
+                return "redirect:/login";
+            }
+            lv.update( levelDto);
+            redirectAttributes.addFlashAttribute("success", "Update successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error server, please try again!");
+        }
+        return "redirect:/level";
+    }
+
+
+     @GetMapping("/search-level/{pageNo}")
+    public String searchProduct(
+                                @RequestParam(value = "keyword") String keyword,
+                                Model model, Principal principal
+    ) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("title", "Manage Level");
+        List<Level> level = lv.findLevel(keyword);
+        model.addAttribute("level", level);
+        model.addAttribute("size", level.size());
+        model.addAttribute("usernew", new Users());
+        model.addAttribute("levelDto", new LevelDto());
+        return "Admin/level";
+
     }
 
 }

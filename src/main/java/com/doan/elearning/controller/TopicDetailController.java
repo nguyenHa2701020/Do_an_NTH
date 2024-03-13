@@ -58,7 +58,7 @@ public class TopicDetailController {
         }
         
        // quesionService.save(Topic);
-        redirectAttributes.addFlashAttribute("success", "Add new Topic successfully!");
+        redirectAttributes.addFlashAttribute("success", "Add new Topic detail successfully!");
 
         return "redirect:/topicdetail";
 

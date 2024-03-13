@@ -33,6 +33,7 @@
                     <input type="file" name="file" accept=".xlsx, .xls">
                     <select id="product_categories"  name="idLevel"
                     class="form-control">
+                    
                     <option th:value="null">-SELECT-</option>
                     <option th:each="category : ${level}" th:value="${category.id}"
                         th:text="${category.name}">
@@ -113,13 +114,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Course</h5>
+                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Questions</h5>
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/save-questions}" method="post" th:object="${questionDto}"
                         enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="col-md-4">
+                                <label for="name" class="col-form-label">Type:</label>
                                 <!-- File Button -->
                                 <select id="product_categories" th:field="*{type}" name="product_categories"
                                     class="form-control">
@@ -156,7 +158,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-4">
-
+                                <label for="name" class="col-form-label">Level:</label>
                                 <!-- File Button -->
                                 <select id="product_categories" th:field="*{level}" name="product_categories"
                                     class="form-control">

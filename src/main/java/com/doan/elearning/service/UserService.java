@@ -14,8 +14,13 @@ public interface UserService {
 
     Users findByid(Long id);
 
+    Users updatUsers(UserDto userDto);
+
     List<Users> findALl();
 
     Users saveAdmin();
+
     void delete(Long id);
+
+    Users changePass(Users users);
 }

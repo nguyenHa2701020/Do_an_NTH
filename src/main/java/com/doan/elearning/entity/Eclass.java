@@ -40,7 +40,7 @@ public class Eclass {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
     private Date start; 
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id", referencedColumnName = "level_id")
     private Level level;
 
@@ -52,5 +52,6 @@ public class Eclass {
     private List<Lesson> lessons;
     @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
     private List<Exam> exam;
+   
     
 }

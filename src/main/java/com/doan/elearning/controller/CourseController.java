@@ -1,14 +1,13 @@
 package com.doan.elearning.controller;
 
-import java.nio.file.Files;
+
 import java.security.Principal;
 import java.util.List;
-import java.util.Locale.Category;
+
 import java.util.Optional;
 
-import org.springframework.context.annotation.Conditional;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ import com.doan.elearning.dto.CourseDto;
 import com.doan.elearning.entity.Course;
 import com.doan.elearning.entity.Users;
 import com.doan.elearning.service.CourseService;
-import com.doan.elearning.service.UserService;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -105,9 +104,7 @@ public class CourseController {
 
     @GetMapping("/update-course/{id}")
     public String updateCourse(@PathVariable("id") Long id, Model model) {
-        // if (principal == null) {
-        //     return "redirect:/login";
-        // }
+    
        
         Optional<Course> vv=us.findById(id);
 

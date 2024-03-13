@@ -33,9 +33,9 @@ public class Users {
 
     private Long idClass;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
     @JsonIgnore

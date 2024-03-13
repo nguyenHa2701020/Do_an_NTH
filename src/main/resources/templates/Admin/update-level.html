@@ -27,30 +27,43 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="form-horizontal" th:action="@{/update-course/{id}(id = ${courseDto.id})}" method="post" th:object = "${courseDto}"
+                <form class="form-horizontal" th:action="@{/update-level/{id}(id = ${levelDto.id})}" method="post" th:object = "${levelDto}"
                       enctype="multipart/form-data">
                     <fieldset>
                         <!-- Form Name -->
-                        <legend>UPDATE COURSE</legend>
+                        <legend>UPDATE LEVEL</legend>
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+                          
+                       
                             <div class="col-md-4">
                                 <input id="product_name" th:field = "*{name}" name="product_name" class="form-control input-md" required="" type="text">
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <!-- File Button -->
+                                <label for="name" class="col-form-label">Course:</label>
+                                <select id="product_categories" th:field = "*{course}" name="product_categories" class="form-control">
+                                 
+                                    <option th:each = "category : ${course}"
+                                            th:value = "${category.id}"
+                                            th:text = "${category.name}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         
                         <!-- Text input-->
                         <div class="form-group">
                             <div class="col-md-4">
                                 <!-- File Button -->
                                 <div class="form-group">
-                                    <label class="col-md-6 control-label" for="image">PRODUCT IMAGE</label>
-                                    <div class="col-md-4">
+                                    <!-- <label class="col-md-4 control-label" for="image">PRODUCT IMAGE</label> -->
+                                    <!-- <div class="col-md-4">
                                         <img class = "my-product-image" style="height: 40px; width: 40px;" alt="" th:src="'data:image/jpeg;base64,' + *{image}">
                                         <input id="image" name="imageProduct" class="input-file" type="file">
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

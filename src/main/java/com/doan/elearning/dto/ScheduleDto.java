@@ -19,7 +19,7 @@ public class ScheduleDto {
     private String numberdate;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
+
     private Date datelearn; 
 
     private Long idclass;

@@ -1,15 +1,14 @@
 package com.doan.elearning.controller;
 
-import java.io.File;
+
 import java.security.Principal;
-import java.sql.Time;
-import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,22 +18,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.ExamDto;
-import com.doan.elearning.entity.Course;
+
 import com.doan.elearning.entity.Eclass;
 import com.doan.elearning.entity.Exam;
-import com.doan.elearning.entity.Lesson;
+
 import com.doan.elearning.entity.Role;
 import com.doan.elearning.entity.Topic;
 import com.doan.elearning.entity.Users;
 import com.doan.elearning.service.ClassService;
 import com.doan.elearning.service.ExamService;
-import com.doan.elearning.service.LessonService;
+
 import com.doan.elearning.service.TopicService;
 import com.doan.elearning.service.UserService;
 
@@ -90,12 +89,7 @@ public class ExamController {
     public String addexam(@ModelAttribute("examDto") ExamDto examDto,
             RedirectAttributes redirectAttributes, Principal principal) {
         try {
-            // DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            // SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            // examDto.setDateExam(dateFormat.parse(examDto.getDateExam().toString()));
-            // examDto.setStartExam(Time.valueOf(examDto.getStartExam().toString()));
-            // examDto.setEndExam(Time.valueOf(examDto.getEndExam().toString()));
+           
             examService.save(examDto);
             redirectAttributes.addFlashAttribute("success", "Add new exam successfully!");
         } catch (Exception e) {

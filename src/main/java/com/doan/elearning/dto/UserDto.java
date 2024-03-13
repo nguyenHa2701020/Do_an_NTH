@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+    private Long idPK;
     @Size(min = 3, max = 10, message = "Id contains 3-10 characters")
     private String id;
      @Size(min = 3, max = 10, message = "User name contains 3-20 characters")

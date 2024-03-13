@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.doan.elearning.dto.LessonDto;
 
 import com.doan.elearning.dto.ScheduleDto;
@@ -80,7 +79,7 @@ public class ScheduleController {
             }
 
             Eclass cl = cs.findByLgid(usk.getIdClass());
-            List<Schedule> ls = lv.findByLgid(cl.getId());
+            List<Schedule> ls = lv.findByIdClass(cl.getId());
 
             int size = ls.size() - 1;
             Date st = ls.get(0).getDatelearn();
@@ -144,17 +143,18 @@ public class ScheduleController {
                     }
                 }
 
-                List<Schedule> sc= new ArrayList<>();
+                List<Schedule> sc = new ArrayList<>();
                 for (int i = 0; i < weekDays.size(); i++) {
-                    boolean check=false;
+                    boolean check = false;
                     for (Schedule iterable_element : ls) {
-                        if(iterable_element.getDatelearn().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().equals(weekDays.get(i))){
+                        if (iterable_element.getDatelearn().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                                .equals(weekDays.get(i))) {
                             sc.add(iterable_element);
-                            check=true;
+                            check = true;
                             break;
                         }
                     }
-                    if(check==false){
+                    if (check == false) {
                         sc.add(null);
                     }
                 }
@@ -167,9 +167,8 @@ public class ScheduleController {
 
                 model.addAttribute("currentPages", "schedule");
 
-                return "schedulestudent";
+                return "Student/schedulestudent";
             }
-
 
         }
         return "Student/schedulestudent";
@@ -189,7 +188,7 @@ public class ScheduleController {
             }
 
             Eclass cl = cs.findByLgid(usk.getIdClass());
-            List<Schedule> ls = lv.findByLgid(cl.getId());
+            List<Schedule> ls = lv.findByIdClass(cl.getId());
 
             int size = ls.size() - 1;
             Date st = ls.get(0).getDatelearn();
@@ -206,23 +205,23 @@ public class ScheduleController {
                 LocalDate startOfWeek = nw.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
                 LocalDate endOfWeek = nw.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
-                 /// neww
-                 List<Map<String, String>> dataList = new ArrayList<>();
-                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                 /// -----
- 
-                 while (!startOfWeek.isAfter(endOfWeek)) {
-                     Map<String, String> data1 = new HashMap<>();
-                     // Lấy thứ từ LocalDate
-                     String dayOfWeek = startOfWeek.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
-                     // Chuyển đổi LocalDate thành chuỗi theo định dạng
-                     String formattedDate = startOfWeek.format(formatter);
-                     data1.put(dayOfWeek, formattedDate);
-                     dataList.add(data1);
- 
-                     weekDays.add(startOfWeek);
-                     startOfWeek = startOfWeek.plusDays(1);
-                 }
+                /// neww
+                List<Map<String, String>> dataList = new ArrayList<>();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                /// -----
+
+                while (!startOfWeek.isAfter(endOfWeek)) {
+                    Map<String, String> data1 = new HashMap<>();
+                    // Lấy thứ từ LocalDate
+                    String dayOfWeek = startOfWeek.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+                    // Chuyển đổi LocalDate thành chuỗi theo định dạng
+                    String formattedDate = startOfWeek.format(formatter);
+                    data1.put(dayOfWeek, formattedDate);
+                    dataList.add(data1);
+
+                    weekDays.add(startOfWeek);
+                    startOfWeek = startOfWeek.plusDays(1);
+                }
 
                 List<LocalDate> kho = new ArrayList<LocalDate>();
                 for (Schedule iterable_element : ls) {
@@ -230,7 +229,6 @@ public class ScheduleController {
                 }
 
                 List<LocalDate> ll = new ArrayList<LocalDate>();
-               
 
                 for (LocalDate iterable_element : weekDays) {
                     for (LocalDate localDate : kho) {
@@ -243,17 +241,18 @@ public class ScheduleController {
 
                 }
 
-                List<Schedule> sc= new ArrayList<>();
+                List<Schedule> sc = new ArrayList<>();
                 for (int i = 0; i < weekDays.size(); i++) {
-                    boolean check=false;
+                    boolean check = false;
                     for (Schedule iterable_element : ls) {
-                        if(iterable_element.getDatelearn().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().equals(weekDays.get(i))){
+                        if (iterable_element.getDatelearn().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                                .equals(weekDays.get(i))) {
                             sc.add(iterable_element);
-                            check=true;
+                            check = true;
                             break;
                         }
                     }
-                    if(check==false){
+                    if (check == false) {
                         sc.add(null);
                     }
                 }
@@ -288,9 +287,9 @@ public class ScheduleController {
             Eclass cc = cs.findByLgid(scheduleDto.getIdclass());
             scheduleDto.setEclass(cc);
             LocalDate curent = cc.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            
-            LessonDto lsd= new LessonDto();
-            Users userj= us.findByid(cc.getIdGV());
+
+            LessonDto lsd = new LessonDto();
+            Users userj = us.findByid(cc.getIdGV());
             lsd.setEclass(cc);
             lsd.setUserss(userj);
             int count = 0;
@@ -299,7 +298,7 @@ public class ScheduleController {
                     scheduleDto.setDatelearn(Date.from(curent.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                     // lv.save(scheduleDto);
 
-                    String numberLesson= "Lesson "+(count+1);
+                    String numberLesson = "Lesson " + (count + 1);
                     lsd.setName(numberLesson);
                     lessonService.save(lsd);
                     lv.save(scheduleDto);
@@ -310,10 +309,10 @@ public class ScheduleController {
             }
 
             // lv.save(scheduleDto);
-            redirectAttributes.addFlashAttribute("success", "Add new level successfully!");
+            redirectAttributes.addFlashAttribute("success", "Add new schedule successfully!");
         } catch (Exception e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "Failed to add new level!");
+            redirectAttributes.addFlashAttribute("error", "Failed to add new schedule!");
         }
         return "redirect:/schedule";
 

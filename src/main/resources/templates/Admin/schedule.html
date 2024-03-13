@@ -96,17 +96,18 @@
                     <form th:action="@{/save-schedule}" method="post" th:object = "${scheduleDto}"
                     enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="name" class="col-form-label">S/C/T:</label>
+                            <label for="name" class="col-form-label">
+                                Morning/ Afternoon/ Evening:</label>
                             <!-- <input type="text" class="form-control" id="name" th:field = "*{studytime}" name="name"> -->
                             <select th:field="*{studytime}">
-                                <option th:value="Sáng">Sáng</option>
-                                <option th:value="Chiều">Chiều</option>
-                                <option th:value="Tối">Tối</option>
+                                <option th:value="Sáng">Morning</option>
+                                <option th:value="Chiều">Afternoon</option>
+                                <option th:value="Tối">Evening</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Thứ mấy??:</label>
+                            <label for="name" class="col-form-label">Number of days of the week:</label>
                             <input type="text" class="form-control" id="name" th:field = "*{numberdate}" name="name">
                         </div>
 

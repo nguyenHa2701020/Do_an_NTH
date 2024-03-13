@@ -11,5 +11,5 @@ public interface ScheduleService {
 
       List<Schedule> findAll();
 
-      List<Schedule> findByLgid(Long idlg);
+      List<Schedule> findByIdClass(Long idlg);
 }

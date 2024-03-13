@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.doan.elearning.dto.LevelDto;
+
 import com.doan.elearning.dto.QuestionDto;
-import com.doan.elearning.entity.Course;
+
 import com.doan.elearning.entity.Level;
 import com.doan.elearning.entity.Questions;
-import com.doan.elearning.service.CourseService;
+
 import com.doan.elearning.service.LevelService;
 import com.doan.elearning.service.QuestionService;
 
@@ -107,11 +107,6 @@ public class QuestionController {
                 questionService.save(quaDto);
 
 
-                // Lấy nội dung câu hỏi và đáp án
-                
-
-                // Xử lý dữ liệu theo yêu cầu của bạn, ví dụ: lưu vào cơ sở dữ liệu
-                // TODO: Xử lý dữ liệu
             }
 
             // Đóng workbook

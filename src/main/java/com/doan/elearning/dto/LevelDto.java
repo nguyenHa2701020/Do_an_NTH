@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LevelDto {
      //@Size(min = 3, max = 10, message = "User name contains 3-10 characters")
+     private Long id;
     private String name;
 
     private Course course;

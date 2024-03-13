@@ -3,6 +3,7 @@ package com.doan.elearning.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.RoleDto;
 import com.doan.elearning.dto.UserDto;
@@ -51,7 +54,10 @@ public class AuthController {
             lec.setName("LECTURER");
             rs.save(lec);
         }
-
+if(adminService.findByLgid("Admin")==null)
+{
+    adminService.saveAdmin();
+}
         model.addAttribute("title", "Login Page");
         return "Client/login";
     }
@@ -65,10 +71,37 @@ public class AuthController {
         return "Admin/register";
     }
 
-    @GetMapping("/forgot-password")
+    @GetMapping("/change-password")
     public String forgotPassword(Model model) {
-        model.addAttribute("title", "Forgot Password");
-        return "forgot-password";
+        model.addAttribute("title", "Change Password");
+        
+        return "Client/change-password";
+    }
+
+    @PostMapping("/change-password")
+    public String changePass(@RequestParam("oldpass") String oldPassword,
+            @RequestParam("newpass") String newPassword,
+            @RequestParam("confirmpass") String repeatPassword,
+            RedirectAttributes attributes,
+            Model model,
+            Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        } else {
+            Users usk = adminService.findByUsername(principal.getName());
+            if (passwordEncoder.matches(oldPassword, usk.getPassword())
+                    && !passwordEncoder.matches(newPassword, oldPassword)
+                    && !passwordEncoder.matches(newPassword, usk.getPassword())
+                    && repeatPassword.equals(newPassword) && newPassword.length() >= 5) {
+                usk.setPassword(passwordEncoder.encode(newPassword));
+                adminService.changePass(usk);
+                attributes.addFlashAttribute("success", "Your password has been changed successfully!");
+                return "redirect:/change-password";
+            } else {
+                model.addAttribute("message", "Your password is wrong");
+                return "CLient/change-password";
+            }
+        }
     }
 
     @PostMapping("/register-new")

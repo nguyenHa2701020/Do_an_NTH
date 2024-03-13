@@ -3,14 +3,18 @@ package com.doan.elearning.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.ClassDto;
@@ -73,10 +77,10 @@ public class EclassController {
             RedirectAttributes redirectAttributes) {
         try {
             cs.save(classDto);
-            redirectAttributes.addFlashAttribute("success", "Add new level successfully!");
+            redirectAttributes.addFlashAttribute("success", "Add new class successfully!");
         } catch (Exception e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "Failed to add new level!");
+            redirectAttributes.addFlashAttribute("error", "Failed to add new class!");
         }
         return "redirect:/eclass";
 
@@ -120,4 +124,55 @@ public class EclassController {
         }
         return "Lecturers/teachingclass";
     }
+       @GetMapping("/update-class/{id}")
+    public String updateClass(@PathVariable("id") Long id, Model model) {
+    
+       
+        Eclass eclass=cs.findByLgid(id);
+
+        ClassDto classDto = new ClassDto();
+        classDto.setId(eclass.getId());
+        classDto.setName(eclass.getName());
+
+        classDto.setStart(eclass.getStart());
+      
+        List<Level> level = ls.findAll();
+        model.addAttribute("levels", level);
+
+        model.addAttribute("title", "Update Class");
+        model.addAttribute("classDto", classDto);
+        return "Admin/update-class";
+    }
+
+    @PostMapping("/update-class/{id}")
+    public String updateProduct(@ModelAttribute("classDto") ClassDto classDto,
+                                RedirectAttributes redirectAttributes, Principal principal) {
+        try {
+            if (principal == null) {
+                return "redirect:/login";
+            }
+            cs.update( classDto);
+            redirectAttributes.addFlashAttribute("success", "Update successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error server, please try again!");
+        }
+        return "redirect:/eclass";
+    }
+    
+      @RequestMapping(value = "/delete-class", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String delete(Long id, RedirectAttributes redirectAttributes) {
+        try {
+            cs.deleteClass(id);
+            redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (DataIntegrityViolationException e1) {
+            e1.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Duplicate name of level, please check again!");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error server");
+        }
+        return "redirect:/eclass";
+    }
 }
+    

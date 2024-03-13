@@ -1,11 +1,13 @@
 package com.doan.elearning.service.impl;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.doan.elearning.dto.LevelDto;
+import com.doan.elearning.entity.Course;
 import com.doan.elearning.entity.Level;
 import com.doan.elearning.repository.LevelRepository;
 import com.doan.elearning.service.LevelService;
@@ -44,6 +46,24 @@ private final LevelRepository levelRepository;
     @Override
     public Optional<Level> findById(Long id) {
        return levelRepository.findById(id);
+    }
+
+    @Override
+    public Level update(LevelDto levelDto) {
+       
+        Level levelUpdate = levelRepository.getReferenceById(levelDto.getId());
+           
+         
+        levelUpdate.setId(levelUpdate.getId());
+        levelUpdate.setName(levelDto.getName());
+        levelUpdate.setCourse(levelDto.getCourse());
+            return levelRepository.save(levelUpdate);
+       
+    }
+
+    @Override
+    public List<Level> findLevel(String keyword) {
+        return levelRepository.findByName(keyword);
     }
     
 }

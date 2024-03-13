@@ -5,9 +5,7 @@ import java.util.Date;
 import com.doan.elearning.entity.Exam;
 import com.doan.elearning.entity.Users;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

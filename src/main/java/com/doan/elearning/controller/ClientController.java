@@ -48,6 +48,10 @@ public class ClientController {
   public String ad() {
     return "Admin/indexAd";
   }
+  @GetMapping("/error403")
+  public String error() {
+    return "Client/error403";
+  }
 
   @GetMapping("/about")
   public String ab(Model model, Principal principal) {

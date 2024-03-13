@@ -29,8 +29,8 @@ private final ShceduleRepository sr;
 }
 
    @Override
-   public List<Schedule> findByLgid(Long idlg) {
+   public List<Schedule> findByIdClass(Long idlg) {
       
-      return sr.findByLgid(idlg);
+      return sr.findByIdClass(idlg);
    }
 }

@@ -45,7 +45,7 @@ public class UsersConfiguration {
                 .authorizeHttpRequests( author ->
                         author.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 // .requestMatchers("/home").permitAll()
-                                .requestMatchers("/lesson").hasAnyAuthority("LECTURER","STUDENT","ADMIN") 
+                                .requestMatchers("/lesson","/change-password").hasAnyAuthority("LECTURER","STUDENT","ADMIN") 
                                 .requestMatchers("/forgot-password").permitAll()
                                 .requestMatchers("/user","/course","/eclass","/schedule","/lesson", "/admin",  "/register", "/register-new","/result").hasAuthority("ADMIN")
                                 .anyRequest().permitAll()
@@ -64,6 +64,7 @@ public class UsersConfiguration {
                                 .logoutSuccessUrl("/login?logout")
                                 .permitAll()
                 )
+                .exceptionHandling(exception -> exception.accessDeniedPage("/error403") )
                 .authenticationManager(authenticationManager)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
