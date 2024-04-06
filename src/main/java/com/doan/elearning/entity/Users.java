@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "userss",uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Table(name = "userss", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Users {
     private String password;
     private String address;
     private String phone;
-
+    private String email;
     private Long idClass;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -45,5 +45,5 @@ public class Users {
 
     @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
     private List<Result> results;
-    
+
 }

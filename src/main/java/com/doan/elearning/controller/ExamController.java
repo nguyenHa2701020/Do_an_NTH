@@ -87,9 +87,9 @@ public class ExamController {
 
     @PostMapping("/addexam")
     public String addexam(@ModelAttribute("examDto") ExamDto examDto,
-            RedirectAttributes redirectAttributes, Principal principal) {
+                          RedirectAttributes redirectAttributes, Principal principal) {
         try {
-           
+
             examService.save(examDto);
             redirectAttributes.addFlashAttribute("success", "Add new exam successfully!");
         } catch (Exception e) {
@@ -112,10 +112,10 @@ public class ExamController {
 
             List<Exam> exams = examService.findExamByClass(id);
             for (Exam exam : exams) {
-                boolean check=status(exam.getDateExam(), exam.getStartExam(), exam.getEndExam());
+                boolean check = status(exam.getDateExam(), exam.getStartExam(), exam.getEndExam());
                 exam.setStatus(check);
                 examService.update(exam);
-                
+
             }
             List<Exam> examss = examService.findExamByClass(id);
             model.addAttribute("exams", examss);
@@ -148,7 +148,8 @@ public class ExamController {
         boolean check = (current.after(start) || current.equals(start)) && (current.before(end) || current.equals(end));
         return check;
     }
-@RequestMapping(value = "/findExamId", method = { RequestMethod.PUT, RequestMethod.GET })
+
+    @RequestMapping(value = "/findExamId", method = {RequestMethod.PUT, RequestMethod.GET})
     @ResponseBody
     public Exam findExamId(Long id) {
         return examService.findExam(id);

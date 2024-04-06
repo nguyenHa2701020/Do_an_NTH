@@ -10,12 +10,13 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -34,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class QuestionController {
-     private final QuestionService questionService;
+    private final QuestionService questionService;
     private final LevelService lv;
 
     @RequestMapping("/questions")
@@ -52,10 +53,10 @@ public class QuestionController {
 
     @PostMapping("/save-questions")
     public String addQuestion(@ModelAttribute("questionDto") QuestionDto questionDto,
-            RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes) {
         try {
 
-            questionService.save( questionDto);
+            questionService.save(questionDto);
             redirectAttributes.addFlashAttribute("success", "Add new question successfully!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +67,7 @@ public class QuestionController {
     }
 
     @PostMapping("/uploadex")
-    public String uploadFile(@RequestParam("file") MultipartFile file,     @RequestParam("idLevel") Long idLV) {
+    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("idLevel") Long idLV) {
         try {
             // Đọc file Excel
             Workbook workbook = WorkbookFactory.create(file.getInputStream());
@@ -74,8 +75,8 @@ public class QuestionController {
             // Chọn sheet trong file Excel
             Sheet sheet = workbook.getSheetAt(0);
 
-            Optional<Level> level= lv.findById(idLV);
-            Level level2= new Level();
+            Optional<Level> level = lv.findById(idLV);
+            Level level2 = new Level();
             // Lặp qua từng hàng trong sheet
             Iterator<Row> rowIterator = sheet.iterator();
             while (rowIterator.hasNext()) {
@@ -90,12 +91,11 @@ public class QuestionController {
                 Cell op4 = row.getCell(5);
                 Cell ans = row.getCell(6);
 
-                if(level.isPresent())
-                {   
-                    level2= level.get();
+                if (level.isPresent()) {
+                    level2 = level.get();
                 }
-                
-                QuestionDto quaDto=new QuestionDto();
+
+                QuestionDto quaDto = new QuestionDto();
                 quaDto.setType(type.getStringCellValue());
                 quaDto.setQuestion(ques.getStringCellValue());
                 quaDto.setOption1(op1.getStringCellValue());
@@ -117,6 +117,21 @@ public class QuestionController {
         }
 
         // Chuyển hướng trang sau khi upload thành công
+        return "redirect:/questions";
+    }
+
+    @RequestMapping(value = "/delete-questions", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String delete(Long id, RedirectAttributes redirectAttributes) {
+        try {
+            questionService.delete(id);
+            redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (DataIntegrityViolationException e1) {
+            e1.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Duplicate name of level, please check again!");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error server");
+        }
         return "redirect:/questions";
     }
 }

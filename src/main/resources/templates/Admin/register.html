@@ -1,146 +1,152 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "https://www.thymeleaf.org/" >
-<head th:replace = "fragment/fragments::header">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragment/fragments::header">
 </head>
 <body class="bg-gradient-primary">
-    <div class="container">
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block">
-                        <img class="img-fluid position-absolute w-100 h-100" src="img/course-2.jpg" alt="" style="object-fit: cover;">
+<div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block">
+                    <img class="img-fluid position-absolute w-100 h-100" src="img/course-2.jpg" alt=""
+                         style="object-fit: cover;">
 
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                            </div>
-                            <div th:if = "${emailError}">
-                                <p class = "alert alert-danger" th:text = "${emailError}"></p>
-                            </div>
-                            <div th:if = "${errors}">
-                                <p class = "alert alert-danger" th:text = "${errors}"></p>
-                            </div>
-                            <div th:if = "${success}">
-                                <p class = "alert alert-success" th:text = "${success}"></p>
-                            </div>
-                            <div th:if = "${passwordError}">
-                                <p class = "alert alert-danger" th:text = "${passwordError}"></p>
-                            </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        </div>
+                        <div th:if="${emailError}">
+                            <p class="alert alert-danger" th:text="${emailError}"></p>
+                        </div>
+                        <div th:if="${errors}">
+                            <p class="alert alert-danger" th:text="${errors}"></p>
+                        </div>
+                        <div th:if="${success}">
+                            <p class="alert alert-success" th:text="${success}"></p>
+                        </div>
+                        <div th:if="${passwordError}">
+                            <p class="alert alert-danger" th:text="${passwordError}"></p>
+                        </div>
 
 
-                            <form th:action = "@{/register-new}" th:object = "${adminDto}" method="POST">
+                        <form th:action="@{/register-new}" th:object="${adminDto}" method="POST">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" th:field="*{id}"
+                                           id="exampleFirstName"
+                                           placeholder="Login ID">
+                                    <div class="alert alert-danger" th:if="${#fields.hasErrors('id')}"
+                                         th:errors="*{id}"
+                                    ></div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <input type="text" th:field="*{username}" class="form-control form-control-user"
+                                           id="exampleLastName"
+                                           placeholder="User Name">
+                                    <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}"
+                                         th:errors="*{username}"
+                                    ></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{address}" class="form-control form-control-user"
+                                       id="exampleInputEmail"
+                                       placeholder="Adress">
+                                <div class="alert alert-danger" th:if="${#fields.hasErrors('address')}"
+                                     th:errors="*{address}"
+                                ></div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="tel" th:field="*{phone}" class="form-control form-control-user"
+                                       id="exampleInputEmail"
+                                       placeholder="Tel">
+                                <div class="alert alert-danger" th:if="${#fields.hasErrors('phone')}"
+                                     th:errors="*{phone}"
+                                ></div>
+                            </div>
+
+                            <!-- <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password" th:field = "*{password}" class="form-control form-control-user"
+                                        id="exampleInputPassword" placeholder="Password">
+
+                                    <div class="alert alert-danger" th:if = "${#fields.hasErrors('password')}"
+                                        th:errors = "*{password}"
+                                    ></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password" th:field = "*{repeatPassword}" class="form-control form-control-user"
+                                        id="exampleRepeatPassword" placeholder="Repeat Password">
+                                </div>
+                            </div> -->
+
+
+                            <div class="form-group row">
+                                <div style="margin-left: 10px" class="col-md-2"> Role</div>
+                                <div class="col-md-4">
+                                    <!-- File Button -->
+                                    <select id="roles" th:field="*{Role}" name="product_categories"
+                                            class="form-control">
+                                        <option th:value="STUDENT">STUDENT</option>
+                                        <option th:value="LECTURER">LECTURER</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="classs">
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" th:field = "*{id}" id="exampleFirstName"
-                                            placeholder="Login ID">
-                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('id')}"
-                                             th:errors = "*{id}"
-                                        ></div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <input type="text" th:field = "*{username}" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="User Name">
-                                        <div class="alert alert-danger" th:if = "${#fields.hasErrors('username')}"
-                                            th:errors = "*{username}"
-                                        ></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" th:field = "*{address}" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Adress">
-                                        <div class="alert alert-danger" th:if = "${#fields.hasErrors('address')}"
-                                            th:errors = "*{address}"
-                                        ></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="tel" th:field = "*{phone}" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Tel">
-                                        <div class="alert alert-danger" th:if = "${#fields.hasErrors('phone')}"
-                                            th:errors = "*{phone}"
-                                        ></div>
-                                </div>
-
-                                <!-- <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" th:field = "*{password}" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
-
-                                        <div class="alert alert-danger" th:if = "${#fields.hasErrors('password')}"
-                                            th:errors = "*{password}"
-                                        ></div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" th:field = "*{repeatPassword}" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
-                                    </div>
-                                </div> -->
-                        
-
-                                <div class="form-group row">
-                                    <div style="margin-left: 10px" class="col-md-2"> Role </div>
+                                    <div style="margin-left: 10px" class="col-md-2"> Class</div>
                                     <div class="col-md-4">
                                         <!-- File Button -->
-                                        <select id="roles" th:field = "*{Role}" name="product_categories" class="form-control">
-                                            <option th:value="STUDENT">STUDENT</option>
-                                            <option th:value="LECTURER">LECTURER</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div id="classs">
-                                <div class="form-group row">
-                                    <div style="margin-left: 10px" class="col-md-2"> Class </div>
-                                    <div class="col-md-4">
-                                        <!-- File Button -->
-                                        <select  th:field = "*{idClass}" name="product_categories" class="form-control">
-                                            <option th:value = "null">-SELECT-</option>
-                                            <option th:each = "category : ${class}"
-                                                    th:value = "${category.id}"
-                                                    th:text = "${category.name}">
+                                        <select th:field="*{idClass}" name="product_categories" class="form-control">
+                                            <option th:value="null">-SELECT-</option>
+                                            <option th:each="category : ${class}"
+                                                    th:value="${category.id}"
+                                                    th:text="${category.name}">
                                             </option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Register Account
-                                </button>
-                                <hr>
-                            </form>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                Register Account
+                            </button>
                             <hr>
-                           
-                            <div class="text-center">
-                                <a class="small" th:href = "@{/admin}">Back to Manager!</a>
-                            </div>
+                        </form>
+                        <hr>
+
+                        <div class="text-center">
+                            <a class="small" th:href="@{/admin}">Back to Manager!</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <div th:replace="fragment/fragments :: script"></div>
-    <script>
-        // Lắng nghe sự kiện khi thay đổi giá trị của select "Role"
-        document.getElementById("roles").addEventListener("change", function() {
-            var role = this.value;
-            var classField = document.getElementById("classs");
-    
-            // Nếu vai trò là "STUDENT", ẩn trường "Class", ngược lại hiển thị
-            if (role === "LECTURER") {
-                classField.style.display = "none";
-            } else {
-                classField.style.display = "block";
-            }
-        });
-    </script>
+</div>
+
+<div th:replace="fragment/fragments :: script"></div>
+<script>
+    // Lắng nghe sự kiện khi thay đổi giá trị của select "Role"
+    document.getElementById("roles").addEventListener("change", function () {
+        var role = this.value;
+        var classField = document.getElementById("classs");
+
+        // Nếu vai trò là "STUDENT", ẩn trường "Class", ngược lại hiển thị
+        if (role === "LECTURER") {
+            classField.style.display = "none";
+        } else {
+            classField.style.display = "block";
+        }
+    });
+</script>
 </body>
 
 </html>

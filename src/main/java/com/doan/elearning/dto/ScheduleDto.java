@@ -17,10 +17,10 @@ public class ScheduleDto {
     private String studytime;
 
     private String numberdate;
-    
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 
-    private Date datelearn; 
+    private Date datelearn;
 
     private Long idclass;
     private Eclass eclass;

@@ -7,5 +7,6 @@ import com.doan.elearning.entity.Role;
 
 public interface RoleService {
     Role save(RoleDto roleDto);
+
     List<Role> findALl();
 }

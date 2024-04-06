@@ -15,8 +15,10 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
 
     @Query("select o from Result o ")
     List<Result> findAll();
+
     @Query("select o from Result o where o.exam.id= ?1 ")
-    List<Result> findResultByExam( Long idExam);
+    List<Result> findResultByExam(Long idExam);
+
     @Query("select o from Result o where o.id = ?1 ")
     Result findResult(Long idResult);
 }

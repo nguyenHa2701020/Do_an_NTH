@@ -15,7 +15,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query(value = "update Course set name = ?1 where id=?2")
     Course update(String name, Long id);
-   
+
     @Query("select p from Course p where p.name like %?1%")
     List<Course> findByName(String name);
 }

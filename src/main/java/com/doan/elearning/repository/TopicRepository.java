@@ -15,4 +15,6 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
 
     @Query("select o from Topic o where o.id = ?1")
     Topic findTopic(Long id);
+
+
 }

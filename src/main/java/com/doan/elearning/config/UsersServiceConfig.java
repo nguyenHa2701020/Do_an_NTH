@@ -25,9 +25,9 @@ public class UsersServiceConfig implements UserDetailsService {
             throw new UsernameNotFoundException("Could not find username");
         }
         return new User(
-            user.getUsername(),
-            user.getPassword(),
-            user.getRoles()
+                user.getUsername(),
+                user.getPassword(),
+                user.getRoles()
                         .stream()
                         .map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList()));
     }

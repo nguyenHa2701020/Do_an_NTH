@@ -7,126 +7,126 @@
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-        <!--Sidebar-->
-        <ul th:replace="~{fragment/fragments::sidebar}"></ul>
-        <!-- End of Sidebar -->
+    <!--Sidebar-->
+    <ul th:replace="~{fragment/fragments::sidebar}"></ul>
+    <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
-            <div id="content">
+        <!-- Main Content -->
+        <div id="content">
 
-                <!-- Topbar -->
-                <nav th:replace="~{fragment/fragments::topbar}"></nav>
-                <!-- End of Topbar -->
+            <!-- Topbar -->
+            <nav th:replace="~{fragment/fragments::topbar}"></nav>
+            <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                    data-whatever="@mdo">Add new question
-                </button> -->
-                <p th:if="${size == 0}">No question</p>
-                <div th:if="${success}" class="text-center alert alert-success">
-                    <p th:text="${success}">
-                    </p>
-                </div>
-                <div th:if="${error}" class="text-center alert alert-danger">
-                    <p th:text="${error}"></p>
-                </div>
-
-                <table class="table table-striped" th:if="${size > 0}">
-                    <thead>
-                        <tr>
-                            <th scope="col">Result Index</th>
-                            <th scope="col">Users</th>
-                            <th scope="col">Listen Point</th>
-                            <th scope="col">Speak Point</th>
-
-                            <th scope="col">Read Point</th>
-
-                            <th scope="col">Write Point</th>
-                            <th scope="col">Submit Time</th>
-                           
-                            <th scope="col">Action</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="users : ${result}">
-                            <th scope="row" th:text="${users.id}"></th>
-                            <td th:text="${users.userss.username}"></td>
-                            <td th:text="${users.listenPoint}"></td>
-                            <td th:text="${users.readPoint}"></td>
-                            <td th:text="${users.speakPoint}"></td>
-                            <td th:text="${users.writePoint}"></td>
-                            <td th:text="${users.submisTime}"></td>
-
-                            <td>
-                                <a th:href="@{/update-result/{id}(id= ${users.id})}"
-                                class="btn btn-primary">Update</a>
-                            </td>
-                            <td>
-                                <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
-                                    class="btn btn-primary">Enable</a>
-                                <a th:href="@{/delete-level(id = ${users.id})}" class=" btn btn-danger">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer th:replace="~{fragment/fragments::footer}"></footer>
-                <!-- End of Footer -->
-
+            <!-- Begin Page Content -->
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
+                data-whatever="@mdo">Add new question
+            </button> -->
+            <p th:if="${size == 0}">No question</p>
+            <div th:if="${success}" class="text-center alert alert-success">
+                <p th:text="${success}">
+                </p>
             </div>
-            <!-- End of Content Wrapper -->
+            <div th:if="${error}" class="text-center alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
+
+            <table class="table table-striped" th:if="${size > 0}">
+                <thead>
+                <tr>
+                    <th scope="col">Result Index</th>
+                    <th scope="col">Users</th>
+                    <th scope="col">Listen Point</th>
+                    <th scope="col">Speak Point</th>
+
+                    <th scope="col">Read Point</th>
+
+                    <th scope="col">Write Point</th>
+                    <th scope="col">Submit Time</th>
+
+                    <th scope="col">Action</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="users : ${result}">
+                    <th scope="row" th:text="${users.id}"></th>
+                    <td th:text="${users.userss.username}"></td>
+                    <td th:text="${users.listenPoint}"></td>
+                    <td th:text="${users.readPoint}"></td>
+                    <td th:text="${users.speakPoint}"></td>
+                    <td th:text="${users.writePoint}"></td>
+                    <td th:text="${users.submisTime}"></td>
+
+                    <td>
+                        <a th:href="@{/update-result/{id}(id= ${users.id})}"
+                           class="btn btn-primary">Update</a>
+                    </td>
+                    <td>
+                        <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
+                           class="btn btn-primary">Enable</a>
+                        <a th:href="@{/delete-level(id = ${users.id})}" class=" btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="~{fragment/fragments::footer}"></footer>
+            <!-- End of Footer -->
 
         </div>
+        <!-- End of Content Wrapper -->
+
     </div>
-    <!-- End of Page Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a th:replace="~{fragment/fragments::scroll}"></a>
+<!-- Scroll to Top Button-->
+<a th:replace="~{fragment/fragments::scroll}"></a>
 
-    <!--Add Categories Modal-->
-    
+<!--Add Categories Modal-->
 
-    <!--End-->
 
-    <!-- Edit Category Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
-                </div>
-                <div class="modal-body">
-                    <form th:action="@{/update-category}" method="put">
-                        <div class="form-group">
-                            <label for="idEdit" class="col-form-label">ID
-                            </label> <input type="text" class="form-control" id="idEdit" name="listenPoint" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="nameEdit" class="col-form-label">Category
-                                Name</label> <input type="text" class="form-control" id="nameEdit" name="writePoint">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
+<!--End-->
+
+<!-- Edit Category Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/update-category}" method="put">
+                    <div class="form-group">
+                        <label for="idEdit" class="col-form-label">ID
+                        </label> <input type="text" class="form-control" id="idEdit" name="listenPoint" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="nameEdit" class="col-form-label">Category
+                            Name</label> <input type="text" class="form-control" id="nameEdit" name="writePoint">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- End -->
-    <!-- Bootstrap core JavaScript-->
-    <div th:replace="~{fragment/fragments::script}"></div>
+</div>
+<!-- End -->
+<!-- Bootstrap core JavaScript-->
+<div th:replace="~{fragment/fragments::script}"></div>
 
-    <script th:src="@{/js/categories.js}"></script>
+<script th:src="@{/js/categories.js}"></script>
 </body>
 
 </html>

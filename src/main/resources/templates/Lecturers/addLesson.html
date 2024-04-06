@@ -8,77 +8,77 @@
 </head>
 
 <body>
-    <div th:replace="fragment/fragment::spinner"></div>
-    <nav th:replace="fragment/fragment::sidebar"></nav>
+<div th:replace="fragment/fragment::spinner"></div>
+<nav th:replace="fragment/fragment::sidebar"></nav>
 
-    <div class="container">
-        <div class="py-5 text-center">
+<div class="container">
+    <div class="py-5 text-center">
 
-            <h2>Add Lesson</h2>
+        <h2>Add Lesson</h2>
 
-        </div>
-
-            <div >
-               
-                <form class="needs-validation" novalidate th:action="@{/update-lesson/{id}(id = ${lesson.id})}"
-                    method="post" th:object="${lesson}" enctype="multipart/form-data">
-
-                    <div class="row">
-                        <div style="display: none;" class="col-md-6 mb-3">
-                            <label for="firstName">Id</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value=""
-                                th:field="*{id}">
-
-                        </div>
-                        <div style="display: none;" class="col-md-6 mb-3">
-                            <label for="lastName">id class</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value=""
-                                th:field="*{userss.id}">
-
-                        </div>
-                        <div style="display: none;" class="col-md-6 mb-3">
-                            <label for="lastName">id user</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value=""
-                                th:field="*{eclass.id}">
-
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="username">Name lesson</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">@</span>
-                                </div>
-                                <input type="text" class="form-control" id="username" th:field="*{name}">
-
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email">Link meet </label>
-                            <input type="email" class="form-control" id="email" th:field="*{link}">
-
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="address">Note</label>
-                            <input type="text" class="form-control" id="address" th:field="*{note}">
-
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="address2">Document</label>
-                            <input type="file" class="form-control" id="address2" placeholder="Apartment or suite" name="file">
-                        </div>
-                        <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
-    <div th:replace="fragment/fragment::footer"></div>
-    <div th:replace="fragment/fragment::script"></div>
+
+    <div>
+
+        <form class="needs-validation" novalidate th:action="@{/update-lesson/{id}(id = ${lesson.id})}"
+              method="post" th:object="${lesson}" enctype="multipart/form-data">
+
+            <div class="row">
+                <div style="display: none;" class="col-md-6 mb-3">
+                    <label for="firstName">Id</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="" value=""
+                           th:field="*{id}">
+
+                </div>
+                <div style="display: none;" class="col-md-6 mb-3">
+                    <label for="lastName">id class</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                           th:field="*{userss.id}">
+
+                </div>
+                <div style="display: none;" class="col-md-6 mb-3">
+                    <label for="lastName">id user</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                           th:field="*{eclass.id}">
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="username">Name lesson</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input type="text" class="form-control" id="username" th:field="*{name}">
+
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email">Link meet </label>
+                    <input type="email" class="form-control" id="email" th:field="*{link}">
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="address">Note</label>
+                    <input type="text" class="form-control" id="address" th:field="*{note}">
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="address2">Document</label>
+                    <input type="file" class="form-control" id="address2" placeholder="Apartment or suite" name="file">
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<div th:replace="fragment/fragment::footer"></div>
+<div th:replace="fragment/fragment::script"></div>
 </body>
 
 </html>

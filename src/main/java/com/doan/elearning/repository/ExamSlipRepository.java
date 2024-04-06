@@ -19,7 +19,9 @@ public interface ExamSlipRepository extends JpaRepository<ExamSlip, Long> {
 
     @Query(value = "update ExamSlip set answer = ?1 where id=?2")
     ExamSlip update(String answer, Long id);
+
     @Query("select o from ExamSlip o  where o.id=?1")
-    ExamSlip finfExamSlip( Long id);
+    ExamSlip finfExamSlip(Long id);
+
 
 }

@@ -2,7 +2,6 @@ package com.doan.elearning.service;
 
 import java.util.List;
 
-
 import com.doan.elearning.dto.TopicDto;
 
 import com.doan.elearning.entity.Topic;
@@ -10,9 +9,7 @@ import com.doan.elearning.entity.Topic;
 public interface TopicService {
     Topic save(TopicDto topicDto);
 
-    List<Topic> findAll();
-
-   Topic findById(Long id);
+    Topic findById(Long id);
 
     Topic update(TopicDto topicDto);
 
@@ -20,4 +17,5 @@ public interface TopicService {
 
     List<Topic> findTopic(String keyword);
 
+    List<Topic> findAll();
 }

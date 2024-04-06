@@ -18,7 +18,7 @@ public class ResultDto {
     private Float speakPoint;
     private Float readPoint;
     private Float writePoint;
-  private Date submisTime;
+    private Date submisTime;
     private Exam exam;
 
     private Users users;

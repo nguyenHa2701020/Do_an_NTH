@@ -8,14 +8,15 @@ import com.doan.elearning.dto.LevelDto;
 import com.doan.elearning.entity.Level;
 
 public interface LevelService {
-  Level save(LevelDto leveldto);
+    Level save(LevelDto leveldto);
 
-  Level update(LevelDto levelDto);
+    Level update(LevelDto levelDto);
 
-  List<Level> findAll();
+    List<Level> findAll();
 
-  void delete(Long id);
+    void delete(Long id);
 
-  Optional<Level> findById(Long id);
+    Optional<Level> findById(Long id);
+
     List<Level> findLevel(String keyword);
 }

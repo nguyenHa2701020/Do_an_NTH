@@ -3,6 +3,8 @@ package com.doan.elearning.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,11 +32,12 @@ public class Level {
     @Column(name = "level_id")
     private Long id;
     private String name;
-
-    @ManyToOne( fetch = FetchType.EAGER)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
- @OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
+     @JsonBackReference
+    @OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
     private List<Eclass> eclass;
-    
+
 }

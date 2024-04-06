@@ -5,78 +5,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
 
 <body>
-    <div th:replace="fragment/fragment::spinner"></div>
-    <nav th:replace="fragment/fragment::sidebar"></nav>
+<div th:replace="fragment/fragment::spinner"></div>
+<nav th:replace="fragment/fragment::sidebar"></nav>
 
-    <!-- <table>
-    <tr th:each="eclass : ${schedule}">
-        <th scope="row" th:text="${eclass.id}"></th>
-        <td th:text="${eclass.studytime}"></td>
-        <td th:text="${eclass.eclass.name}"></td>
-        <td th:text="${eclass.datelearn}"></td>
-        </tr>
-   </table>
+<div class="container">
 
-   <table>
-    <tr th:each="eclass : ${schedule7}">
-        <td th:text="${eclass}"></td>
-       
-        </tr>
-   </table> -->
+    <form action="/schedulestudent?role=std" method="post" style="margin-top: 100px;" th:if="${rolelogin}==STUDENT">
+        <label for="date-input">Ngày:</label>
 
-    
+        <input type="date" th:value="${currentDate.toString()}" id="date-input" name="date"/>
 
-    <div class="container">
+        <button type="submit">Xem</button>
+    </form>
+    <form th:action="@{/schedulestudent(role='lct',idClass=${idClass})}" method="post" style="margin-top: 100px;"
+          th:if="${rolelogin}==LECTURER">
+        <label for="date-input">Ngày:</label>
 
-        <form action="/schedulestudent" method="post" style="margin-top: 100px;" >
-            <label for="date-input">Ngày:</label>
+        <input type="date" th:value="${currentDate.toString()}" id="date-input" name="date"/>
 
-            <input type="date" th:value="${currentDate.toString()}" id="date-input" name="date"/>
+        <button type="submit">Xem</button>
+    </form>
 
-            <button type="submit">Gửi</button>
-        </form>
+    <div class="timetable-img text-center">
+        <img src="img/content/timetable.png" alt="">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered text-center" style="margin-bottom: 100px;">
+            <thead>
+            <tr class="bg-light-gray">
+                <th th:each="data : ${schedule7}">
+                    <!-- <h3 th:text="${eclass}"></h3> -->
+                    <span th:text="${data.keySet().iterator().next()}"></span><br>
+                    <span th:text="${data.values().iterator().next()}"></span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${schedule7!=null}">
+
+                <td th:each="eclass : ${valueschedule}">
+                    <h4 class="bg-primary" th:if="${eclass != null}" th:text="${eclass.eclass.name}"></h4>
+                    <br>
+
+                    <h6 th:if="${eclass != null}"
+                        th:text="${eclass.studytime == 'Sáng' ? eclass.studytime + ' 8:30-10:30' : (eclass.studytime == 'Chiều' ? eclass.studytime + ' 14:00-16:00' : (eclass.studytime == 'Tối' ? eclass.studytime + ' 17:30-19:30' : ''))}">
+                    </h6>
+                    <span th:if="${eclass != null}">
+                                <a th:if="${rolelogin}==LECTURER" th:href="@{/notification(id=${eclass.id})}">
+                                    Notification </a></span>
+
+                    <span th:if="${eclass != null}">
+                                <a th:href="@{findByNotification(id=${eclass.id})}" class="btn " data-bs-toggle="modal"
+                                   data-bs-target="#paymentModal" th:if="${eclass.isNotification}"
+                                   id="openDialogButton"> <i class="bi bi-bell"></i></a>
 
 
-        <div class="timetable-img text-center">
-            <img src="img/content/timetable.png" alt="">
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered text-center" style="margin-bottom: 100px;">
-                <thead>
-                    <tr class="bg-light-gray">
-                        <th th:each="data : ${schedule7}">
-                            <!-- <h3 th:text="${eclass}"></h3> -->
-                        <span th:text="${data.keySet().iterator().next()}"></span><br>
-                        <span th:text="${data.values().iterator().next()}"></span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        
-                        <td th:each="eclass : ${valueschedule}">
-                            <h4 class="bg-primary" th:if="${eclass != null}" th:text="${eclass.eclass.name}"></h4>
-                            <br>
-                            <!-- <h6 th:if="${eclass != null}" th:text="${eclass.studytime} == 'Sáng' ? ${eclass.studytime + '8:30-10:30'} : ${eclass.studytime}">
-                            <h6 th:if="${eclass != null}" th:text="${eclass.studytime} == 'Chiều' ? ${eclass.studytime + '14:00-16:00'} : ${eclass.studytime}">
-                            <h6 th:if="${eclass != null}" th:text="${eclass.studytime} == 'Tối' ? ${eclass.studytime + '17:30-19:30'} : ${eclass.studytime}"></h6>
-                         -->
-                         <h6 th:if="${eclass != null}" th:text="${eclass.studytime == 'Sáng' ? eclass.studytime + ' 8:30-10:30' : (eclass.studytime == 'Chiều' ? eclass.studytime + ' 14:00-16:00' : (eclass.studytime == 'Tối' ? eclass.studytime + ' 17:30-19:30' : ''))}"></h6>
-                        
-                         <span th:if="${eclass == null}">
-                         </span>
-                        </td>
-                    </tr>
+                            </span>
 
-                </tbody>
-            </table>
+
+                    <span th:if="${eclass == null}">
+                            </span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header align-items-center d-flex">
+                <h4 class="modal-title" id="paymentModalLabel">Add New Payment Method</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row clearfix">
+                    <div id="listContainer" class="col-md-12 col-lg-12 col-xl-12">
+                        <ul class="mail_list list-group list-unstyled">
+                            <li class="list-group-item">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <div class="controls">
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="basic_checkbox_1">
+                                                <label for="basic_checkbox_1"></label>
+                                            </div>
+                                            <a href="javascript:void(0);"
+                                               class="favourite text-muted hidden-sm-down" data-toggle="active"><i
+                                                    class="zmdi zmdi-star-outline"></i></a>
+                                        </div>
+                                        <div class="thumb hidden-sm-down m-r-20"><img
+                                                src="assets/images/xs/avatar1.jpg" class="rounded-circle" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="media-heading">
+                                            <a href="mail-single.html" class="m-r-10">Velit a labore</a>
+                                            <span class="badge bg-blue">Family</span>
+                                            <small class="float-right text-muted">
+                                                <time class="hidden-sm-down"
+                                                      datetime="2017">12:35 AM
+                                                </time>
+                                                <i
+                                                        class="zmdi zmdi-attachment-alt"></i> </small>
+                                        </div>
+                                        <p class="msg">Lorem Ipsum is simply dumm dummy text of the printing and
+                                            typesetting industry. </p>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div th:replace="fragment/fragment::footer"></div>
-    <div th:replace="fragment/fragment::script"></div>
+</div>
+
+<div th:replace="fragment/fragment::footer"></div>
+<div th:replace="fragment/fragment::script"></div>
+<script>
+    $(document).ready(function () {
+        $('#openDialogButton').on('click', function () {
+            var href = $(this).attr('href'); // Thay thế bằng endpoint API của bạn
+            $.get(href, function (categories, status) {
+                // Xóa các phần tử cũ trong container
+                $('#listContainer').empty();
+
+                // Thêm các phần tử mới vào container
+                categories.forEach(function (category) {
+                    var listItem = $('<li class="list-group-item"></li>').addClass('list-item');
+                    //đang trên mây
+                    var info = $('<div>').addClass('info');
+                    var name = $('<div>').addClass('name').text(category.title);
+                    var description = $('<div>').addClass('description').text(category.content);
+
+                    info.append(name, description);
+                    listItem.append(info);
+
+                    $('#listContainer').append(listItem);
+                });
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

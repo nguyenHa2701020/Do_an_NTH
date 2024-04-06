@@ -2,16 +2,14 @@ package com.doan.elearning.service.impl;
 
 import java.util.List;
 
-import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.stereotype.Service;
 
-import com.doan.elearning.dto.LevelDto;
 import com.doan.elearning.dto.QuestionDto;
-import com.doan.elearning.entity.Level;
+import com.doan.elearning.entity.Eclass;
 import com.doan.elearning.entity.Questions;
-import com.doan.elearning.repository.LevelRepository;
+
 import com.doan.elearning.repository.QuestionsRepository;
-import com.doan.elearning.service.LevelService;
+
 import com.doan.elearning.service.QuestionService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,9 @@ public class QuestionServiceImple implements QuestionService {
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
+        Questions questionss = questionsRepo.findByLgid(id);
+
+        questionsRepo.delete(questionss);
 
     }
 
@@ -50,6 +50,11 @@ public class QuestionServiceImple implements QuestionService {
     @Override
     public List<Questions> randomQuestion(String type, int number) {
         return questionsRepo.randomQuestion(type, number);
+    }
+
+    @Override
+    public Questions findByLgid(Long id) {
+        return questionsRepo.findByLgid(id);
     }
 
 }

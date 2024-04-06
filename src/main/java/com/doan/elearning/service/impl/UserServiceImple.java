@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.doan.elearning.dto.UserDto;
-import com.doan.elearning.entity.Level;
+
 import com.doan.elearning.entity.Users;
 import com.doan.elearning.repository.RoleRepository;
 import com.doan.elearning.repository.UsersRepository;
@@ -82,10 +82,16 @@ public class UserServiceImple implements UserService {
 
         return userRepository.save(userUpdate);
     }
+
     @Override
     public Users changePass(Users users) {
         Users customer = userRepository.findByUsername(users.getUsername());
         customer.setPassword(users.getPassword());
         return userRepository.save(customer);
+    }
+
+    @Override
+    public List<Users> findByIdClass(Long id) {
+        return userRepository.findByIdClass(id);
     }
 }

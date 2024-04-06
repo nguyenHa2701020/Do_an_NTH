@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,16 +32,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "eclass", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Eclass {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "eclass_id")
     private Long id;
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
-    private Date start; 
-
-    @ManyToOne( fetch = FetchType.EAGER)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+7")
+    private Date start;
+    // @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id", referencedColumnName = "level_id")
     private Level level;
 
@@ -50,8 +51,10 @@ public class Eclass {
     @JsonManagedReference
     @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
     private List<Lesson> lessons;
+    @JsonBackReference
     @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
     private List<Exam> exam;
-   
-    
+    @JsonBackReference
+    @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
+    private List<Schedule> schedule;
 }

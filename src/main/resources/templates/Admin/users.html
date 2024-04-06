@@ -36,7 +36,7 @@
                     <p th:text="${error}"></p>
                 </div>
 
-                <table class="table table-striped" th:if="${size > 0}">
+                <table class="table table-striped danhMucTable " th:if="${size > 0}">
                     <thead>
                         <tr>
                             <th scope="col">User Index</th>
@@ -50,15 +50,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="users : ${usersss}">
+                        <!-- <tr th:each="users : ${usersss}">
                             <th scope="row" th:text="${users.id}"></th>
                             <td th:text="${users.lgid}"></td>
                             <td th:text="${users.username}"></td>
                             <td th:text="${users.address}"></td>
                             <td th:text="${users.phone}"></td>
                             <td th:if="${users.username !='Admin'}">
-   <a id="g" th:href="@{/update-user/{id}(id = ${users.id})}"
-                                    class="btn btn-primary">Update</a>                             
+                                <a id="g" th:href="@{/update-user/{id}(id = ${users.id})}"
+                                    class="btn btn-primary">Update</a>
                             </td>
                             <td th:if="${users.username !='Admin'}">
                                 <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
@@ -66,7 +66,7 @@
                                 <a th:if="${users.id}" th:href="@{/delete-users(id = ${users.id})}"
                                     class=" btn btn-danger">Delete</a>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
 
@@ -92,6 +92,40 @@
     <div th:replace="~{fragment/fragments::script}"></div>
 
     <script th:src="@{/js/categories.js}"></script>
+    <script>
+        $(document).ready(function () {
+            ajaxGet();
+            function ajaxGet() {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8888/api/users/",
+                    success: function (result) {
+                        $.each(result, function (i, users) {
+                            var UsersRow = '<tr style="text-align: center;">' +
+                                '<td width="20%">' + users.id + '</td>' +
+                                '<td>' + users.name + '</td>' +
+
+                                // '<td>' + eclass.level.name + '</td>' +
+                                // '<td>' + eclass.start + '</td>' +
+                                // '<td>' + eclass.idGV + '</td>' +
+                                '<td>' + '<input type="hidden" value=' + users.id + '>'
+                                + '<button class="btn btn-primary updateUsers" >Cập nhật</button>' +
+                                '   <button class="btn btn-danger deleteUsers">Xóa</button></td>'
+                            '</tr>';
+
+                            $('.danhMucTable tbody').append(UsersRow);
+                        });
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            };
+        });
+    </script>
+
 </body>
 
 </html>

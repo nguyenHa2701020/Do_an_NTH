@@ -8,83 +8,86 @@
 </head>
 
 <body>
-    <div th:replace="fragment/fragment::spinner"></div>
-    <nav th:replace="fragment/fragment::sidebar"></nav>
-    <div class="col-12">
-        <div class="card border rounded-3">
-            <!-- Card header START -->
-            <div class="card-header border-bottom">
-             
-            </div>
-            <!-- Card header END -->
+<div th:replace="fragment/fragment::spinner"></div>
+<nav th:replace="fragment/fragment::sidebar"></nav>
+<div class="col-12">
+    <div class="card border rounded-3">
+        <!-- Card header START -->
+        <div class="card-header border-bottom">
 
-            <!-- Card body START -->
-            <!-- <p th:if="${size == 0}">No lesson</p> -->
-            <div class="card-body">             
-                <div class="row g-5" th:if="${size > 0}">
-                    <!-- Lecture item START -->
-                    <div class="col-12" th:each="less : ${lessons}">
-                        <!-- Curriculum item -->
-                        <h5 class="mb-4" th:text="${less.name}"></h5>
-                        <div class="d-sm-flex justify-content-sm-between align-items-center">
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-danger-soft btn-round mb-0"><i class="fas fa-file"></i></a>
-                                <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
-                                    <h6 class="mb-0">Document</h6>
-                                    <a th:if="${less.document !=null}" th:href="@{/download/{fileName}(fileName=${less.document})}">Download Document Now </a>
-                                </div>
-                            </div>
-                            <!-- Button -->
-                            
-                            <a th:href="@{/addlesson(id = ${less.id})}" class="btn btn-sm btn-success mb-0" th:if="${rolelogin}==LECTURER or ${rolelogin}==ADMIN">Update</a>
-                        </div>
-                        <!-- Divider -->
-                        <hr>
-
-                        <!-- Curriculum item -->
-                        <div class="d-sm-flex justify-content-sm-between align-items-center">
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-danger-soft btn-round mb-0 flex-shrink-0"><i
-                                        class="fas fa-link"></i></a>
-                                <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
-                                    <h6 class="mb-0">Link meet</h6>
-                                    <!-- <p class="mb-2 mb-sm-0 small" th:text="${less.link}"></p> -->
-                                    <a th:if="${less.link !=null}" th:href="${less.link}" target="_blank"> Go to Lesson</a>
-                                </div>
-                            </div>
-                            <!-- Button -->
-                        
-                        </div>
-                        <!-- Divider -->
-                        <hr>
-
-                        <!-- Curriculum item -->
-                        <div class="d-sm-flex justify-content-sm-between align-items-center">
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-light btn-round mb-0 flex-shrink-0"><i
-                                        class="fa fa-comment"></i></a>
-                                <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
-                                    <h6 class="mb-0">Note</h6>
-                                    <p class="mb-2 mb-sm-0 small" th:text="${less.note}"></p>
-                                </div>
-                            </div>
-                            <!-- Button -->
-                         
-                        </div>
-                    </div>
-                    <!-- Lecture item END -->
-
-                    <!-- Collapse button -->
-                    
-
-                </div>
-            </div>
-            <!-- Card body START -->
         </div>
-    </div>
+        <!-- Card header END -->
 
-    <div th:replace="fragment/fragment::footer"></div>
-    <div th:replace="fragment/fragment::script"></div>
+        <!-- Card body START -->
+        <!-- <p th:if="${size == 0}">No lesson</p> -->
+        <div class="card-body">
+            <div class="row g-5" th:if="${size > 0}">
+                <!-- Lecture item START -->
+                <div class="col-12" th:each="less : ${lessons}">
+                    <!-- Curriculum item -->
+                    <h5 class="mb-4" th:text="${less.name}"></h5>
+                    <div class="d-sm-flex justify-content-sm-between align-items-center">
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-danger-soft btn-round mb-0"><i class="fas fa-file"></i></a>
+                            <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
+                                <h6 class="mb-0">Document</h6>
+                                <a th:if="${less.document !=null}"
+                                   th:href="@{/download/{fileName}(fileName=${less.document})}">Download Document
+                                    Now </a>
+                            </div>
+                        </div>
+                        <!-- Button -->
+
+                        <a th:href="@{/addlesson(id = ${less.id})}" class="btn btn-sm btn-success mb-0"
+                           th:if="${rolelogin}==LECTURER or ${rolelogin}==ADMIN">Update</a>
+                    </div>
+                    <!-- Divider -->
+                    <hr>
+
+                    <!-- Curriculum item -->
+                    <div class="d-sm-flex justify-content-sm-between align-items-center">
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-danger-soft btn-round mb-0 flex-shrink-0"><i
+                                    class="fas fa-link"></i></a>
+                            <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
+                                <h6 class="mb-0">Link meet</h6>
+                                <!-- <p class="mb-2 mb-sm-0 small" th:text="${less.link}"></p> -->
+                                <a th:if="${less.link !=null}" th:href="${less.link}" target="_blank"> Go to Lesson</a>
+                            </div>
+                        </div>
+                        <!-- Button -->
+
+                    </div>
+                    <!-- Divider -->
+                    <hr>
+
+                    <!-- Curriculum item -->
+                    <div class="d-sm-flex justify-content-sm-between align-items-center">
+                        <div class="d-flex">
+                            <a href="#" class="btn btn-light btn-round mb-0 flex-shrink-0"><i
+                                    class="fa fa-comment"></i></a>
+                            <div class="ms-2 ms-sm-3 mt-1 mt-sm-0">
+                                <h6 class="mb-0">Note</h6>
+                                <p class="mb-2 mb-sm-0 small" th:text="${less.note}"></p>
+                            </div>
+                        </div>
+                        <!-- Button -->
+
+                    </div>
+                </div>
+                <!-- Lecture item END -->
+
+                <!-- Collapse button -->
+
+
+            </div>
+        </div>
+        <!-- Card body START -->
+    </div>
+</div>
+
+<div th:replace="fragment/fragment::footer"></div>
+<div th:replace="fragment/fragment::script"></div>
 </body>
 
 </html>

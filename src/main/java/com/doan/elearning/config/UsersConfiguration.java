@@ -19,12 +19,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class UsersConfiguration {
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new UsersServiceConfig();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -42,14 +42,13 @@ public class UsersConfiguration {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests( author ->
+                .authorizeHttpRequests(author ->
                         author.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 // .requestMatchers("/home").permitAll()
-                                .requestMatchers("/lesson","/change-password").hasAnyAuthority("LECTURER","STUDENT","ADMIN") 
-                                .requestMatchers("/forgot-password").permitAll()
-                                .requestMatchers("/user","/course","/eclass","/schedule","/lesson", "/admin",  "/register", "/register-new","/result").hasAuthority("ADMIN")
+                                .requestMatchers("/lesson", "/change-password/").hasAnyAuthority("LECTURER", "STUDENT", "ADMIN")
+                                .requestMatchers("/forgot-password", "/schedulestudent/std").permitAll()
+                                .requestMatchers("/user", "/course", "/eclass", "/schedule", "/lesson", "/admin", "/register", "/register-new", "/result").hasAuthority("ADMIN")
                                 .anyRequest().permitAll()
-
                 )
                 .formLogin(login ->
                         login.loginPage("/login")
@@ -64,7 +63,7 @@ public class UsersConfiguration {
                                 .logoutSuccessUrl("/login?logout")
                                 .permitAll()
                 )
-                .exceptionHandling(exception -> exception.accessDeniedPage("/error403") )
+                .exceptionHandling(exception -> exception.accessDeniedPage("/error403"))
                 .authenticationManager(authenticationManager)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)

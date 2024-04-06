@@ -10,7 +10,7 @@ import com.doan.elearning.entity.Lesson;
 
 
 @Repository
-public interface LessonRepository extends JpaRepository<Lesson,Long> {
+public interface LessonRepository extends JpaRepository<Lesson, Long> {
     @Query("select o from Lesson o where o.eclass.id = ?1")
     List<Lesson> findLessonByClass(Long id);
 

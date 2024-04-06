@@ -8,11 +8,16 @@ import com.doan.elearning.entity.Exam;
 
 
 public interface ExamService {
-     Exam save(ExamDto examDto);
+    Exam save(ExamDto examDto);
+
     List<Exam> findExamByClass(Long id);
+
     Exam update(Exam exam);
+
     List<Exam> findAll();
-    Exam findExam(Long id); 
-    Exam updateExam(boolean status, Long id) ;
+
+    Exam findExam(Long id);
+
+    Exam updateExam(boolean status, Long id);
 
 }

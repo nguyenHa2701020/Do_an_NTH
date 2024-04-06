@@ -1,10 +1,9 @@
 package com.doan.elearning.controller;
 
 import java.security.Principal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class ExamSlipController {
 
     @GetMapping("/studentExam")
     public String examSlip(Long id, Model model, Principal principal, Authentication authentication,
-            RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes) {
         if (principal != null) {
             model.addAttribute("namelogin", principal.getName());
             Users usk = us.findByUsername(principal.getName());
@@ -58,7 +57,6 @@ public class ExamSlipController {
                 model.addAttribute("rolelogin", rl.get(0).getName());
             }
             Exam exam = examService.findExam(id);
-            
 
             List<ExamSlip> examSlips = examSlipService.findExamSlipByUser(usk.getId(), exam.getIdTopic());
             if (examSlips.isEmpty()) {
@@ -80,7 +78,7 @@ public class ExamSlipController {
                 resultDto.setWritePoint(0f);
 
                 resultService.save(resultDto);
-
+                //examSlipService.createExamSlip(usk, exam);
             }
             List<ExamSlip> examSlipsYes = examSlipService.findExamSlipByUser(usk.getId(), exam.getIdTopic());
             model.addAttribute("examSlip", examSlipsYes);
@@ -93,7 +91,8 @@ public class ExamSlipController {
             model.addAttribute("h", hour);
             model.addAttribute("mn", minute);
             model.addAttribute("exam", exam);
-            Boolean checkTime = checkTime(exam.getDateExam(), exam.getEndExam());
+            Boolean checkTime = examSlipService.checkTime(exam.getDateExam(), exam.getEndExam());
+
             if (checkTime == false) {
                 redirectAttributes.addFlashAttribute("error", "Exam time is over!");
                 return "redirect:/examclass?id=" + exam.getEclass().getId();
@@ -112,31 +111,10 @@ public class ExamSlipController {
 
     }
 
-    public boolean checkTime(String dateExam, String endTime) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date currentTime = new Date();
-
-        Date endTimee = new Date();
-        try {
-
-            endTimee = dateFormat.parse(dateExam + " " + endTime + ":00");
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar current = Calendar.getInstance();
-        current.setTime(currentTime);
-
-        Calendar end = Calendar.getInstance();
-        end.setTime(endTimee);
-        boolean check = (current.before(end) || current.equals(end));
-        return check;
-    }
-
     @PostMapping("/updateExamSlip")
     public String updateExamSlip(@RequestParam("answer") String answer,
-            @RequestParam("id") Long id, @RequestParam("examId") Long examId, HttpServletRequest request,
-            Principal principal) {
+                                 @RequestParam("id") Long id, @RequestParam("examId") Long examId, HttpServletRequest request,
+                                 Principal principal) {
         examSlipService.update(answer, id);
         Users usk = us.findByUsername(principal.getName());
         // ExamSlip examSlip = examSlipService.finfExamSlip(id);
@@ -167,7 +145,7 @@ public class ExamSlipController {
         Result result2 = scoreCalculate(users.getId(), exam.getIdTopic());
         result.setListenPoint(result2.getListenPoint());
         result.setReadPoint(result2.getReadPoint());
-        //result.setSpeakPoint(0f);
+        // result.setSpeakPoint(0f);
         result.setWritePoint(0f);
         result.setUserss(users);
         result.setExam(exam);
@@ -217,10 +195,11 @@ public class ExamSlipController {
             Principal principal, Model model) {
 
         Result result = resultService.findResult(id);
-        List<ExamSlip> lstExamSlips= examSlipService.findExamSlipByUser(result.getUserss().getId(), result.getExam().getIdTopic());
-        List<ExamSlip> lstWrite= new ArrayList<ExamSlip>();
+        List<ExamSlip> lstExamSlips = examSlipService.findExamSlipByUser(result.getUserss().getId(),
+                result.getExam().getIdTopic());
+        List<ExamSlip> lstWrite = new ArrayList<ExamSlip>();
         for (ExamSlip iterable_element : lstExamSlips) {
-            if(iterable_element.getTopicDetail().getQuestions().getType().equals("Writing")){
+            if (iterable_element.getTopicDetail().getQuestions().getType().equals("Writing")) {
                 lstWrite.add(iterable_element);
             }
         }

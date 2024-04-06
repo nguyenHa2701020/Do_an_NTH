@@ -8,68 +8,67 @@
 </head>
 
 <body>
-    <div th:replace="fragment/fragment::spinner"></div>
-    <nav th:replace="fragment/fragment::sidebar"></nav>
-    <section class="py-9" id="courses">
-        <div style="overflow: auto;" class="container">
-            <div class="section-title justify-content-center mb-4 mb-md-8 wow fadeInUp"
-                style="width: 100%; margin-top: 50px; text-align: center; visibility: visible; animation-name: fadeInUp;">
-                <span class="shape shape-left bg-info"></span>
-                <h2 style="margin-top: 20px;" >Our Exam</h2>
-                <span class="shape shape-right bg-info"></span>
-            </div>
-            <div th:if="${success}" class="text-center alert alert-success">
-                <p th:text="${success}">
-                </p>
-            </div>
-            <div th:if="${error}" class="text-center alert alert-danger">
-                <p th:text="${error}"></p>
-            </div>
-            <div style="float: left;height: 440px;" class="col-sm-6 col-lg-3 col-xs-12" th:each="users : ${exams}">
-                <div class="card" >
-                    <a href="course-single-left-sidebar.html" class="position-relative">
-                        <img class="card-img-top lazyestload"
-                           
-                            src="Images/exam.jpg"
-                            alt="Card image">
-                        <div class="card-img-overlay">
-                            <span class="badge bg-success badge-rounded-circle">New</span>
-                        </div>
-                    </a>
-                    <div class="card-body border-top-5 px-3 border-success">
-                        <h3 class="card-title">
-                            <a class="text-success text-capitalize d-block text-truncate"
-                                href="course-single-left-sidebar.html" th:text="${users.name}"></a>
-                        </h3>
-                        <ul class="list-unstyled text-muted">
-                            <li class="mb-1">
-                                <i class="far fa-calendar me-2" aria-hidden="true"></i>
-                                <p th:text="${users.dateExam}"></p>
-                            </li>
-                            <li>
-                                <i class="far fa-clock me-2" aria-hidden="true"></i>
-                                <p th:text="${users.startExam +' - '+users.endExam}"></p>
-                            </li>
-                        </ul>
-                        <!-- <p> welcome to exam...</p> -->
-                        <div class="d-block" th:if="${users.status == true}">
-                            <a th:href="@{/studentExam(id = ${users.id})}" class="btn btn-white text-uppercase mb-1 btn-hover-success" style="
+<div th:replace="fragment/fragment::spinner"></div>
+<nav th:replace="fragment/fragment::sidebar"></nav>
+<section class="py-9" id="courses">
+    <div style="overflow: auto;" class="container">
+        <div class="section-title justify-content-center mb-4 mb-md-8 wow fadeInUp"
+             style="width: 100%; margin-top: 50px; text-align: center; visibility: visible; animation-name: fadeInUp;">
+            <span class="shape shape-left bg-info"></span>
+            <h2 style="margin-top: 20px;">Our Exam</h2>
+            <span class="shape shape-right bg-info"></span>
+        </div>
+        <div th:if="${success}" class="text-center alert alert-success">
+            <p th:text="${success}">
+            </p>
+        </div>
+        <div th:if="${error}" class="text-center alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+        <div style="float: left;height: 440px;" class="col-sm-6 col-lg-3 col-xs-12" th:each="users : ${exams}">
+            <div class="card">
+                <a href="course-single-left-sidebar.html" class="position-relative">
+                    <img class="card-img-top lazyestload"
+
+                         src="Images/exam.jpg"
+                         alt="Card image">
+                    <div class="card-img-overlay">
+                        <span class="badge bg-success badge-rounded-circle">New</span>
+                    </div>
+                </a>
+                <div class="card-body border-top-5 px-3 border-success">
+                    <h3 class="card-title">
+                        <a class="text-success text-capitalize d-block text-truncate"
+                           href="course-single-left-sidebar.html" th:text="${users.name}"></a>
+                    </h3>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-1">
+                            <i class="far fa-calendar me-2" aria-hidden="true"></i>
+                            <p th:text="${users.dateExam}"></p>
+                        </li>
+                        <li>
+                            <i class="far fa-clock me-2" aria-hidden="true"></i>
+                            <p th:text="${users.startExam +' - '+users.endExam}"></p>
+                        </li>
+                    </ul>
+
+                    <div class="d-block" th:if="${users.status == true}">
+                        <a th:href="@{/studentExam(id = ${users.id})}"
+                           class="btn btn-white text-uppercase mb-1 btn-hover-success" style="
                             background-color: #44cf80;">
-                                <i class="fas fa-play me-2" aria-hidden="true"></i>Start Exam
-                            </a>
-                            <!-- <a href="course-single-left-sidebar.html" class="btn btn-link text-hover-success ps-2 ps-lg-0">
-                            <i class="fas fa-angle-double-right me-1" aria-hidden="true"></i> More
-                        </a> -->
-                        </div>
+                            <i class="fas fa-play me-2" aria-hidden="true"></i>Start Exam
+                        </a>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </section>
+</section>
 
-    <div th:replace="fragment/fragment::footer"></div>
-    <div th:replace="fragment/fragment::script"></div>
+<div th:replace="fragment/fragment::footer"></div>
+<div th:replace="fragment/fragment::script"></div>
 </body>
 
 </html>

@@ -12,10 +12,12 @@ import com.doan.elearning.repository.ResultRepository;
 import com.doan.elearning.service.ResultService;
 
 import lombok.RequiredArgsConstructor;
+
 @Service
 @RequiredArgsConstructor
 public class ResultServiceImple implements ResultService {
- private final ResultRepository resultRepository;
+    private final ResultRepository resultRepository;
+
     @Override
     public List<Result> findAll() {
         return resultRepository.findAll();
@@ -23,7 +25,7 @@ public class ResultServiceImple implements ResultService {
 
     @Override
     public Result findResultByUser(Long idUser, Long idExam) {
-       return resultRepository.findResultByUser(idUser,idExam );
+        return resultRepository.findResultByUser(idUser, idExam);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class ResultServiceImple implements ResultService {
         result.setUserss(resultDto.getUsers());
         result.setWritePoint(resultDto.getWritePoint());
         result.setExam(resultDto.getExam());
-        
+
         return resultRepository.save(result);
     }
 
@@ -49,7 +51,7 @@ public class ResultServiceImple implements ResultService {
         resultUpdate.setSpeakPoint(result.getSpeakPoint());
         resultUpdate.setUserss(result.getUserss());
         resultUpdate.setExam(result.getExam());
-        
+
         return resultRepository.save(resultUpdate);
     }
 
@@ -62,5 +64,5 @@ public class ResultServiceImple implements ResultService {
     public Result findResult(Long idResult) {
         return resultRepository.findResult(idResult);
     }
-    
+
 }

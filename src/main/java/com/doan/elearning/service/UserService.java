@@ -14,6 +14,8 @@ public interface UserService {
 
     Users findByid(Long id);
 
+    List<Users> findByIdClass(Long id);
+
     Users updatUsers(UserDto userDto);
 
     List<Users> findALl();

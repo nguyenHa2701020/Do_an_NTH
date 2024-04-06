@@ -55,7 +55,7 @@ public class ResultController {
         return "Admin/result";
     }
 
-    @RequestMapping(value = "/findResultId", method = { RequestMethod.PUT, RequestMethod.GET })
+    @RequestMapping(value = "/findResultId", method = {RequestMethod.PUT, RequestMethod.GET})
     @ResponseBody
     public Result findExamId(Long id) {
         return resultService.findResult(id);
@@ -78,18 +78,18 @@ public class ResultController {
 
     @PostMapping("/update-result")
     public String updateProduct(@RequestParam("id") Long id,
-            @RequestParam("speak") Float speakPoint, @RequestParam("write") Float writePoint,
-            RedirectAttributes redirectAttributes, Principal principal, HttpServletRequest request) {
+                                @RequestParam("speak") Float speakPoint, @RequestParam("write") Float writePoint,
+                                RedirectAttributes redirectAttributes, Principal principal, HttpServletRequest request) {
 
         if (principal == null) {
             return "redirect:/login";
         }
-            Result result = resultService.findResult(id);
-            result.setSpeakPoint(speakPoint);
-            result.setWritePoint(writePoint);
-            resultService.update(result);
-            redirectAttributes.addFlashAttribute("success", "Update successfully!");
-        
+        Result result = resultService.findResult(id);
+        result.setSpeakPoint(speakPoint);
+        result.setWritePoint(writePoint);
+        resultService.update(result);
+        redirectAttributes.addFlashAttribute("success", "Update successfully!");
+
 
         return "redirect:/findResultByExam/" + result.getExam().getId();
     }

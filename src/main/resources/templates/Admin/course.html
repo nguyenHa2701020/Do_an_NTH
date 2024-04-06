@@ -24,10 +24,11 @@
                 <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
 
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/search-course/0}" method="get">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                    th:action="@{/search-course/0}" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." name="keyword" 
-                            aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            name="keyword" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
@@ -36,7 +37,7 @@
                     </div>
                 </form>
                 <!-- Begin Page Content -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
+                <button type="button" class="btn btn-primary addcourse" data-toggle="modal" data-target="#"
                     data-whatever="@mdo">Add new course
                 </button>
                 <p th:if="${size == 0}">No course</p>
@@ -48,7 +49,7 @@
                     <p th:text="${error}"></p>
                 </div>
 
-                <table class="table table-striped" th:if="${size > 0}">
+                <table class="table table-striped danhMucTable" th:if="${size > 0}">
                     <thead>
                         <tr>
                             <th scope="col">Course Index</th>
@@ -59,23 +60,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="users : ${courses}">
-                            <th scope="row" th:text="${users.id}"></th>
-                            <td th:text="${users.name}"></td>
-                            <td>
-                                <img class="my-product-image" style="height: 40px; width: 40px;" alt=""
-                                    th:src="'data:image/jpeg;base64,' + ${users.image}">
-                            </td>
-                            <td>
-                                <a th:href="@{/update-course/{id}(id= ${users.id})}" class="btn btn-primary">Update</a>
-                            </td>
-                            <td>
-                                <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
-                                    class="btn btn-primary">Enable</a>
-                                <a th:href="@{/delete-course(id = ${users.id})}" class=" btn btn-danger">Delete</a>
-                                
-                            </td>
-                        </tr>
+                        <!-- <tr th:each="users : ${courses}">
+                    <th scope="row" th:text="${users.id}"></th>
+                    <td th:text="${users.name}"></td>
+                    <td>
+                        <img class="my-product-image" style="height: 40px; width: 40px;" alt=""
+                            th:src="'data:image/jpeg;base64,' + ${users.image}">
+                    </td>
+                    <td>
+                        <a th:href="@{/update-course/{id}(id= ${users.id})}" class="btn btn-primary">Update</a>
+                    </td>
+                    <td>
+                        <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
+                            class="btn btn-primary">Enable</a>
+                        <a th:href="@{/delete-course(id = ${users.id})}" class=" btn btn-danger">Delete</a>
+
+                    </td>
+                </tr> -->
                     </tbody>
                 </table>
 
@@ -104,11 +105,14 @@
                     <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Course</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-course}" method="post" th:object="${courseDto}"
-                        enctype="multipart/form-data">
+                    <form class="addForCourse">
                         <div class="form-group">
                             <label for="name" class="col-form-label">Course Name:</label>
-                            <input type="text" class="form-control" id="name" th:field="*{name}" name="name">
+                            <input type="text" class="form-control" id="name" name="name">
+
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="id" name="id">
                         </div>
                         <div class="form-group">
                             <div class="col-md-4">
@@ -116,13 +120,13 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="image"> IMAGE</label>
                                     <div class="col-md-4">
-                                        <input id="image" name="imageProduct" class="input-file" type="file">
+                                        <input id="imageCourse" name="imageCourse" class="input-file" type="file">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary btnSaveCourse">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -133,35 +137,156 @@
 
     <!--End-->
 
-    <!-- Edit Category Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
-                </div>
-                <div class="modal-body">
-                    <form th:action="@{/update-course}" method="put">
-                        <div class="form-group">
-                            <label for="idEdit" class="col-form-label">ID
-                            </label> <input type="text" class="form-control" id="idEdit" name="id" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="nameEdit" class="col-form-label">Category
-                                Name</label> <input type="text" class="form-control" id="nameEdit" name="name">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
     <div th:replace="~{fragment/fragments::script}"></div>
 
     <script th:src="@{/js/categories.js}"></script>
+    <script>
+        $(document).ready(function () {
+            ajaxGet();
+
+
+            function ajaxGet() {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8888/api/course/",
+                    success: function (result) {
+                        $.each(result, function (i, course) {
+                            var CourseRow = '<tr style="text-align: center;">' +
+                                '<td width="20%">' + course.id + '</td>' +
+                                '<td>' + course.name + '</td>' +
+                                '<td>' + '<img class="my-course-image" style="height: 40px; width: 40px;">' + '</td>' +
+                                '<td>' + '<input type="hidden" value=' + course.id + '>'
+                                + '<button class="btn btn-primary updateCourse" >Cập nhật</button>' +
+                                '   <button class="btn btn-danger deleteCourse">Xóa</button></td>'
+                            '</tr>';
+                            // Tạo chuỗi base64 URL cho hình ảnh
+                            var $CourseRow = $(CourseRow); // Tạo một đối tượng jQuery từ chuỗi HTML
+
+                            var dataURI = 'data:image/jpeg;base64,' + course.image; // Đường dẫn base64 của ảnh
+
+                            $CourseRow.find('.my-course-image').attr('src', dataURI); // Đặt dữ liệu base64 vào thuộc tính src của phần tử <img>
+                            $('.danhMucTable tbody').append($CourseRow);
+                        });
+
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            };
+
+            $(document).on('click', '.addcourse', function (event) {
+                event.preventDefault();
+                $('#exampleAddCategoryModal').modal();
+
+                $('.btnUpdateCourse').removeClass('btnUpdateCourse').addClass('btnSaveCourse');
+                $('#id').val('');
+                $('#name').val('');
+            });
+
+            $(document).on('click', '.btnSaveCourse', function (event) {
+                event.preventDefault();
+                console.log("hello");
+                ajaxPost();
+            });
+            function ajaxPost() {
+                var formData = new FormData($('.addForCourse')[0]);
+                console.log(formData)
+                $.ajax({
+
+                    type: "POST",
+                    contentType: false,
+                    url: "http://localhost:8888/api/course/save",
+                    enctype: "multipart/form-data",
+                    data: formData,
+                    processData: false,
+                    success: function (reponse) {
+                        // window.location.reload();
+                        alert("Add success");
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+
+                    }
+
+                });
+            };
+
+            $(document).on('click', '.updateCourse', function (event) {
+                event.preventDefault();
+
+                var id = $(this).parent().find('input').val();
+
+                var href = "http://localhost:8888/api/course/" + id;
+                console.log(id + href);
+                $.get(href, function (course, status) {
+                    $('#id').val(course.id);
+                    $('#name').val(course.name);
+                })
+                $('#exampleAddCategoryModal').modal();
+                $('.btnSaveCourse').removeClass('btnSaveCourse').addClass('btnUpdateCourse');
+            });
+
+            $(document).on('click', '.deleteCourse', function () {
+
+
+                var id = $(this).parent().find('input').val();
+
+                var href = "http://localhost:8888/api/course/delete/" + id;
+                var confirmDelete = confirm("Are you sure to delete the course?");
+                if (confirmDelete) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: href,
+                        success: function () {
+                            window.location.reload();
+                            alert("Delete Success");
+
+                        },
+                        error: function () {
+                            alert("Delete Faiil");
+                        }
+                    });
+                }
+
+            });
+            $(document).on('click', '.btnUpdateCourse', function (event) {
+                event.preventDefault();
+                ajaxPut();
+
+            })
+
+            function ajaxPut() {
+                var formData = new FormData($('.addForCourse')[0]);
+                console.log(formData)
+                $.ajax({
+
+                    type: "PUT",
+                    contentType: false,
+                    url: "http://localhost:8888/api/course/update",
+                    enctype: "multipart/form-data",
+                    data: formData,
+                    processData: false,
+                    success: function (reponse) {
+                        window.location.reload();
+                        alert("Update success");
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+
+                    }
+
+                });
+            };
+        })
+
+    </script>
 </body>
 
 </html>

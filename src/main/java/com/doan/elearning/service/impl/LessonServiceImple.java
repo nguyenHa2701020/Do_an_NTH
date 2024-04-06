@@ -17,9 +17,10 @@ import lombok.RequiredArgsConstructor;
 
 public class LessonServiceImple implements LessonService {
     private final LessonRepository lessonRepository;
+
     @Override
     public Lesson save(LessonDto lesson) {
-         Lesson ls= new Lesson();
+        Lesson ls = new Lesson();
         ls.setName(lesson.getName());
         ls.setLink(lesson.getLink());
         ls.setDocument(lesson.getDocument());
@@ -28,18 +29,19 @@ public class LessonServiceImple implements LessonService {
 
         return lessonRepository.save(ls);
     }
+
     @Override
     public List<Lesson> findLessonByClass(Long id) {
-       return lessonRepository.findLessonByClass(id);
+        return lessonRepository.findLessonByClass(id);
     }
+
     @Override
     public Lesson findLessons(Long id) {
-       return lessonRepository.findByIdLs(id);
+        return lessonRepository.findByIdLs(id);
     }
+
     @Override
     public Lesson updateLessons(Lesson les) {
         return lessonRepository.save(les);
     }
-    }
-    
-
+}

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.doan.elearning.dto.CourseDto;
+
 import com.doan.elearning.dto.LevelDto;
 import com.doan.elearning.entity.Course;
 import com.doan.elearning.entity.Level;
@@ -48,10 +48,10 @@ public class LevelController {
 
     @PostMapping("/save-level")
     public String addLevel(@ModelAttribute("levelDto") LevelDto levelDto,
-            RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes) {
         try {
 
-            lv.save( levelDto);
+            lv.save(levelDto);
             redirectAttributes.addFlashAttribute("success", "Add new level successfully!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +60,8 @@ public class LevelController {
         return "redirect:/level";
 
     }
-        @RequestMapping(value = "/delete-level", method = {RequestMethod.GET, RequestMethod.PUT})
+
+    @RequestMapping(value = "/delete-level", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
             lv.delete(id);
@@ -75,11 +76,11 @@ public class LevelController {
         return "redirect:/level";
     }
 
-     @GetMapping("/update-level/{id}")
+    @GetMapping("/update-level/{id}")
     public String updateLevel(@PathVariable("id") Long id, Model model) {
-    
-       
-        Optional<Level> level=lv.findById(id);
+
+
+        Optional<Level> level = lv.findById(id);
 
         LevelDto levelDto = new LevelDto();
         levelDto.setId(level.get().getId());
@@ -99,7 +100,7 @@ public class LevelController {
             if (principal == null) {
                 return "redirect:/login";
             }
-            lv.update( levelDto);
+            lv.update(levelDto);
             redirectAttributes.addFlashAttribute("success", "Update successfully!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,10 +110,10 @@ public class LevelController {
     }
 
 
-     @GetMapping("/search-level/{pageNo}")
+    @GetMapping("/search-level/{pageNo}")
     public String searchProduct(
-                                @RequestParam(value = "keyword") String keyword,
-                                Model model, Principal principal
+            @RequestParam(value = "keyword") String keyword,
+            Model model, Principal principal
     ) {
         if (principal == null) {
             return "redirect:/login";

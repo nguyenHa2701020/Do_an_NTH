@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "questions")
 public class Questions {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "questions_id")
     private Long id;
@@ -33,7 +33,7 @@ public class Questions {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id", referencedColumnName = "level_id")
     private Level level;
+//
 
 
-    
 }

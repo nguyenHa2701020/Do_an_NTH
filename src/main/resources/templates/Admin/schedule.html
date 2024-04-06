@@ -1,30 +1,32 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="https://www.thymeleaf.org/">
-    <head  th:replace="~{fragment/fragments::header}">
-        
-    </head>
-    <body id="page-top">
-    
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{fragment/fragments::header}">
+
+</head>
+
+<body id="page-top">
+
     <!-- Page Wrapper -->
     <div id="wrapper">
-    
+
         <!--Sidebar-->
         <ul th:replace="~{fragment/fragments::sidebar}"></ul>
         <!-- End of Sidebar -->
-    
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-    
+
             <!-- Main Content -->
             <div id="content">
-    
+
                 <!-- Topbar -->
                 <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
-    
+
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                        data-whatever="@mdo">Add new schedule
+                    data-whatever="@mdo">Add new schedule
                 </button>
                 <p th:if="${size == 0}">No shedule</p>
                 <div th:if="${success}" class="text-center alert alert-success">
@@ -34,100 +36,105 @@
                 <div th:if="${error}" class="text-center alert alert-danger">
                     <p th:text="${error}"></p>
                 </div>
-    
-                <table class="table table-striped" th:if="${size > 0}">
+
+                <table class="table table-striped danhMucTable" th:if="${size > 0}">
                     <thead>
-                    <tr>
-                        <th scope="col">Schedule Index</th>
-                        <th scope="col">Study Time</th>
-                        <th scope="col">Class Name</th>
-                        <th scope="col">Date Learn</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">Action</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Schedule Index</th>
+                            <th scope="col">Study Time</th>
+                            <th scope="col">Class Name</th>
+                            <th scope="col">Date Learn</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="eclass : ${schedule}">
-                        <th scope="row" th:text="${eclass.id}"></th>
-                        <td th:text="${eclass.studytime}"></td>
-                        <td th:text="${eclass.eclass.name}"></td>
-                        <td th:text="${eclass.datelearn}"></td>
-                        <td>
-                            <a id="editButton"
-                               th:href="@{/findById(id = ${eclass.id})}"
-                               class="btn btn-primary">Update</a>
-                        </td>
-                        <td>
-                            <a th:if="${eclass.id} == true" th:href="@{/enable-users(id = ${eclass.id})}"
-                               class="btn btn-primary">Enable</a>
-                            <a th:if="${eclass.id} " th:href="@{/delete-users(id = ${eclass.id})}"
-                               class=" btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
+                        <!-- <tr th:each="eclass : ${schedule}">
+                    <th scope="row" th:text="${eclass.id}"></th>
+                    <td th:text="${eclass.studytime}"></td>
+                    <td th:text="${eclass.eclass.name}"></td>
+                    <td th:text="${eclass.datelearn}"></td>
+                    <td th:text="${eclass.isNotification}"></td>
+                    <td>
+                        <a id="editButton" th:href="@{/findById(id = ${eclass.id})}"
+                           class="btn btn-primary">Update</a>
+                    </td>
+                    <td>
+                        <a th:if="${eclass.id} == true" th:href="@{/enable-users(id = ${eclass.id})}"
+                           class="btn btn-primary">Enable</a>
+                        <a th:if="${eclass.id} " th:href="@{/delete-users(id = ${eclass.id})}"
+                           class=" btn btn-danger">Delete</a>
+                    </td>
+                </tr> -->
                     </tbody>
                 </table>
-    
+
                 <!-- End of Main Content -->
-    
+
                 <!-- Footer -->
                 <footer th:replace="~{fragment/fragments::footer}"></footer>
                 <!-- End of Footer -->
-    
+
             </div>
             <!-- End of Content Wrapper -->
-    
+
         </div>
     </div>
     <!-- End of Page Wrapper -->
-    
+
     <!-- Scroll to Top Button-->
     <a th:replace="~{fragment/fragments::scroll}"></a>
-    
+
     <!--Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleAddCategoryModalLabel"
-         aria-hidden="true">
+        aria-labelledby="exampleAddCategoryModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Schedule</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-schedule}" method="post" th:object = "${scheduleDto}"
-                    enctype="multipart/form-data">
+                    <form class="addForSchedule">
                         <div class="form-group">
                             <label for="name" class="col-form-label">
                                 Morning/ Afternoon/ Evening:</label>
                             <!-- <input type="text" class="form-control" id="name" th:field = "*{studytime}" name="name"> -->
-                            <select th:field="*{studytime}">
+                            <select id="studytime" name=" studytime" class="form-control">
                                 <option th:value="Sáng">Morning</option>
                                 <option th:value="Chiều">Afternoon</option>
                                 <option th:value="Tối">Evening</option>
-                            </select>
+                       </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Number of days of the week:</label>
-                            <input type="text" class="form-control" id="name" th:field = "*{numberdate}" name="name">
+                            <label for="name" class="col-form-label">Days of the week:</label>
+                            <input type="text" style="display: none;" class="form-control" id="numberdate" name="numberdate">
+                            <div id="checkboxes">
+                                <div><input type="checkbox" value="1">Monday</div>
+                                <div><input type="checkbox" value="2">Tuesday</div>
+                                <div><input type="checkbox" value="3">Wednesday</div>
+                                <div><input type="checkbox" value="4">Thursday</div>
+                                <div><input type="checkbox" value="5">Friday</div>
+                                <div><input type="checkbox" value="6">Saturday</div>
+                                <div><input type="checkbox" value="7">Sunday</div>
+                            </div>
                         </div>
-
- 
 
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label for="name" class="col-form-label">Class:</label>
                                 <!-- File Button -->
-                                <select id="product_categories" th:field = "*{idclass}" name="product_categories" class="form-control">
-                                    <option th:value = "null">-SELECT-</option>
-                                    <option th:each = "category : ${class}"
-                                            th:value = "${category.id}"
-                                            th:text = "${category.name}">
+                                <select id="eclass" name="eclass" class="form-control">
+                                    <option th:value="null">-SELECT-</option>
+                                    <option th:each="category : ${class}" th:value="${category.id}"
+                                        th:text="${category.name}">
                                     </option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary btnSaveSchedule">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -135,37 +142,205 @@
             </div>
         </div>
     </div>
-    
+
     <!--End-->
-    
+
+
     <!-- Edit Category Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
-                </div>
-                <div class="modal-body">
-                    <form th:action="@{/update-category}" method="put">
-                        <div class="form-group">
-                            <label for="idEdit" class="col-form-label">ID
-                            </label> <input type="text" class="form-control" id="idEdit" name="id" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="nameEdit" class="col-form-label">Category
-                                Name</label> <input type="text" class="form-control" id="nameEdit" name="name">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
+    <!-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/update-category}" method="put">
+                    <div class="form-group">
+                        <label for="idEdit" class="col-form-label">ID
+                        </label> <input type="text" class="form-control" id="idEdit" name="id" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="nameEdit" class="col-form-label">Category
+                            Name</label> <input type="text" class="form-control" id="nameEdit" name="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
             </div>
         </div>
     </div>
+</div> -->
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
     <div th:replace="~{fragment/fragments::script}"></div>
-    
+
     <script th:src="@{/js/categories.js}"></script>
+
+    <script>
+        $(document).ready(function () {
+            ajaxGet();
+            function ajaxGet() {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8888/api/schedule/",
+                    success: function (result) {
+                        $.each(result, function (i, schedule) {
+                            var SchedulesRow = '<tr style="text-align: center;">' +
+                                '<td width="20%">' + schedule.id + '</td>' +
+                                '<td>' + schedule.studytime + '</td>' +
+
+                                '<td>' + schedule.datelearn + '</td>' +
+                                // '<td>' + schedule.eclass.name + '</td>' +
+                                // '<td>' + eclass.idGV + '</td>' +
+                                '<td>' + '<input type="hidden" value=' + schedule.id + '>'
+                                + '<button class="btn btn-primary updateSchedule" >Cập nhật</button>' +
+                                '   <button class="btn btn-danger deleteSchedule">Xóa</button></td>'
+                            '</tr>';
+
+                            $('.danhMucTable tbody').append(SchedulesRow);
+                        });
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            }; $(document).on('click', '.addSchedule', function (event) {
+                event.preventDefault();
+                $('#exampleAddCategoryModal').modal();
+
+                $('.btnUpdateSchedule').removeClass('btnUpdateSchedule').addClass('btnSaveSchedule');
+                $('#id').val('');
+                $('#studytime').val('');
+                $('#').val('');
+                $('#eclassdatelearn').val('');
+            });
+
+            $(document).on('click', '.btnSaveSchedule', function (event) {
+                event.preventDefault();
+                console.log("hello");
+                ajaxPost();
+            });
+            function ajaxPost() {
+                var formData = new FormData($('.addForSchedule')[0]);
+                console.log(formData)
+                $.ajax({
+
+                    type: "POST",
+                    contentType: false,
+                    url: "http://localhost:8888/api/schedule/save",
+                    enctype: "multipart/form-data",
+                    data: formData,
+                    processData: false,
+                    success: function (reponse) {
+                        window.location.reload();
+                        alert("Add success");
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+
+                    }
+
+                });
+            };
+            $(document).on('click', '.updateSchedule', function (event) {
+                event.preventDefault();
+
+                var id = $(this).parent().find('input').val();
+
+                var href = "http://localhost:8888/api/schedule/" + id;
+                console.log(id + href);
+                $.get(href, function (schedule, status) {
+                    $('#id').val(schedule.id);
+                    $('#studytime').val(schedule.studytime);
+                    $('#datelearn').val(schedule.datelearn);
+                
+                })
+                $('#exampleAddCategoryModal').modal();
+                $('.btnSaveSchedule').removeClass('btnSaveSchedule').addClass('btnUpdateSchedule');
+            });
+        });
+        $(document).on('click', '.btnUpdateSchedule', function (event) {
+            event.preventDefault();
+            ajaxPut();
+
+        })
+
+        function ajaxPut() {
+            var formData = new FormData($('.addForSchedule')[0]);
+            console.log(formData)
+            $.ajax({
+
+                type: "PUT",
+                contentType: false,
+                url: "http://localhost:8888/api/schedule/update",
+                enctype: "multipart/form-data",
+                data: formData,
+                processData: false,
+                success: function (reponse) {
+                    window.location.reload();
+                    alert("Update success");
+
+                },
+                error: function (e) {
+                    alert("Error");
+
+                }
+
+            });
+        };
+
+        $(document).on('click', '.deleteSchedule', function () {
+
+
+var id = $(this).parent().find('input').val();
+
+var href = "http://localhost:8888/api/schedule/delete/" + id;
+var confirmDelete = confirm("Are you sure to delete the schedule?");
+if (confirmDelete) {
+    $.ajax({
+        type: "DELETE",
+        url: href,
+        success: function () {
+            window.location.reload();
+            alert("Delete Success");
+
+        },
+        error: function () {
+            alert("Delete Faiil");
+        }
+    });
+}
+        });
+
+
+        var selectedDays = [];
+
+        function handleCheckboxChange(checkbox) {
+            var value = parseInt(checkbox.value);
+
+            if (checkbox.checked) {
+                selectedDays.push(value);
+            } else {
+                var index = selectedDays.indexOf(value);
+                if (index !== -1) {
+                    selectedDays.splice(index, 1);
+                }
+            }
+
+            document.getElementById("numberdate").value = selectedDays;
+            console.log(selectedDays); // In ra mảng sau khi thay đổi
+        }
+
+        var checkboxes = document.querySelectorAll("#checkboxes input[type='checkbox']");
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                handleCheckboxChange(this);
+            });
+        });
+    </script>
+
 </body>
+
 </html>

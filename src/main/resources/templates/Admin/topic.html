@@ -24,10 +24,11 @@
                 <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
 
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/search-course/0}" method="get">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                    th:action="@{/search-course/0}" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." name="keyword" 
-                            aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            name="keyword" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
@@ -48,31 +49,31 @@
                     <p th:text="${error}"></p>
                 </div>
 
-                <table class="table table-striped" th:if="${size > 0}">
+                <table class="table table-striped danhMucTable" th:if="${size > 0}">
                     <thead>
                         <tr>
                             <th scope="col">Topics Index</th>
                             <th scope="col">Topics Name</th>
-                          
+
                             <th scope="col">Action</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="users : ${Topics}">
-                            <th scope="row" th:text="${users.id}"></th>
-                            <td th:text="${users.name}"></td>
-                          
-                            <td>
-                                <a th:href="@{/update-topic/{id}(id= ${users.id})}" class="btn btn-primary">Update</a>
-                            </td>
-                            <td>
-                                <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
-                                    class="btn btn-primary">Enable</a>
-                                <a th:href="@{/delete-topic(id = ${users.id})}" class=" btn btn-danger">Delete</a>
-                                
-                            </td>
-                        </tr>
+                        <!-- <tr th:each="users : ${Topics}">
+                    <th scope="row" th:text="${users.id}"></th>
+                    <td th:text="${users.name}"></td>
+
+                    <td>
+                        <a th:href="@{/update-topic/{id}(id= ${users.id})}" class="btn btn-primary">Update</a>
+                    </td>
+                    <td>
+                        <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
+                           class="btn btn-primary">Enable</a>
+                        <a th:href="@{/delete-topic(id = ${users.id})}" class=" btn btn-danger">Delete</a>
+
+                    </td>
+                </tr> -->
                     </tbody>
                 </table>
 
@@ -92,7 +93,7 @@
     <!-- Scroll to Top Button-->
     <a th:replace="~{fragment/fragments::scroll}"></a>
 
-    <!--Add Categories Modal-->
+    <!-- Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleAddCategoryModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -101,15 +102,15 @@
                     <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Topic</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-topic}" method="post" th:object="${TopicDto}"
-                        enctype="multipart/form-data">
+                    <form class="addForTopic">
                         <div class="form-group">
                             <label for="name" class="col-form-label">Topic Name:</label>
-                            <input type="text" class="form-control" id="name" th:field="*{name}" name="name">
+                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" style="display: none;" class="form-control" id="id" name="id">
                         </div>
-                       
+
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary btnSaveTopic">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -121,6 +122,29 @@
     <!--End-->
 
     <!-- Edit Category Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="addForTopic">
+                        <div class="form-group">
+                            <label for="idEdit" class="col-form-label">ID
+                            </label> <input type="text" class="form-control" id="id" name="id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nameEdit" class="col-form-label">Topic
+                                Name</label> <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -149,6 +173,149 @@
     <div th:replace="~{fragment/fragments::script}"></div>
 
     <script th:src="@{/js/categories.js}"></script>
+
+    <script>
+        $(document).ready(function () {
+            ajaxGet();
+            function ajaxGet() {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8888/api/topic/",
+                    success: function (result) {
+                        $.each(result, function (i, topic) {
+                            var TopicRow = '<tr style="text-align: center;">' +
+                                '<td width="20%">' + topic.id + '</td>' +
+                                '<td>' + topic.name + '</td>' +
+
+                                // '<td>' + eclass.level.name + '</td>' +
+                                // '<td>' + eclass.start + '</td>' +
+                                // '<td>' + eclass.idGV + '</td>' +
+                                '<td>' + '<input type="hidden" value=' + topic.id + '>'
+                                + '<button class="btn btn-primary updateTopic" >Cập nhật</button>' +
+                                '   <button class="btn btn-danger deleteTopic">Xóa</button></td>'
+                            '</tr>';
+
+                            $('.danhMucTable tbody').append(TopicRow);
+                        });
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            };
+
+            $(document).on('click', '.addTopic', function (event) {
+                event.preventDefault();
+                $('#exampleAddCategoryModal').modal();
+
+                $('.btnUpdateTopic').removeClass('btnUpdateTopic').addClass('btnSaveTopic');
+                $('#id').val('');
+                $('#name').val('');
+                // $('#start').val('');
+                // $('#level').val('');
+                // $('#gv').val('');
+            });
+
+            $(document).on('click', '.btnSaveTopic', function (event) {
+                event.preventDefault();
+                console.log("hello");
+                ajaxPost();
+            });
+            function ajaxPost() {
+                var formData = new FormData($('.addForTopic')[0]);
+                console.log(formData)
+                $.ajax({
+
+                    type: "POST",
+                    contentType: false,
+                    url: "http://localhost:8888/api/topic/save",
+                    enctype: "multipart/form-data",
+                    data: formData,
+                    processData: false,
+                    success: function (reponse) {
+                        window.location.reload();
+                        alert("Add success");
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+
+                    }
+
+                });
+            };
+
+            $(document).on('click', '.updateTopic', function (event) {
+                event.preventDefault();
+
+                var id = $(this).parent().find('input').val();
+
+                var href = "http://localhost:8888/api/topic/" + id;
+                console.log(id + href);
+                $.get(href, function (topic, status) {
+                    $('#id').val(topic.id);
+                    $('#name').val(topic.name);
+
+                })
+                $('#exampleAddCategoryModal').modal();
+                $('.btnSaveTopic').removeClass('btnSaveTopic').addClass('btnUpdateTopic');
+            });
+        });
+        $(document).on('click', '.btnUpdateTopic', function (event) {
+            event.preventDefault();
+            ajaxPut();
+
+        })
+
+        function ajaxPut() {
+            var formData = new FormData($('.addForTopic')[0]);
+            console.log(formData)
+            $.ajax({
+
+                type: "PUT",
+                contentType: false,
+                url: "http://localhost:8888/api/topic/update",
+                enctype: "multipart/form-data",
+                data: formData,
+                processData: false,
+                success: function (reponse) {
+                    window.location.reload();
+                    alert("Update success");
+
+                },
+                error: function (e) {
+                    alert("Error");
+
+                }
+
+            });
+        };
+        $(document).on('click', '.deleteTopic', function () {
+
+
+            var id = $(this).parent().find('input').val();
+
+            var href = "http://localhost:8888/api/topic/delete/" + id;
+            var confirmDelete = confirm("Are you sure to delete the topic?");
+            if (confirmDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: href,
+                    success: function () {
+                        window.location.reload();
+                        alert("Delete Success");
+
+                    },
+                    error: function () {
+                        alert("Delete Faill");
+                    }
+                });
+            }
+        });
+
+    </script>
 </body>
 
 </html>

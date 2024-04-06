@@ -14,5 +14,8 @@ public interface QuestionsRepository extends JpaRepository<Questions, Long> {
     List<Questions> findAll();
 
     @Query("select p from Questions p where p.type=?1  order by rand() limit ?2")
-    List<Questions> randomQuestion(String type, int number );
+    List<Questions> randomQuestion(String type, int number);
+
+    @Query("select o from Questions o where o.id = ?1")
+    Questions findByLgid(Long id);
 }

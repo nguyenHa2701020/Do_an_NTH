@@ -54,10 +54,9 @@ public class AuthController {
             lec.setName("LECTURER");
             rs.save(lec);
         }
-if(adminService.findByLgid("Admin")==null)
-{
-    adminService.saveAdmin();
-}
+        if (adminService.findByLgid("Admin") == null) {
+            adminService.saveAdmin();
+        }
         model.addAttribute("title", "Login Page");
         return "Client/login";
     }
@@ -74,17 +73,17 @@ if(adminService.findByLgid("Admin")==null)
     @GetMapping("/change-password")
     public String forgotPassword(Model model) {
         model.addAttribute("title", "Change Password");
-        
+
         return "Client/change-password";
     }
 
     @PostMapping("/change-password")
     public String changePass(@RequestParam("oldpass") String oldPassword,
-            @RequestParam("newpass") String newPassword,
-            @RequestParam("confirmpass") String repeatPassword,
-            RedirectAttributes attributes,
-            Model model,
-            Principal principal) {
+                             @RequestParam("newpass") String newPassword,
+                             @RequestParam("confirmpass") String repeatPassword,
+                             RedirectAttributes attributes,
+                             Model model,
+                             Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         } else {
@@ -106,8 +105,8 @@ if(adminService.findByLgid("Admin")==null)
 
     @PostMapping("/register-new")
     public String addNewAdmin(@Valid @ModelAttribute("adminDto") UserDto adminDto,
-            BindingResult result,
-            Model model) {
+                              BindingResult result,
+                              Model model) {
 
         try {
 
@@ -123,13 +122,13 @@ if(adminService.findByLgid("Admin")==null)
                 model.addAttribute("emailError", "Your email has been registered!");
                 return "Admin/register";
             }
-           
-                adminDto.setPassword(passwordEncoder.encode("123456"));
-                adminService.save(adminDto);
-                System.out.println("success");
-                model.addAttribute("success", "Register successfully!");
-                model.addAttribute("adminDto", adminDto);
-           
+
+            adminDto.setPassword(passwordEncoder.encode("123456"));
+            adminService.save(adminDto);
+            System.out.println("success");
+            model.addAttribute("success", "Register successfully!");
+            model.addAttribute("adminDto", adminDto);
+
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errors", "The server has been wrong!");

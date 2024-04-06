@@ -13,12 +13,12 @@ public class UserDto {
     private Long idPK;
     @Size(min = 3, max = 10, message = "Id contains 3-10 characters")
     private String id;
-     @Size(min = 3, max = 10, message = "User name contains 3-20 characters")
+    @Size(min = 3, max = 10, message = "User name contains 3-20 characters")
     private String username;
 
     private String address;
 
-    
+
     @Pattern(regexp = "^0[0-9]{9,10}$", message = "Phone number must start with 0 and have a length of 10-11 characters")
     private String phone;
 

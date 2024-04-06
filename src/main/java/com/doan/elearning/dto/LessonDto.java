@@ -17,6 +17,6 @@ public class LessonDto {
     private String document;
     private String link;
     private String note;
-     private Eclass eclass;
+    private Eclass eclass;
     private Users userss;
 }

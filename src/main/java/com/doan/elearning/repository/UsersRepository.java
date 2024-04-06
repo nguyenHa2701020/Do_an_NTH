@@ -22,4 +22,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     @Query("select o from Users o where o.id = ?1")
     Users findByid(Long id);
 
+    @Query("select o from Users o where o.idClass = ?1")
+    List<Users> findByIdClass(Long idClass);
 }

@@ -8,86 +8,87 @@
 </head>
 
 <body>
-    <div th:replace="fragment/fragment::spinner"></div>
-    <nav th:replace="fragment/fragment::sidebar"></nav>
+<div th:replace="fragment/fragment::spinner"></div>
+<nav th:replace="fragment/fragment::sidebar"></nav>
 
-    <div class="container">
-        <div class="py-5 text-center">
+<div class="container">
+    <div class="py-5 text-center">
 
-            <h2>Add Exam</h2>
+        <h2>Add Exam</h2>
 
-        </div>
-
-            <div   > 
-             
-                <form class="needs-validation" novalidate th:action="@{/addexam}"
-                    method="post" th:object="${examDto}" enctype="multipart/form-data">
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName">Name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value=""
-                                th:field="*{name}">
-
-                        </div>
-                        <div  class="col-md-6 mb-3">
-                            <label for="lastName">Start Exam</label>
-                            <input type="time" class="form-control" id="lastName" placeholder="" value=""
-                                th:field="*{startExam}">
-
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName">End exam</label>
-                            <input type="time" class="form-control" id="lastName" placeholder="" value=""
-                                th:field="*{endExam}">
-
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName">Date Exam</label>
-                            <input type="date" class="form-control" id="lastName" placeholder="" value=""
-                                th:field="*{dateExam}">
-
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName">Link</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value=""
-                                th:field="*{link}">
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="name" class="col-form-label">Class:</label>
-                            <!-- File Button -->
-                            <select id="product_categories" th:field = "*{eclass}" name="product_categories" class="form-control">
-                                <option th:value = "null">-SELECT-</option>
-                                <option th:each = "category : ${eclass}"
-                                        th:value = "${category.id}"
-                                        th:text = "${category.name}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="name" class="col-form-label">Topic:</label>
-                            <!-- File Button -->
-                            <select id="product_categories" th:field = "*{idTopic}" name="product_categories" class="form-control">
-                             
-                                <option th:each = "category : ${topic}"
-                                        th:value = "${category.id}"
-                                        th:text = "${category.name}">
-                                </option>
-                            </select>
-                        </div>
-                        
-                        <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
-    <div th:replace="fragment/fragment::footer"></div>
-    <div th:replace="fragment/fragment::script"></div>
+
+    <div>
+
+        <form class="needs-validation" novalidate th:action="@{/addexam}"
+              method="post" th:object="${examDto}" enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="" value=""
+                           th:field="*{name}">
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Start Exam</label>
+                    <input type="time" class="form-control" id="lastName" placeholder="" value=""
+                           th:field="*{startExam}">
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">End exam</label>
+                    <input type="time" class="form-control" id="lastName" placeholder="" value=""
+                           th:field="*{endExam}">
+
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Date Exam</label>
+                    <input type="date" class="form-control" id="lastName" placeholder="" value=""
+                           th:field="*{dateExam}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Link</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                           th:field="*{link}">
+
+                </div>
+
+                <div class="col-md-4">
+                    <label for="name" class="col-form-label">Class:</label>
+                    <!-- File Button -->
+                    <select id="product_categories" th:field="*{eclass}" name="product_categories" class="form-control">
+                        <option th:value="null">-SELECT-</option>
+                        <option th:each="category : ${eclass}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="name" class="col-form-label">Topic:</label>
+                    <!-- File Button -->
+                    <select id="product_categories" th:field="*{idTopic}" name="product_categories"
+                            class="form-control">
+
+                        <option th:each="category : ${topic}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+                    </select>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<div th:replace="fragment/fragment::footer"></div>
+<div th:replace="fragment/fragment::script"></div>
 </body>
 
 </html>

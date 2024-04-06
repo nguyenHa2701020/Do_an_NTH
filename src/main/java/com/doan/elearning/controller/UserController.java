@@ -2,7 +2,6 @@ package com.doan.elearning.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -15,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.doan.elearning.dto.LevelDto;
 import com.doan.elearning.dto.UserDto;
-import com.doan.elearning.entity.Course;
-import com.doan.elearning.entity.Level;
+
 import com.doan.elearning.entity.Users;
 import com.doan.elearning.service.UserService;
 
@@ -27,19 +24,20 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 
-
 public class UserController {
     private final UserService us;
+
     @RequestMapping("/user")
-    public String lst(Model model){
-         model.addAttribute("title", "Manage User");
+    public String lst(Model model) {
+        model.addAttribute("title", "Manage User");
         List<Users> userss = us.findALl();
         model.addAttribute("usersss", userss);
         model.addAttribute("size", userss.size());
         model.addAttribute("usernew", new Users());
         return "Admin/users";
-       
+
     }
+
     @RequestMapping(value = "/delete-users", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
@@ -52,24 +50,22 @@ public class UserController {
             e2.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Error server");
         }
-        
+
         return "redirect:/user";
     }
 
-     @GetMapping("/update-user/{id}")
+    @GetMapping("/update-user/{id}")
     public String updateUser(@PathVariable("id") Long id, Model model) {
-        Users user=us.findByid(id);
+        Users user = us.findByid(id);
 
         UserDto userDto = new UserDto();
         userDto.setIdPK(user.getId());
-        
+
         userDto.setAddress(user.getAddress());
-        
+
         userDto.setUsername(user.getUsername());
-    
+
         userDto.setPhone(user.getPhone());
-        
-    
 
         model.addAttribute("title", "Update User");
         model.addAttribute("userDto", userDto);
@@ -91,6 +87,5 @@ public class UserController {
         }
         return "redirect:/user";
     }
-
 
 }

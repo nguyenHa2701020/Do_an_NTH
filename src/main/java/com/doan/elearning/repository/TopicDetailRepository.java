@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 
 
 import com.doan.elearning.entity.TopicDetail;
+
 @Repository
 public interface TopicDetailRepository extends JpaRepository<TopicDetail, Long> {
-     @Query("select o from TopicDetail o where o.topic.id= ?1 ")
-    List<TopicDetail> findTopicDetailByTopic(Long idTopic); 
+    @Query("select o from TopicDetail o where o.topic.id= ?1 ")
+    List<TopicDetail> findTopicDetailByTopic(Long idTopic);
+
 }

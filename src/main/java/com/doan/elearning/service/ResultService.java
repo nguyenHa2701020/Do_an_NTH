@@ -8,10 +8,15 @@ import com.doan.elearning.dto.ResultDto;
 import com.doan.elearning.entity.Result;
 
 public interface ResultService {
-      Result save(ResultDto resultDto);
-    Result findResultByUser(Long idUser,Long idExam );
+    Result save(ResultDto resultDto);
+
+    Result findResultByUser(Long idUser, Long idExam);
+
     List<Result> findAll();
+
     Result update(Result result);
-    List<Result> findResultByExam( Long idExam);
+
+    List<Result> findResultByExam(Long idExam);
+
     Result findResult(Long idResult);
 }

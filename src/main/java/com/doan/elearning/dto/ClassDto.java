@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.doan.elearning.entity.Level;
+import com.doan.elearning.entity.Users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +23,5 @@ public class ClassDto {
 
     private Level level;
     private Long idGV;
+    private Users gv;
 }

@@ -1,11 +1,13 @@
 package com.doan.elearning.controller;
 
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import org.springframework.stereotype.Controller;
@@ -26,13 +28,27 @@ import com.doan.elearning.entity.Course;
 import com.doan.elearning.entity.Users;
 import com.doan.elearning.service.CourseService;
 
-
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class CourseController {
     private final CourseService us;
+
+
+    @GetMapping("/export")
+    public void exportToExcel(HttpServletResponse response) {
+        try {
+            // Tạo danh sách đối tượng cần xuất ra Excel
+            List<Course> objectList = us.findAll();
+
+            // Xuất danh sách đối tượng vào tệp Excel
+            us.exportToExcel(objectList, response);
+        } catch (IOException e) {
+            // Xử lý lỗi nếu cần
+        }
+    }
 
     @RequestMapping("/course")
     public String lst(Model model) {
@@ -48,8 +64,8 @@ public class CourseController {
 
     @PostMapping("/save-course")
     public String addCourse(@ModelAttribute("courseDto") CourseDto course,
-            @RequestParam("imageProduct") MultipartFile imageProduct,
-            RedirectAttributes redirectAttributes) {
+                           @RequestParam("imageProduct") MultipartFile imageProduct,
+                            RedirectAttributes redirectAttributes) {
         try {
 
             us.save(imageProduct, course);
@@ -62,13 +78,13 @@ public class CourseController {
 
     }
 
-    @RequestMapping(value = "/findByCourseId", method = { RequestMethod.PUT, RequestMethod.GET })
+    @RequestMapping(value = "/findByCourseId", method = {RequestMethod.PUT, RequestMethod.GET})
     @ResponseBody
     public Optional<Course> findCourseId(Long id) {
         return us.findById(id);
     }
 
-  
+
     @RequestMapping(value = "/delete-course", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
@@ -86,8 +102,8 @@ public class CourseController {
 
     @GetMapping("/search-course/{pageNo}")
     public String searchProduct(
-                                @RequestParam(value = "keyword") String keyword,
-                                Model model, Principal principal
+            @RequestParam(value = "keyword") String keyword,
+            Model model, Principal principal
     ) {
         if (principal == null) {
             return "redirect:/login";
@@ -104,9 +120,9 @@ public class CourseController {
 
     @GetMapping("/update-course/{id}")
     public String updateCourse(@PathVariable("id") Long id, Model model) {
-    
-       
-        Optional<Course> vv=us.findById(id);
+
+
+        Optional<Course> vv = us.findById(id);
 
         CourseDto courseDto = new CourseDto();
         courseDto.setId(vv.get().getId());

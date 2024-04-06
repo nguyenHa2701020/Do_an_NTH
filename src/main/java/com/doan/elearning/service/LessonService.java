@@ -7,7 +7,10 @@ import com.doan.elearning.entity.Lesson;
 
 public interface LessonService {
     Lesson save(LessonDto lesson);
+
     List<Lesson> findLessonByClass(Long id);
-    Lesson findLessons(Long id); 
+
+    Lesson findLessons(Long id);
+
     Lesson updateLessons(Lesson les);
 }

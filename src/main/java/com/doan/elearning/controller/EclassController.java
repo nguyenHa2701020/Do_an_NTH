@@ -3,7 +3,7 @@ package com.doan.elearning.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.ClassDto;
-import com.doan.elearning.dto.LevelDto;
-import com.doan.elearning.entity.Course;
+
+
 import com.doan.elearning.entity.Eclass;
 import com.doan.elearning.entity.Level;
 import com.doan.elearning.entity.Role;
@@ -74,7 +74,7 @@ public class EclassController {
 
     @PostMapping("/save-eclass")
     public String addLevel(@ModelAttribute("classDto") ClassDto classDto,
-            RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes) {
         try {
             cs.save(classDto);
             redirectAttributes.addFlashAttribute("success", "Add new class successfully!");
@@ -96,7 +96,7 @@ public class EclassController {
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
             }
-            
+
             List<Eclass> ec = cs.findByidGV(usk.getId());
             model.addAttribute("eclass", ec);
             model.addAttribute("currentPages", "teachingclass");
@@ -116,7 +116,7 @@ public class EclassController {
             if (rl.size() == 1) {
                 model.addAttribute("rolelogin", rl.get(0).getName());
             }
-            
+
             Eclass ec = cs.findByLgid(usk.getIdClass());
             model.addAttribute("eclass", ec);
             model.addAttribute("currentPages", "learningclass");
@@ -124,18 +124,19 @@ public class EclassController {
         }
         return "Lecturers/teachingclass";
     }
-       @GetMapping("/update-class/{id}")
+
+    @GetMapping("/update-class/{id}")
     public String updateClass(@PathVariable("id") Long id, Model model) {
-    
-       
-        Eclass eclass=cs.findByLgid(id);
+
+
+        Eclass eclass = cs.findByLgid(id);
 
         ClassDto classDto = new ClassDto();
         classDto.setId(eclass.getId());
         classDto.setName(eclass.getName());
 
         classDto.setStart(eclass.getStart());
-      
+
         List<Level> level = ls.findAll();
         model.addAttribute("levels", level);
 
@@ -151,7 +152,7 @@ public class EclassController {
             if (principal == null) {
                 return "redirect:/login";
             }
-            cs.update( classDto);
+            cs.update(classDto);
             redirectAttributes.addFlashAttribute("success", "Update successfully!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,8 +160,8 @@ public class EclassController {
         }
         return "redirect:/eclass";
     }
-    
-      @RequestMapping(value = "/delete-class", method = {RequestMethod.GET, RequestMethod.PUT})
+
+    @RequestMapping(value = "/delete-class", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
             cs.deleteClass(id);

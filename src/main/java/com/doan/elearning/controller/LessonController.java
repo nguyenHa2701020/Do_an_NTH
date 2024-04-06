@@ -77,8 +77,8 @@ public class LessonController {
 
     @PostMapping("/update-lesson/{id}")
     public String updateLesson(@ModelAttribute("lesson") Lesson lesson,
-            @RequestParam("file") MultipartFile document,
-            RedirectAttributes redirectAttributes, Principal principal) {
+                               @RequestParam("file") MultipartFile document,
+                               RedirectAttributes redirectAttributes, Principal principal) {
         try {
 
             String fileName = document.getOriginalFilename();
@@ -94,7 +94,6 @@ public class LessonController {
         return "redirect:/lesson?id=" + lesson.getEclassId();
     }
 
-  
 
     @GetMapping("/download/{fileName}")
     public ResponseEntity<InputStreamResource> downloadFile(@PathVariable String fileName) throws IOException {

@@ -2,6 +2,8 @@ package com.doan.elearning.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,7 +32,7 @@ public class Course {
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Level> levels;
 }

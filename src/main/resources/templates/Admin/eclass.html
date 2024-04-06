@@ -1,30 +1,33 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="https://www.thymeleaf.org/">
-    <head  th:replace="~{fragment/fragments::header}">
-        
-    </head>
-    <body id="page-top">
-    
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{fragment/fragments::header}">
+
+</head>
+
+<body id="page-top">
+
     <!-- Page Wrapper -->
     <div id="wrapper">
-    
+
         <!--Sidebar-->
         <ul th:replace="~{fragment/fragments::sidebar}"></ul>
         <!-- End of Sidebar -->
-    
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-    
+
             <!-- Main Content -->
             <div id="content">
-    
+
                 <!-- Topbar -->
                 <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/search-course/0}" method="get">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                    th:action="@{/search-course/0}" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." name="keyword" 
-                            aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            name="keyword" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
@@ -34,7 +37,7 @@
                 </form>
                 <!-- Begin Page Content -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
-                        data-whatever="@mdo">Add new class
+                    data-whatever="@mdo">Add new class
                 </button>
                 <p th:if="${size == 0}">No class</p>
                 <div th:if="${success}" class="text-center alert alert-success">
@@ -44,90 +47,89 @@
                 <div th:if="${error}" class="text-center alert alert-danger">
                     <p th:text="${error}"></p>
                 </div>
-    
-                <table class="table table-striped" th:if="${size > 0}">
+
+                <table class="table table-striped danhMucTable" th:if="${size > 0}">
                     <thead>
-                    <tr>
-                        <th scope="col">Class Index</th>
-                        <th scope="col">Class Name</th>
-                        <th scope="col">Level Class</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">Action</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Class Index</th>
+                            <th scope="col">Class Name</th>
+                            <th scope="col">Level Class</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="eclass : ${eclass}">
-                        <th scope="row" th:text="${eclass.id}"></th>
-                        <td th:text="${eclass.name}"></td>
-                        <td th:text="${eclass.level.name}"></td>
-                        <td th:text="${eclass.start}"></td>
-                        <td>
-                            <a th:href="@{/update-class/{id}(id= ${eclass.id})}" class="btn btn-primary">Update</a>
-                        </td>
-                        
-                        <td>
-                            <a th:if="${eclass.id} == true" th:href="@{/enable-users(id = ${eclass.id})}"
-                               class="btn btn-primary">Enable</a>
-                            <a th:if="${eclass.id}" th:href="@{/delete-class(id = ${eclass.id})}"
-                               class=" btn btn-danger">Delete</a>
-                            
-                        </td>
-                        <td>
-                            <a th:href="@{/lesson(id = ${eclass.id})}">Lesson By Class</a>
-                        </td>
-                    </tr>
+                        <!-- <tr th:each="eclass : ${eclass}">
+                    <th scope="row" th:text="${eclass.id}"></th>
+                    <td th:text="${eclass.name}"></td>
+                    <td th:text="${eclass.level.name}"></td>
+                    <td th:text="${eclass.start}"></td>
+                    <td>
+                        <a th:href="@{/update-class/{id}(id= ${eclass.id})}" class="btn btn-primary">Update</a>
+                    </td>
+
+                    <td>
+                        <a th:if="${eclass.id} == true" th:href="@{/enable-users(id = ${eclass.id})}"
+                           class="btn btn-primary">Enable</a>
+                        <a th:if="${eclass.id}" th:href="@{/delete-class(id = ${eclass.id})}"
+                           class=" btn btn-danger">Delete</a>
+
+                    </td>
+                    <td>
+                        <a th:href="@{/lesson(id = ${eclass.id})}">Lesson By Class</a>
+                    </td>
+                </tr> -->
                     </tbody>
                 </table>
-    
+
                 <!-- End of Main Content -->
-    
+
                 <!-- Footer -->
                 <footer th:replace="~{fragment/fragments::footer}"></footer>
                 <!-- End of Footer -->
-    
+
             </div>
             <!-- End of Content Wrapper -->
-    
+
         </div>
     </div>
     <!-- End of Page Wrapper -->
-    
+
     <!-- Scroll to Top Button-->
     <a th:replace="~{fragment/fragments::scroll}"></a>
-    
+
     <!--Add Categories Modal-->
     <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleAddCategoryModalLabel"
-         aria-hidden="true">
+        aria-labelledby="exampleAddCategoryModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Class</h5>
                 </div>
                 <div class="modal-body">
-                    <form th:action="@{/save-eclass}" method="post" th:object = "${classDto}"
-                    enctype="multipart/form-data">
+                    <form class="addForClass">
                         <div class="form-group">
                             <label for="name" class="col-form-label">Class Name:</label>
-                            <input type="text" class="form-control" id="name" th:field = "*{name}" name="name">
+                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="date" style="display: none;" class="form-control" id="id" name="id">
                         </div>
 
                         <div class="form-group">
                             <label for="name" class="col-form-label">Class Start:</label>
-                            <input type="date" class="form-control" id="name" th:field = "*{start}" name="name">
+                            <input type="date" class="form-control" id="start" name="start">
+
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label for="name" class="col-form-label">Level:</label>
                                 <!-- File Button -->
-                                <select id="product_categories" th:field = "*{level}" name="product_categories" class="form-control">
-                                    <option th:value = "null">-SELECT-</option>
-                                    <option th:each = "category : ${level}"
-                                            th:value = "${category.id}"
-                                            th:text = "${category.name}">
+                                <select id="level" name="level" class="form-control">
+                                    <option th:value="null">-SELECT-</option>
+                                    <option th:each="category : ${level}" th:value="${category.id}"
+                                        th:text="${category.name}">
                                     </option>
                                 </select>
                             </div>
@@ -137,11 +139,10 @@
                             <div class="col-md-4">
                                 <label for="name" class="col-form-label">Lecturer:</label>
                                 <!-- File Button -->
-                                <select id="product_categories" th:field = "*{idGV}" name="product_categories" class="form-control">
-                                    <option th:value = "null">-SELECT-</option>
-                                    <option th:each = "category : ${lstLecture}"
-                                            th:value = "${category.id}"
-                                            th:text = "${category.lgid}">
+                                <select id="gv" name="gv" class="form-control">
+                                    <option th:value="null">-SELECT-</option>
+                                    <option th:each="category : ${lstLecture}" th:value="${category.id}"
+                                        th:text="${category.lgid}">
                                     </option>
                                 </select>
                             </div>
@@ -149,7 +150,7 @@
 
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary btnSaveClass ">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -157,12 +158,12 @@
             </div>
         </div>
     </div>
-    
+
     <!--End-->
-    
-    <!-- Edit Category Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <!-- Edit Category Modal
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -183,11 +184,156 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
     <div th:replace="~{fragment/fragments::script}"></div>
-    
+
     <script th:src="@{/js/categories.js}"></script>
+    <script>
+        $(document).ready(function () {
+            ajaxGet();
+            function ajaxGet() {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8888/api/eclass/",
+                    success: function (result) {
+                        $.each(result, function (i, eclass) {
+                            var EclassRow = '<tr style="text-align: center;">' +
+                                '<td width="20%">' + eclass.id + '</td>' +
+                                '<td>' + eclass.name + '</td>' +
+
+                                '<td>' + eclass.level.name + '</td>' +
+                                '<td>' + eclass.start + '</td>' +
+                                // '<td>' + eclass.idGV + '</td>' +
+                                '<td>' + '<input type="hidden" value=' + eclass.id + '>'
+                                + '<button class="btn btn-primary updateClass" >Cập nhật</button>' +
+                                '   <button class="btn btn-danger deleteClass">Xóa</button></td>'
+                            '</tr>';
+
+                            $('.danhMucTable tbody').append(EclassRow);
+                        });
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            }; $(document).on('click', '.addclass', function (event) {
+                event.preventDefault();
+                $('#exampleAddCategoryModal').modal();
+
+                $('.btnUpdateClass').removeClass('btnUpdateClass').addClass('btnSaveClass');
+                $('#id').val('');
+                $('#name').val('');
+                $('#start').val('');
+                $('#level').val('');
+                $('#gv').val('');
+            });
+
+            $(document).on('click', '.btnSaveClass', function (event) {
+                event.preventDefault();
+                console.log("hello");
+                ajaxPost();
+            });
+            function ajaxPost() {
+                var formData = new FormData($('.addForClass')[0]);
+                console.log(formData)
+                $.ajax({
+
+                    type: "POST",
+                    contentType: false,
+                    url: "http://localhost:8888/api/eclass/save",
+                    enctype: "multipart/form-data",
+                    data: formData,
+                    processData: false,
+                    success: function (reponse) {
+                        window.location.reload();
+                        alert("Add success");
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+
+                    }
+
+                });
+            };
+
+            $(document).on('click', '.updateClass', function (event) {
+                event.preventDefault();
+
+                var id = $(this).parent().find('input').val();
+
+                var href = "http://localhost:8888/api/eclass/" + id;
+                console.log(id + href);
+                $.get(href, function (eclass, status) {
+                    $('#id').val(eclass.id);
+                    $('#name').val(eclass.name);
+                    $('#start').val(eclass.start);
+                $('#level').val(eclass.level);
+                $('#gv').val(eclass.gv);
+                })
+                $('#exampleAddCategoryModal').modal();
+                $('.btnSaveClass').removeClass('btnSaveClass').addClass('btnUpdateClass');
+            });
+        });
+        $(document).on('click', '.btnUpdateClass', function (event) {
+            event.preventDefault();
+            ajaxPut();
+
+        })
+
+        function ajaxPut() {
+            var formData = new FormData($('.addForClass')[0]);
+            console.log(formData)
+            $.ajax({
+
+                type: "PUT",
+                contentType: false,
+                url: "http://localhost:8888/api/eclass/update",
+                enctype: "multipart/form-data",
+                data: formData,
+                processData: false,
+                success: function (reponse) {
+                    window.location.reload();
+                    alert("Update success");
+
+                },
+                error: function (e) {
+                    alert("Error");
+
+                }
+
+            });
+        };
+        $(document).on('click', '.deleteClass', function () {
+
+
+var id = $(this).parent().find('input').val();
+
+var href = "http://localhost:8888/api/eclass/delete/" + id;
+var confirmDelete = confirm("Are you sure to delete the class?");
+if (confirmDelete) {
+    $.ajax({
+        type: "DELETE",
+        url: href,
+        success: function () {
+            window.location.reload();
+            alert("Delete Success");
+
+        },
+        error: function () {
+            alert("Delete Faill");
+        }
+    });
+}
+
+});
+        
+    </script>
+
 </body>
+
 </html>

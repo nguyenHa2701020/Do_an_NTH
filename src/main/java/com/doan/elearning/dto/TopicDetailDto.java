@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TopicDetailDto {
     private Questions questions;
-    
+
     private Topic topic;
 
     private int numRead;

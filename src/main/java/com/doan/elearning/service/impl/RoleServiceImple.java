@@ -13,8 +13,9 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class RoleServiceImple implements RoleService  {
+public class RoleServiceImple implements RoleService {
     private final RoleRepository roleRepository;
+
     @Override
     public List<Role> findALl() {
         return roleRepository.findALl();
@@ -22,9 +23,9 @@ public class RoleServiceImple implements RoleService  {
 
     @Override
     public Role save(RoleDto roleDto) {
-      Role role= new Role();
-      role.setName(roleDto.getName());
-      return roleRepository.save(role);
+        Role role = new Role();
+        role.setName(roleDto.getName());
+        return roleRepository.save(role);
     }
-    
+
 }

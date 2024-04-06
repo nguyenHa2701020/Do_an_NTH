@@ -7,11 +7,11 @@
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-        <!--Sidebar-->
-      
+    <!--Sidebar-->
+
     <div class="card-body">
 
         <!-- quiz -->
@@ -34,7 +34,7 @@
             <h3 class="mb-3 mt-1" th:text="${examSlip.topicDetail.questions.question}"></h3>
             <!-- list group -->
             <textarea style="width: 100%;" th:if="${examSlip.topicDetail.questions.type == 'Writing'}" name="answer"
-                th:text="${examSlip.answer}" readonly>
+                      th:text="${examSlip.answer}" readonly>
         </textarea>
         </div>
     </div>
