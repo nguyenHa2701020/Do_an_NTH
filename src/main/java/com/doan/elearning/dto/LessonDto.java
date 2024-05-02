@@ -1,6 +1,7 @@
 package com.doan.elearning.dto;
 
 import com.doan.elearning.entity.Eclass;
+import com.doan.elearning.entity.Schedule;
 import com.doan.elearning.entity.Users;
 
 
@@ -19,4 +20,6 @@ public class LessonDto {
     private String note;
     private Eclass eclass;
     private Users userss;
+    private Schedule schedule;
+
 }

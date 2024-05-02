@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.doan.elearning.dto.UserDto;
-
+import com.doan.elearning.entity.Eclass;
 import com.doan.elearning.entity.Users;
+import com.doan.elearning.service.ClassService;
 import com.doan.elearning.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,18 +27,21 @@ import lombok.RequiredArgsConstructor;
 
 public class UserController {
     private final UserService us;
-
+    private final ClassService classService;
     @RequestMapping("/user")
     public String lst(Model model) {
         model.addAttribute("title", "Manage User");
         List<Users> userss = us.findALl();
         model.addAttribute("usersss", userss);
+        List<Eclass> cc = classService.findAll();
+        model.addAttribute("class", cc);
         model.addAttribute("size", userss.size());
         model.addAttribute("usernew", new Users());
         return "Admin/users";
 
     }
 
+  
     @RequestMapping(value = "/delete-users", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
@@ -66,7 +70,7 @@ public class UserController {
         userDto.setUsername(user.getUsername());
 
         userDto.setPhone(user.getPhone());
-
+        userDto.setEmail(user.getEmail());
         model.addAttribute("title", "Update User");
         model.addAttribute("userDto", userDto);
         return "Admin/update-user";

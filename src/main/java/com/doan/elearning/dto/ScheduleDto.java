@@ -24,5 +24,5 @@ public class ScheduleDto {
 
     private Long idclass;
     private Eclass eclass;
-
+private int numberLesson;
 }

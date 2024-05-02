@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragment/fragment::header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elearning</title>
+</head>
+
+<body>
+<div th:replace="fragment/fragment::spinner"></div>
+<nav th:replace="fragment/fragment::sidebar"></nav>
+
+<a class="btn " data-bs-toggle="modal"
+data-bs-target="#paymentModal" 
+id="openDialogButton"> <i class="bi bi-bell"></i></a>
+
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header align-items-center d-flex">
+                <h4 class="modal-title" id="paymentModalLabel">Add New Payment Method</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form th:action="@{/create-notification}"
+                                      method="post"  id="contactForm" name="contactForm"
+                                      class="contactForm">
+                                    <div class="row">
+                                        <div class="col-md-6" style="display: none;">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Full Name</label>
+                                                <input  type="text" class="form-control"
+                                                       name="name" id="name"
+                                                       placeholder="Name">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Subject</label>
+                                                <input  type="text" class="form-control"
+                                                       name="subject" id="subject"
+                                                       placeholder="Subject">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Content</label>
+                                                <textarea  name="message" class="form-control"
+                                                          id="message" cols="30"
+                                                          rows="4" placeholder="Message"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="submit" value="Send Message" class="btn btn-primary">
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="gradient-custom">
+    <div class="container my-5 py-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-12 col-lg-10 col-xl-8">
+          <div class="card">
+            <div class="card-body p-4">
+              <h4 class="text-center mb-4 pb-2">Nested comments section</h4>
+  
+              <div class="row">
+                <div class="col">
+                  <div class="d-flex flex-start">
+                    <img class="rounded-circle shadow-1-strong me-3"
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
+                      height="65" />
+                    <div class="flex-grow-1 flex-shrink-1">
+                      <div>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <p class="mb-1">
+                            Maria Smantha <span class="small">- 2 hours ago</span>
+                          </p>
+                          <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
+                        </div>
+                        <p class="small mb-0">
+                          It is a long established fact that a reader will be distracted by
+                          the readable content of a page.
+                        </p>
+                      </div>
+  
+                      <div class="d-flex flex-start mt-4">
+                        <a class="me-3" href="#">
+                          <img class="rounded-circle shadow-1-strong"
+                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar"
+                            width="65" height="65" />
+                        </a>
+                        <div class="flex-grow-1 flex-shrink-1">
+                          <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p class="mb-1">
+                                Simona Disa <span class="small">- 3 hours ago</span>
+                              </p>
+                            </div>
+                            <p class="small mb-0">
+                              letters, as opposed to using 'Content here, content here',
+                              making it look like readable English.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="d-flex flex-start mt-4">
+                        <a class="me-3" href="#">
+                          <img class="rounded-circle shadow-1-strong"
+                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar"
+                            width="65" height="65" />
+                        </a>
+                        <div class="flex-grow-1 flex-shrink-1">
+                          <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p class="mb-1">
+                                John Smith <span class="small">- 4 hours ago</span>
+                              </p>
+                            </div>
+                            <p class="small mb-0">
+                              the majority have suffered alteration in some form, by
+                              injected humour, or randomised words.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="d-flex flex-start mt-4">
+                    <img class="rounded-circle shadow-1-strong me-3"
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp" alt="avatar" width="65"
+                      height="65" />
+                    <div class="flex-grow-1 flex-shrink-1">
+                      <div>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <p class="mb-1">
+                            Natalie Smith <span class="small">- 2 hours ago</span>
+                          </p>
+                          <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
+                        </div>
+                        <p class="small mb-0">
+                          The standard chunk of Lorem Ipsum used since the 1500s is
+                          reproduced below for those interested. Sections 1.10.32 and
+                          1.10.33.
+                        </p>
+                      </div>
+  
+                      <div class="d-flex flex-start mt-4">
+                        <a class="me-3" href="#">
+                          <img class="rounded-circle shadow-1-strong"
+                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp" alt="avatar"
+                            width="65" height="65" />
+                        </a>
+                        <div class="flex-grow-1 flex-shrink-1">
+                          <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p class="mb-1">
+                                Lisa Cudrow <span class="small">- 4 hours ago</span>
+                              </p>
+                            </div>
+                            <p class="small mb-0">
+                              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                              scelerisque ante sollicitudin commodo. Cras purus odio,
+                              vestibulum in vulputate at, tempus viverra turpis.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="d-flex flex-start mt-4">
+                        <a class="me-3" href="#">
+                          <img class="rounded-circle shadow-1-strong"
+                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(29).webp" alt="avatar"
+                            width="65" height="65" />
+                        </a>
+                        <div class="flex-grow-1 flex-shrink-1">
+                          <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p class="mb-1">
+                                Maggie McLoan <span class="small">- 5 hours ago</span>
+                              </p>
+                            </div>
+                            <p class="small mb-0">
+                              a Latin professor at Hampden-Sydney College in Virginia,
+                              looked up one of the more obscure Latin words, consectetur
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="d-flex flex-start mt-4">
+                        <a class="me-3" href="#">
+                          <img class="rounded-circle shadow-1-strong"
+                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar"
+                            width="65" height="65" />
+                        </a>
+                        <div class="flex-grow-1 flex-shrink-1">
+                          <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <p class="mb-1">
+                                John Smith <span class="small">- 6 hours ago</span>
+                              </p>
+                            </div>
+                            <p class="small mb-0">
+                              Autem, totam debitis suscipit saepe sapiente magnam officiis
+                              quaerat necessitatibus odio assumenda, perferendis quae iusto
+                              labore laboriosam minima numquam impedit quam dolorem!
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--giãn cơ mặt ra-->
+                  <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                    <div class="d-flex flex-start w-100">
+                      <img class="rounded-circle shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                        height="40" />
+                      <div data-mdb-input-init class="form-outline w-100">
+                        <textarea class="form-control" id="textAreaExample" rows="4"
+                          style="background: #fff;"></textarea>
+                        <label class="form-label" for="textAreaExample">Message</label>
+                      </div>
+                    </div>
+                    <div class="float-end mt-2 pt-1">
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm">Post comment</button>
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-sm">Cancel</button>
+                    </div>
+                  </div>
+                   <!--giãn cơ mặt ra-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div th:replace="fragment/fragment::footer"></div>
+<div th:replace="fragment/fragment::script"></div>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#openDialogButton').on('click', function () {
+            // var href = $(this).attr('href'); // Thay thế bằng endpoint API của bạn
+            // $.get(href, function (categories, status) {
+            //     // Xóa các phần tử cũ trong container
+            //     $('#listContainer').empty();
+
+            //     // Thêm các phần tử mới vào container
+            //     categories.forEach(function (category) {
+            //         var listItem = $('<li class="list-group-item"></li>').addClass('list-item');
+            //         //đang trên mây
+            //         var info = $('<div>').addClass('info');
+            //         var name = $('<div>').addClass('name').text(category.title);
+            //         var description = $('<div>').addClass('description').text(category.content);
+
+            //         info.append(name, description);
+            //         listItem.append(info);
+
+            //         $('#listContainer').append(listItem);
+            //     });
+            // });
+        });
+    });
+</script>
+</html>

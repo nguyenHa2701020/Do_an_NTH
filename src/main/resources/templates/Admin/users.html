@@ -23,10 +23,22 @@
                 <!-- Topbar -->
                 <nav th:replace="~{fragment/fragments::topbar}"></nav>
                 <!-- End of Topbar -->
-
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                    th:action="@{/search-level/0}" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            name="keyword" aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
                 <!-- Begin Page Content -->
-
-                <a th:href="@{/register}" class="btn btn-primary">Create account</a>
+                <button type="button" class="btn btn-primary addUser " data-toggle="modal" data-target="#"
+                    data-whatever="@mdo">Add new user
+                </button>
                 <p th:if="${size == 0}">No user</p>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
@@ -45,28 +57,29 @@
                             <th scope="col">User Name</th>
                             <th scope="col">User Address</th>
                             <th scope="col">User Phone</th>
+                            <th scope="col">User Email</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Action</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         <!-- <tr th:each="users : ${usersss}">
-                            <th scope="row" th:text="${users.id}"></th>
-                            <td th:text="${users.lgid}"></td>
-                            <td th:text="${users.username}"></td>
-                            <td th:text="${users.address}"></td>
-                            <td th:text="${users.phone}"></td>
-                            <td th:if="${users.username !='Admin'}">
-                                <a id="g" th:href="@{/update-user/{id}(id = ${users.id})}"
-                                    class="btn btn-primary">Update</a>
-                            </td>
-                            <td th:if="${users.username !='Admin'}">
-                                <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
-                                    class="btn btn-primary">Enable</a>
-                                <a th:if="${users.id}" th:href="@{/delete-users(id = ${users.id})}"
-                                    class=" btn btn-danger">Delete</a>
-                            </td>
-                        </tr> -->
+                                <th scope="row" th:text="${users.id}"></th>
+                                <td th:text="${users.lgid}"></td>
+                                <td th:text="${users.username}"></td>
+                                <td th:text="${users.address}"></td>
+                                <td th:text="${users.phone}"></td>
+                                <td th:if="${users.username !='Admin'}">
+                                    <a id="g" th:href="@{/update-user/{id}(id = ${users.id})}"
+                                        class="btn btn-primary">Update</a>
+                                </td>
+                                <td th:if="${users.username !='Admin'}">
+                                    <a th:if="${users.id} == true" th:href="@{/enable-users(id = ${users.id})}"
+                                        class="btn btn-primary">Enable</a>
+                                    <a th:if="${users.id}" th:href="@{/delete-users(id = ${users.id})}"
+                                        class=" btn btn-danger">Delete</a>
+                                </td>
+                            </tr> -->
                     </tbody>
                 </table>
 
@@ -85,6 +98,173 @@
 
     <!-- Scroll to Top Button-->
     <a th:replace="~{fragment/fragments::scroll}"></a>
+    <!-- Add Categories Modal -->
+    <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleAddCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleAddCategoryModalLabel">Create an Account!</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="addForUser">
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Login ID:</label>
+                            <input type="text" class="form-control" id="id" name="id">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" style="display: none;" class="form-control" id="idPK" name="idPK">
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">User Name:</label>
+                            <input type="text" class="form-control" id="username" name="username">
+
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Address:</label>
+                                <input type="text" class="form-control" id="address" name="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Phone:</label>
+                                <input type="text" class="form-control" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Email:</label>
+                                <input type="text" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Role:</label>
+                                <select id="roles" name="Role" class="form-control">
+                                    <option th:value="STUDENT">STUDENT</option>
+                                    <option th:value="LECTURER">LECTURER</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group ">
+                                <div class="col-md-4">
+                                    <label for="name" class="col-form-label">Class</label>
+
+                                    <select id="class" name="idClass" class="form-control">
+                                        <option th:value="null">-SELECT-</option>
+                                        <option th:each="category : ${class}" th:value="${category.id}"
+                                            th:text="${category.name}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btnSaveUser">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                    </div>
+                                    <div th:if="${emailError}">
+                                        <p class="alert alert-danger" th:text="${emailError}"></p>
+                                    </div>
+                                    <div th:if="${errors}">
+                                        <p class="alert alert-danger" th:text="${errors}"></p>
+                                    </div>
+                                    <div th:if="${success}">
+                                        <p class="alert alert-success" th:text="${success}"></p>
+                                    </div>
+                                    <div th:if="${passwordError}">
+                                        <p class="alert alert-danger" th:text="${passwordError}"></p>
+                                    </div> -->
+
+
+    <!-- <form th:action="@{/register-new}" th:object="${adminDto}" method="POST">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <input type="text" class="form-control form-control-user"
+                                                    th:field="*{id}" id="exampleFirstName" placeholder="Login ID">
+                                                <div class="alert alert-danger" th:if="${#fields.hasErrors('id')}"
+                                                    th:errors="*{id}"></div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <input type="text" th:field="*{username}"
+                                                    class="form-control form-control-user" id="exampleLastName"
+                                                    placeholder="User Name">
+                                                <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}"
+                                                    th:errors="*{username}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" th:field="*{address}"
+                                                class="form-control form-control-user" id="exampleInputEmail"
+                                                placeholder="Adress">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('address')}"
+                                                th:errors="*{address}"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="tel" th:field="*{phone}" class="form-control form-control-user"
+                                                id="exampleInputEmail" placeholder="Tel">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('phone')}"
+                                                th:errors="*{phone}">
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <div style="margin-left: 10px" class="col-md-2"> Role</div>
+                                            <div class="col-md-4">
+                                               
+                                                <select id="roles" th:field="*{Role}" name="product_categories"
+                                                    class="form-control">
+                                                    <option th:value="STUDENT">STUDENT</option>
+                                                    <option th:value="LECTURER">LECTURER</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div id="classs">
+                                            <div class="form-group row">
+                                                <div style="margin-left: 10px" class="col-md-2"> Class</div>
+                                                <div class="col-md-4">
+                                                    
+                                                    <select th:field="*{idClass}" name="product_categories"
+                                                        class="form-control">
+                                                        <option th:value="null">-SELECT-</option>
+                                                        <option th:each="category : ${class}" th:value="${category.id}"
+                                                            th:text="${category.name}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Register Account
+                                        </button>
+                                        <hr>
+                                    </form> -->
+    <!-- <hr>
+
+                                    <div class="text-center">
+                                        <a class="small" th:href="@{/admin}">Back to Manager!</a>
+                                    </div>
+                                </form>
+                                </div> -->
+
+
+    <!-- </div>
+                    </div>
+                </div> -->
+
+
+
+
 
 
     <!-- End -->
@@ -93,36 +273,206 @@
 
     <script th:src="@{/js/categories.js}"></script>
     <script>
+        // Lắng nghe sự kiện khi thay đổi giá trị của select "Role"
+        document.getElementById("roles").addEventListener("change", function () {
+            var role = this.value;
+            var classField = document.getElementById("class");
+
+            // Nếu vai trò là "STUDENT", ẩn trường "Class", ngược lại hiển thị
+            if (role === "LECTURER") {
+                classField.style.display = "none";
+            } else {
+                classField.style.display = "block";
+            }
+        });
+
         $(document).ready(function () {
             ajaxGet();
             function ajaxGet() {
 
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8888/api/users/",
+                    url: "http://localhost:8888/api/users/all",
                     success: function (result) {
                         $.each(result, function (i, users) {
                             var UsersRow = '<tr style="text-align: center;">' +
-                                '<td width="20%">' + users.id + '</td>' +
-                                '<td>' + users.name + '</td>' +
+                                '<td>' + users.id + '</td>' +
+                                '<td>' + users.lgid + '</td>' +
+                                '<td>' + users.username + '</td>' +
+                                '<td>' + users.address + '</td>' +
+                                '<td>' + users.phone + '</td>' +
+                                '<td>' + users.email + '</td>';
+                            if (users.username != 'Admin') {
+                                UsersRow += '<td>' + '<input type="hidden" value=' + users.id + '>'
+                                    + '<button class="btn btn-primary updateUsers" >Cập nhật</button>' +
+                                    '   <button class="btn btn-danger deleteUsers">Xóa</button></td>';
+                            }
+                            UsersRow += '</tr>';
 
-                                // '<td>' + eclass.level.name + '</td>' +
-                                // '<td>' + eclass.start + '</td>' +
-                                // '<td>' + eclass.idGV + '</td>' +
-                                '<td>' + '<input type="hidden" value=' + users.id + '>'
-                                + '<button class="btn btn-primary updateUsers" >Cập nhật</button>' +
-                                '   <button class="btn btn-danger deleteUsers">Xóa</button></td>'
-                            '</tr>';
 
                             $('.danhMucTable tbody').append(UsersRow);
                         });
                     },
                     error: function (e) {
-                        alert("Error: ", e);
+                        alert("Error:list ", e);
                         console.log("Error", e);
                     }
                 });
             };
+
+            $(document).on('click', '.addUser', function (event) {
+                event.preventDefault();
+                $('#exampleAddCategoryModal').modal();
+
+                $('.btnUpdateUser').removeClass('btnUpdateUser').addClass('btnSaveUser');
+                $('#id').val('');
+                $('#idPK').val('');
+                $('#username').val('');
+                $('#address').val('');
+                $('#phone').val('');
+                $('#email').val('');
+
+            });
+
+            $(document).on('click', '.btnSaveUser', function (event) {
+                event.preventDefault();
+                console.log("hello");
+                ajaxPost();
+            });
+            function ajaxPost() {
+                // var formData = new FormData($('.addForUser')[0]);
+                var formData = {
+                    id: $('#id').val(),
+                    username: $('#username').val(),
+                    address: $('#address').val(),
+                    phone: $('#phone').val(),
+                    email: $('#email').val(),
+                    idClass: $('#idClass').val(),
+
+                    Role: $('#Role').val(),
+
+                    password: '123456',
+                }
+             //   console.log(formData.get('id'));
+                // //console.log(formData.get('lgid'));
+                // console.log(formData.get('username'));
+                // console.log(formData.get('address'));
+                // console.log(formData.get('phone'));
+                // console.log(formData.get('email'));
+                // console.log(formData.get('idClass'));
+                // console.log(formData.get('Role'));
+                console.log(formData)
+                $.ajax({
+
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "http://localhost:8888/api/users/saveUS",
+                   // enctype: "multipart/form-data",
+                    data: JSON.stringify(formData),
+                  //  processData: false,
+                    success: function (response) {
+                        console.log(response);
+                        if (response.status == "success") {
+                            window.location.reload();
+                            alert("Add success");
+                        }
+                        else {
+                              $('.addForUser input').next().remove();
+                            console.log("NOt OK");
+                            $.each(response.errorMessages, function (key, value) {
+                        //        if (key != "id") {
+                                    $('.addForUser input[name=' + key + ']').after('<div class="alert alert-danger" role="alert">' + value + '</div>');
+                             //   };
+                            });
+                        }
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+
+                    }
+
+                });
+            };
+            $(document).on('click', '.updateUsers', function (event) {
+                event.preventDefault();
+
+                var id = $(this).parent().find('input').val();
+
+                var href = "http://localhost:8888/api/users/" + id;
+                console.log(id + href);
+                $.get(href, function (user, status) {
+                    $('#id').val(user.lgid);
+                    $('#idPK').val(user.id);
+                    $('#username').val(user.username);
+                    $('#address').val(user.address);
+                    $('#phone').val(user.phone);
+                    $('#email').val(user.email);
+                })
+                $('#exampleAddCategoryModal').modal();
+                $('.btnSaveUser').removeClass('btnSaveUser').addClass('btnUpdateUser');
+            });
+        });
+        $(document).on('click', '.btnUpdateUser', function (event) {
+            event.preventDefault();
+            ajaxPut();
+
+        })
+
+        function ajaxPut() {
+            var formData = new FormData($('.addForUser')[0]);
+            console.log(formData)
+            console.log(formData.get('id'));
+            console.log(formData.get('idPK'));
+            console.log(formData.get('username'));
+            console.log(formData.get('address'));
+            console.log(formData.get('phone'));
+            console.log(formData.get('email'));
+            console.log(formData.get('idClass'));
+            console.log(formData.get('Role'));
+            $.ajax({
+
+                type: "PUT",
+                contentType: false,
+                url: "http://localhost:8888/api/users/update",
+                // enctype: "multipart/form-data",
+                data: formData,
+                processData: false,
+                success: function (reponse) {
+                    window.location.reload();
+                    alert("Update success");
+
+                },
+                error: function (e) {
+                    alert("Error");
+
+                }
+
+            });
+        };
+
+        $(document).on('click', '.deleteUsers', function () {
+
+
+            var id = $(this).parent().find('input').val();
+
+            var href = "http://localhost:8888/api/users/delete/" + id;
+            var confirmDelete = confirm("Are you sure to delete the user?");
+            if (confirmDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: href,
+                    success: function () {
+                        window.location.reload();
+                        alert("Delete Success");
+
+                    },
+                    error: function () {
+                        alert("Delete Faiil");
+                    }
+                });
+            }
+
         });
     </script>
 

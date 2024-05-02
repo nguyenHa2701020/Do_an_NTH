@@ -28,6 +28,7 @@ public class UserServiceImple implements UserService {
         user.setUsername(userDto.getUsername());
         user.setAddress(userDto.getAddress());
         user.setPhone(userDto.getPhone());
+        user.setEmail(userDto.getEmail());
         user.setLgid(userDto.getId());
         user.setPassword(userDto.getPassword());
         user.setRoles(Arrays.asList(roleRepository.findByName(userDto.getRole())));
@@ -76,9 +77,10 @@ public class UserServiceImple implements UserService {
     @Override
     public Users updatUsers(UserDto userDto) {
         Users userUpdate = userRepository.getReferenceById(userDto.getIdPK());
-
+userUpdate.setUsername(userDto.getUsername());
         userUpdate.setPhone(userDto.getPhone());
         userUpdate.setAddress(userDto.getAddress());
+        userUpdate.setEmail(userDto.getEmail());
 
         return userRepository.save(userUpdate);
     }

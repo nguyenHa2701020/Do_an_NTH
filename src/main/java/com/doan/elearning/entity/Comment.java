@@ -1,6 +1,6 @@
 package com.doan.elearning.entity;
 
-
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -14,7 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,26 +22,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "exam")
-public class Exam {
-    @Id
+@Table(name = "comment")
+public class Comment {
+      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "exam_id")
+    @Column(name = "attendances_id")
     private Long id;
-    private String name;
-
-    private String startExam;
-
-    private String endExam;
-
-    private String dateExam;
-    private String link;
-    private boolean status;
-
-    private Long idTopic;
+    private String content;
+    private Date commentDate;
+     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "users_id", referencedColumnName = "users_id")
+    private Users userss;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "eclass_id", referencedColumnName = "eclass_id")
-    private Eclass eclass;
- @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
-    private List<Result> results;
+    @JoinColumn(name = "forum_id", referencedColumnName = "forum_id")
+    private Forum forum;
 }

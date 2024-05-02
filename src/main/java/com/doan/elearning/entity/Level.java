@@ -32,7 +32,7 @@ public class Level {
     @Column(name = "level_id")
     private Long id;
     private String name;
-    @JsonBackReference
+    //@JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;

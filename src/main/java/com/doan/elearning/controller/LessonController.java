@@ -54,6 +54,7 @@ public class LessonController {
         List<Lesson> ls = lessonService.findLessonByClass(id);
         model.addAttribute("lessons", ls);
         model.addAttribute("size", ls.size());
+        model.addAttribute("idClass", id);
         return "Admin/lesson";
 
     }

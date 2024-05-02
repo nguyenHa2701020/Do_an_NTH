@@ -15,15 +15,19 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.doan.elearning.dto.AttendancesDto;
 import com.doan.elearning.dto.LessonDto;
 import com.doan.elearning.dto.ScheduleDto;
+import com.doan.elearning.entity.Attendances;
 import com.doan.elearning.entity.Eclass;
 import com.doan.elearning.entity.Lesson;
 import com.doan.elearning.entity.Result;
 import com.doan.elearning.entity.Schedule;
 import com.doan.elearning.entity.Users;
+import com.doan.elearning.repository.AttendancesRepository;
 import com.doan.elearning.repository.ClassRepository;
 import com.doan.elearning.repository.LessonRepository;
 import com.doan.elearning.repository.ShceduleRepository;
@@ -42,6 +46,8 @@ public class ScheduleServiceImple implements ScheduleService {
     private final LessonRepository lessonRepository;
     private final UsersRepository usersRepository;
 
+    private final AttendancesRepository attendanceRepository;
+
     @Override
     public List<Schedule> findAll() {
         return sr.findAll();
@@ -51,57 +57,104 @@ public class ScheduleServiceImple implements ScheduleService {
     public void save(ScheduleDto scheduleDto) {
 
         String number = scheduleDto.getNumberdate();
-            // Chuyển đổi chuỗi thành danh sách các số nguyên
-            List<Integer> days = Arrays.stream(number.split(","))
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
+        // Chuyển đổi chuỗi thành danh sách các số nguyên
+        List<Integer> days = Arrays.stream(number.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
 
-            // Chuyển đổi từ số nguyên sang đối tượng DayOfWeek
-            List<DayOfWeek> dayOfWeeks = days.stream()
-                    .map(DayOfWeek::of)
-                    .collect(Collectors.toList());
+        // Chuyển đổi từ số nguyên sang đối tượng DayOfWeek
+        List<DayOfWeek> dayOfWeeks = days.stream()
+                .map(DayOfWeek::of)
+                .collect(Collectors.toList());
 
-            Eclass cc = cs.findByLgid(scheduleDto.getEclass().getId());
-            scheduleDto.setEclass(cc);
-            LocalDate curent = cc.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Eclass cc = cs.findByLgid(scheduleDto.getEclass().getId());
+        scheduleDto.setEclass(cc);
+        LocalDate curent = cc.getStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            Lesson lsd = new Lesson();
-            Users userj = usersRepository.findByid(cc.getIdGV());
-            lsd.setEclass(cc);
-            lsd.setUserss(userj);
-            int count = 0;
-            while (count <= 20) {
-                if (dayOfWeeks.contains(curent.getDayOfWeek())) {
-                    scheduleDto.setDatelearn(Date.from(curent.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-                    // lv.save(scheduleDto);
+        LessonDto lsd = new LessonDto();
+        Users userj = usersRepository.findByid(cc.getIdGV());
+        lsd.setEclass(cc);
+        lsd.setUserss(userj);
+        int count = 0;
+        while (count < scheduleDto.getNumberLesson()) {
+            if (dayOfWeeks.contains(curent.getDayOfWeek())) {
+                scheduleDto.setDatelearn(Date.from(curent.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                // lv.save(scheduleDto);
 
-                    String numberLesson = "Lesson " + (count + 1);
-                    lsd.setName(numberLesson);
-                    lessonRepository.save(lsd);
-                    saveSchedule(scheduleDto);
+                // String numberLesson = "Lesson " + (count + 1);
+                // lsd.setName(numberLesson);
+                // lsd.setSchedule(convertToSchedule(scheduleDto));
+                // lessonRepository.save(lsd);
+                saveSchedule(scheduleDto);
+                //saveLesson(lsd);
 
-                    count++;
-                }
-                curent = curent.plusDays(1);
+                count++;
+            }
+            curent = curent.plusDays(1);
+        }
+        count=0;
+        List<Schedule> lstSchedule= sr.findByIdClass(cc.getId());
+        for (Schedule schedule : lstSchedule) {
+              String numberLesson = "Lesson " + (count + 1);
+                lsd.setName(numberLesson);
+                lsd.setSchedule(schedule);
+                saveLesson(lsd);
+                count++;
+        }
+
+        List<Users> lstUsers = usersRepository.findByIdClass(cc.getId());
+        List<Lesson> lstLesson = lessonRepository.findLessonByClass(cc.getId());
+
+        AttendancesDto attendance = new AttendancesDto();
+        for (Lesson lesson : lstLesson) {
+            for (Users user : lstUsers) {
+
+                attendance.setLesson(lesson);
+                attendance.setUserss(user);
+                saveAtendance(attendance);
             }
 
+        }
 
-
-    //
-     }
-private Schedule  saveSchedule(ScheduleDto scheduleDto){
+        //
+    }
+private Schedule convertToSchedule(ScheduleDto scheduleDto)
+{
     Schedule sche = new Schedule();
+    sche.setStudytime(scheduleDto.getStudytime());
+    sche.setDatelearn(scheduleDto.getDatelearn());
+    sche.setEclass(scheduleDto.getEclass());
+    return sche;
+}
+    private void saveAtendance(AttendancesDto attendancedto) {
+        Attendances attendance = new Attendances();
+        attendance.setLesson(attendancedto.getLesson());
+        attendance.setUserss(attendancedto.getUserss());
+        attendanceRepository.save(attendance);
+    }
+
+    private void saveLesson(LessonDto lsd) {
+        Lesson lesson = new Lesson();
+        lesson.setEclass(lsd.getEclass());
+        lesson.setUserss(lsd.getUserss());
+        lesson.setName(lsd.getName());
+        lesson.setSchedule(lsd.getSchedule());
+        lessonRepository.save(lesson);
+    }
+
+    private Schedule saveSchedule(ScheduleDto scheduleDto) {
+        Schedule sche = new Schedule();
         sche.setStudytime(scheduleDto.getStudytime());
         sche.setDatelearn(scheduleDto.getDatelearn());
         sche.setEclass(scheduleDto.getEclass());
         return sr.save(sche);
-}
+    }
+
     @Override
     public List<Schedule> findByIdClass(Long idlg) {
 
         return sr.findByIdClass(idlg);
     }
-
 
     public List<LocalDate> weekend(LocalDate localDate, Users usk) {
         List<LocalDate> weekDays = new ArrayList<>();
@@ -237,7 +290,6 @@ private Schedule  saveSchedule(ScheduleDto scheduleDto){
         Schedule scheduleUpdate = sr.getReferenceById(id);
         scheduleUpdate.setNotification(isNotification);
 
-
         return sr.save(scheduleUpdate);
     }
 
@@ -245,9 +297,8 @@ private Schedule  saveSchedule(ScheduleDto scheduleDto){
     public void deleteSchedule(Long id) {
         Schedule schedule = sr.findByIdSchedule(id);
 
-
         sr.delete(schedule);
-        
+
     }
 
 }

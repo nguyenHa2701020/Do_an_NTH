@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragment/fragment::header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div th:replace="fragment/fragment::spinner"></div>
+    <nav th:replace="fragment/fragment::sidebar"></nav>
+
+    <div class="container">
+
+        <input type="number" style="display: none;" th:value="${idClass}" id="idClass">
+
+
+
+        <div class="table-responsive ">
+            <table class="table table-bordered text-center danhMucTable" style="margin-bottom: 100px;">
+                <thead>
+
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="fragment/fragment::footer"></div>
+    <div th:replace="fragment/fragment::script"></div>
+    <script>
+        $(document).ready(function () {
+            ajaxGet();
+            function ajaxGet() {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8888/api/attendance/" + $('#idClass').val(),
+                    success: function (result) {
+                        console.log(result);
+                        var LevelRow = '<tr style="text-align: center;">';
+                        $.each(result.title, function (i, level) {
+                            LevelRow += '<td>' + level + '</td>';
+                          
+                            
+
+                        });
+                        LevelRow += '</tr>';
+                        $('.danhMucTable thead').append(LevelRow);
+
+                        $.each(result.content, function (i, level) {
+
+                            $.each(level, function (key, value) {
+                                var LevelRow2 = '<tr style="text-align: center;">';
+                                LevelRow2 += '<td>' + key + '</td>';
+                                $.each(value, function (i, values) {
+                                    var isChecked = values.status ? "checked" : "";
+                                    LevelRow2 += '<td> <input type="hidden" value=' + values.id + '> <input type="checkbox" class="updateLevel"' + isChecked + '></td>';
+                                 
+
+                                });
+
+                                LevelRow2 += '</tr>';
+                                $('.danhMucTable tbody').append(LevelRow2);
+                            });
+
+
+                        });
+
+
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            };
+            $(document).on('change', '.updateLevel', function (event) {
+                event.preventDefault();
+
+                var id = $(this).parent().find('input').val();
+
+                
+                console.log(id);
+                $.ajax({
+                    type: "PATCH",
+                    url: "http://localhost:8888/api/attendance/updateAtten/" + id,
+                    success: function (result) {
+                        
+                        window.location.reload();
+
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+               
+            });
+        })
+    </script>
+</body>
+
+</html>

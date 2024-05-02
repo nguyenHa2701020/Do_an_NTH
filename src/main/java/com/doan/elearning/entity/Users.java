@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -42,8 +43,16 @@ public class Users {
     @JsonManagedReference
     @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
     private List<Lesson> lessons;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
     private List<Result> results;
-
+    @JsonBackReference
+    @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
+    private List<Attendances> attendances;
+    @JsonBackReference
+    @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
+    private List<Forum> forum;
+    @JsonBackReference
+    @OneToMany(mappedBy = "userss", cascade = CascadeType.ALL)
+    private List<Comment> comment;
 }

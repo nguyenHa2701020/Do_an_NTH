@@ -172,7 +172,9 @@
                     type: "GET",
                     url: "http://localhost:8888/api/level/",
                     success: function (result) {
+                        console.log(result);
                         $.each(result, function (i, level) {
+                          
                             var LevelRow = '<tr style="text-align: center;">' +
                                 '<td width="20%">' + level.id + '</td>' +
                                 '<td>' + level.name + '</td>' +

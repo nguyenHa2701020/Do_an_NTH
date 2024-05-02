@@ -43,7 +43,10 @@ public class ClientController {
         model.addAttribute("currentPages", "home");
         return "Client/home";
     }
-
+    @GetMapping("/forum")
+    public String forum() {
+        return "Client/forum";
+    }
     @GetMapping("/admin")
     public String ad() {
         return "Admin/indexAd";

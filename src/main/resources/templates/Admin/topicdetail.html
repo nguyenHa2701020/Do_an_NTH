@@ -58,7 +58,7 @@
                     <th scope="col">Question</th>
                     <th scope="col">Question Type</th>
                     <th scope="col">Action</th>
-                    <th scope="col">Action</th>
+                  
                 </tr>
                 </thead>
                 <tbody>
@@ -121,15 +121,15 @@
                     </div>
                     <div class="form-group">
                         <label for="name" class="col-form-label">Number Read:</label>
-                        <input type="number" class="form-control" id="questionRead"  name="questionRead">
+                        <input type="number" class="form-control" id="numRead"  name="numRead">
                     </div>
                     <div class="form-group">
                         <label for="name" class="col-form-label">Number Lister:</label>
-                        <input type="number" class="form-control" id="questionListen"  name="questionListen">
+                        <input type="number" class="form-control" id="numListen"  name="numListen">
                     </div>
                     <div class="form-group">
                         <label for="name" class="col-form-label">Number Write:</label>
-                        <input type="number" class="form-control" id="questionWrite"  name="questionWrite">
+                        <input type="number" class="form-control" id="numWrite"  name="numWrite">
                     </div>
 
                     <div class="modal-footer">
@@ -187,9 +187,9 @@
                             '<td width="20%">' + topicdetail.id + '</td>' +
                              '<td>' + topicdetail.topic.name + '</td>' +
 
-                             '<td>' + topicdetail.numberRead + '</td>' +
-                             '<td>' + topicdetail.numberListen + '</td>' +
-                             '<td>' + topicdetail.numberWrite+ '</td>' +
+                             '<td>' + topicdetail.questions.question + '</td>' +
+                             '<td>' + topicdetail.questions.type + '</td>' +
+                     
                             '<td>' + '<input type="hidden" value=' + topicdetail.id + '>'
                             + '<button class="btn btn-primary updateTopicDetail" >Cập nhật</button>' +
                             '   <button class="btn btn-danger deleteTopicDetail">Xóa</button></td>'
@@ -211,10 +211,10 @@
                 $('#exampleAddCategoryModal').modal();
 
                 $('.btnUpdateDetail').removeClass('btnUpdateDetail').addClass('btnSaveTopicDetail');
-                $('#id').val('');
-                 $('#numberRead').val('');
-                 $('#numberListen').val('');
-                 $('#numberWrite').val('');
+                // $('#id').val('');
+                //  $('#numRead').val('');
+                //  $('#numListen').val('');
+                //  $('#numWrite').val('');
                 
             });
 
@@ -224,18 +224,22 @@
                 ajaxPost();
             });
             function ajaxPost() {
-                var formData = new FormData($('.addForTopicDetail')[0]);
+                var formData = new FormData($('.addTopicDetail')[0]);
                 console.log(formData)
+                console.log(formData.get('topic'));
+                console.log(formData.get('numRead'));
+                console.log(formData.get('numListen'));
+                console.log(formData.get('numWrite'));
                 $.ajax({
 
                     type: "POST",
                     contentType: false,
                     url: "http://localhost:8888/api/topicdetail/save",
-                    enctype: "multipart/form-data",
+                   
                     data: formData,
                     processData: false,
                     success: function (reponse) {
-                        window.location.reload();
+                       window.location.reload();
                         alert("Add success");
 
                     },
@@ -247,54 +251,8 @@
                 });
             };
 
-            $(document).on('click', '.updateTopicDetail', function (event) {
-                event.preventDefault();
-
-                var id = $(this).parent().find('input').val();
-
-                var href = "http://localhost:8888/api/topicdetail/" + id;
-                console.log(id + href);
-                $.get(href, function (topicdetail, status) {
-                    $('#id').val(topicdetail.id);
-                  
-                    // $('#name').val(eclass.name);
-                //     $('#start').val(eclass.start);
-                // $('#level').val(eclass.level);
-                // $('#gv').val(eclass.gv);
-                })
-                $('#exampleAddCategoryModal').modal();
-                $('.btnSaveTopicDetail').removeClass('btnSaveTopicDetail').addClass('btnUpdateTopicDetail');
-            });
-        });
-        $(document).on('click', '.btnUpdateTopicDetail', function (event) {
-            event.preventDefault();
-            ajaxPut();
-
+      
         })
-
-        function ajaxPut() {
-            var formData = new FormData($('.addForTopicDetail')[0]);
-            console.log(formData)
-            $.ajax({
-
-                type: "PUT",
-                contentType: false,
-                url: "http://localhost:8888/api/topicdetail/update",
-                enctype: "multipart/form-data",
-                data: formData,
-                processData: false,
-                success: function (reponse) {
-                    window.location.reload();
-                    alert("Update success");
-
-                },
-                error: function (e) {
-                    alert("Error");
-
-                }
-
-            });
-        };
             </script>
 
 </body>

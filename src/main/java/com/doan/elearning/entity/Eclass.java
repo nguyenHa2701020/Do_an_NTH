@@ -57,4 +57,6 @@ public class Eclass {
     @JsonBackReference
     @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
     private List<Schedule> schedule;
+    @OneToMany(mappedBy = "eclass", cascade = CascadeType.ALL)
+    private List<Forum> forum;
 }

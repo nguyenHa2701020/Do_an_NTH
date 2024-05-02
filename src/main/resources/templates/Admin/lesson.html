@@ -13,8 +13,9 @@
 <div class="col-12">
     <div class="card border rounded-3">
         <!-- Card header START -->
-        <div class="card-header border-bottom">
-
+        <div style="margin-bottom: 50px;" >
+            <a th:href="@{/attendance/{idClass}(idClass = ${idClass})}" class="btn btn-sm btn-success mb-0"
+            th:if="${rolelogin}==LECTURER or ${rolelogin}==ADMIN">Điểm danh</a>
         </div>
         <!-- Card header END -->
 
