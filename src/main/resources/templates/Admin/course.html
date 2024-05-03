@@ -56,7 +56,7 @@
                             <th scope="col">Course Name</th>
                             <th scope="col">Course Image</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Action</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -154,13 +154,13 @@
                     url: "http://localhost:8888/api/course/",
                     success: function (result) {
                         $.each(result, function (i, course) {
-                            var CourseRow = '<tr style="text-align: center;">' +
-                                '<td width="20%">' + course.id + '</td>' +
+                            var CourseRow = '<tr>' +
+                                '<td>' + course.id + '</td>' +
                                 '<td>' + course.name + '</td>' +
                                 '<td>' + '<img class="my-course-image" style="height: 40px; width: 40px;">' + '</td>' +
                                 '<td>' + '<input type="hidden" value=' + course.id + '>'
                                 + '<button class="btn btn-primary updateCourse" >Cập nhật</button>' +
-                                '   <button class="btn btn-danger deleteCourse">Xóa</button></td>'
+                                '   <button class="btn btn-danger deleteCourse">Xóa</button></td>'+
                             '</tr>';
                             // Tạo chuỗi base64 URL cho hình ảnh
                             var $CourseRow = $(CourseRow); // Tạo một đối tượng jQuery từ chuỗi HTML

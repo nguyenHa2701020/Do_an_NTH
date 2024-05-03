@@ -6,9 +6,13 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.doan.elearning.dto.AttendancesDto;
 import com.doan.elearning.dto.UserDto;
-
+import com.doan.elearning.entity.Attendances;
+import com.doan.elearning.entity.Lesson;
 import com.doan.elearning.entity.Users;
+import com.doan.elearning.repository.AttendancesRepository;
+import com.doan.elearning.repository.LessonRepository;
 import com.doan.elearning.repository.RoleRepository;
 import com.doan.elearning.repository.UsersRepository;
 import com.doan.elearning.service.UserService;
@@ -20,10 +24,12 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImple implements UserService {
     private final UsersRepository userRepository;
     private final RoleRepository roleRepository;
+    private final LessonRepository lessonRepository;
+    private final AttendancesRepository attendancesRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public Users save(UserDto userDto) {
+    public void save(UserDto userDto) {
         Users user = new Users();
         user.setUsername(userDto.getUsername());
         user.setAddress(userDto.getAddress());
@@ -33,8 +39,33 @@ public class UserServiceImple implements UserService {
         user.setPassword(userDto.getPassword());
         user.setRoles(Arrays.asList(roleRepository.findByName(userDto.getRole())));
         user.setIdClass(userDto.getIdClass());
-        return userRepository.save(user);
+
+        userRepository.save(user);
+        Users users= userRepository.findByLgid(userDto.getId());
+        if(users.getIdClass()!=null)
+        {
+            List<Lesson> lstLesson = lessonRepository.findLessonByClass(users.getIdClass());
+
+            AttendancesDto attendance = new AttendancesDto();
+            attendance.setUserss(users);
+            for (Lesson lesson : lstLesson) {
+               
+                    attendance.setLesson(lesson);
+                   
+                    saveAtendance(attendance);
+               
+            }
+        }
+      
+        
     }
+      private void saveAtendance(AttendancesDto attendancedto) {
+        Attendances attendance = new Attendances();
+        attendance.setLesson(attendancedto.getLesson());
+        attendance.setUserss(attendancedto.getUserss());
+        attendancesRepository.save(attendance);
+    }
+
 
     @Override
     public Users findByUsername(String username) {

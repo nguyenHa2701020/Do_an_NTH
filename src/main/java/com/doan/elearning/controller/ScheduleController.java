@@ -78,6 +78,11 @@ public class ScheduleController {
             }
             if (role.equals("std")) {
                 id = usk.getIdClass();
+                if(id==null)
+                {
+                    model.addAttribute("idClass", id);
+                    return "Student/schedulestudent";
+                }
             }
 
             if (role.equals("lct")) {

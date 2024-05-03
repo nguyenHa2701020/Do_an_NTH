@@ -24,7 +24,7 @@ public class UserDto {
     private String phone;
     @Email(message = "Email không hợp lệ")
 private String email;
-    private String Role;
+    private String role;
     @Size(min = 6, message = "Password must contains min 6 characters")
     private String password;
     private String repeatPassword;

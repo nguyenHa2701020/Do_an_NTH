@@ -55,7 +55,7 @@
                             <th scope="col">Topics Index</th>
                             <th scope="col">Topics Name</th>
 
-                            <th scope="col">Action</th>
+                           
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -184,7 +184,7 @@
                     url: "http://localhost:8888/api/topic/",
                     success: function (result) {
                         $.each(result, function (i, topic) {
-                            var TopicRow = '<tr style="text-align: center;">' +
+                            var TopicRow = '<tr>' +
                                 '<td width="20%">' + topic.id + '</td>' +
                                 '<td>' + topic.name + '</td>' +
 

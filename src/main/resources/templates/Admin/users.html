@@ -140,11 +140,11 @@
                                 </select>
                             </div>
 
-                            <div class="form-group ">
+                            <div class="form-group " id="anHien">
                                 <div class="col-md-4">
                                     <label for="name" class="col-form-label">Class</label>
 
-                                    <select id="class" name="idClass" class="form-control">
+                                    <select id="idClass" name="idClass" class="form-control">
                                         <option th:value="null">-SELECT-</option>
                                         <option th:each="category : ${class}" th:value="${category.id}"
                                             th:text="${category.name}">
@@ -164,109 +164,6 @@
         </div>
     </div>
 
-    <!-- <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                                    </div>
-                                    <div th:if="${emailError}">
-                                        <p class="alert alert-danger" th:text="${emailError}"></p>
-                                    </div>
-                                    <div th:if="${errors}">
-                                        <p class="alert alert-danger" th:text="${errors}"></p>
-                                    </div>
-                                    <div th:if="${success}">
-                                        <p class="alert alert-success" th:text="${success}"></p>
-                                    </div>
-                                    <div th:if="${passwordError}">
-                                        <p class="alert alert-danger" th:text="${passwordError}"></p>
-                                    </div> -->
-
-
-    <!-- <form th:action="@{/register-new}" th:object="${adminDto}" method="POST">
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="text" class="form-control form-control-user"
-                                                    th:field="*{id}" id="exampleFirstName" placeholder="Login ID">
-                                                <div class="alert alert-danger" th:if="${#fields.hasErrors('id')}"
-                                                    th:errors="*{id}"></div>
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <input type="text" th:field="*{username}"
-                                                    class="form-control form-control-user" id="exampleLastName"
-                                                    placeholder="User Name">
-                                                <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}"
-                                                    th:errors="*{username}"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" th:field="*{address}"
-                                                class="form-control form-control-user" id="exampleInputEmail"
-                                                placeholder="Adress">
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('address')}"
-                                                th:errors="*{address}"></div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="tel" th:field="*{phone}" class="form-control form-control-user"
-                                                id="exampleInputEmail" placeholder="Tel">
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('phone')}"
-                                                th:errors="*{phone}">
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <div style="margin-left: 10px" class="col-md-2"> Role</div>
-                                            <div class="col-md-4">
-                                               
-                                                <select id="roles" th:field="*{Role}" name="product_categories"
-                                                    class="form-control">
-                                                    <option th:value="STUDENT">STUDENT</option>
-                                                    <option th:value="LECTURER">LECTURER</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div id="classs">
-                                            <div class="form-group row">
-                                                <div style="margin-left: 10px" class="col-md-2"> Class</div>
-                                                <div class="col-md-4">
-                                                    
-                                                    <select th:field="*{idClass}" name="product_categories"
-                                                        class="form-control">
-                                                        <option th:value="null">-SELECT-</option>
-                                                        <option th:each="category : ${class}" th:value="${category.id}"
-                                                            th:text="${category.name}">
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Register Account
-                                        </button>
-                                        <hr>
-                                    </form> -->
-    <!-- <hr>
-
-                                    <div class="text-center">
-                                        <a class="small" th:href="@{/admin}">Back to Manager!</a>
-                                    </div>
-                                </form>
-                                </div> -->
-
-
-    <!-- </div>
-                    </div>
-                </div> -->
-
-
-
-
-
-
     <!-- End -->
     <!-- Bootstrap core JavaScript-->
     <div th:replace="~{fragment/fragments::script}"></div>
@@ -276,7 +173,7 @@
         // Lắng nghe sự kiện khi thay đổi giá trị của select "Role"
         document.getElementById("roles").addEventListener("change", function () {
             var role = this.value;
-            var classField = document.getElementById("class");
+            var classField = document.getElementById("anHien");
 
             // Nếu vai trò là "STUDENT", ẩn trường "Class", ngược lại hiển thị
             if (role === "LECTURER") {
@@ -349,18 +246,11 @@
                     email: $('#email').val(),
                     idClass: $('#idClass').val(),
 
-                    Role: $('#Role').val(),
+                    role: $('#roles').val(),
 
                     password: '123456',
                 }
-             //   console.log(formData.get('id'));
-                // //console.log(formData.get('lgid'));
-                // console.log(formData.get('username'));
-                // console.log(formData.get('address'));
-                // console.log(formData.get('phone'));
-                // console.log(formData.get('email'));
-                // console.log(formData.get('idClass'));
-                // console.log(formData.get('Role'));
+           
                 console.log(formData)
                 $.ajax({
 
@@ -373,7 +263,7 @@
                     success: function (response) {
                         console.log(response);
                         if (response.status == "success") {
-                            window.location.reload();
+                           window.location.reload();
                             alert("Add success");
                         }
                         else {

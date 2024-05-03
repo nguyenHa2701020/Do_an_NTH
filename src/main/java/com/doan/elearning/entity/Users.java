@@ -33,7 +33,7 @@ public class Users {
     private String phone;
     private String email;
     private Long idClass;
-
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

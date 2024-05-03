@@ -37,6 +37,7 @@
                 <p th:text="${error}"></p>
             </div>
 
+<a th:href="@{/api/result/{id}(id=${id})}">Result</a>
             <table class="table table-striped" th:if="${size > 0}">
                 <thead>
                 <tr>
@@ -44,12 +45,9 @@
                     <th scope="col">Users</th>
                     <th scope="col">Listen Point</th>
                     <th scope="col">Speak Point</th>
-
                     <th scope="col">Read Point</th>
-
                     <th scope="col">Write Point</th>
                     <th scope="col">Submit Time</th>
-
                     <th scope="col">Action</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -127,6 +125,9 @@
 <div th:replace="~{fragment/fragments::script}"></div>
 
 <script th:src="@{/js/categories.js}"></script>
+<script>
+ 
+</script>
 </body>
 
 </html>

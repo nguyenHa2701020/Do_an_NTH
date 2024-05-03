@@ -45,11 +45,11 @@ public class UserApi {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Users> saveUsers(@ModelAttribute UserDto userDto) {
+    public ResponseEntity<Void> saveUsers(@ModelAttribute UserDto userDto) {
         userDto.setPassword(passwordEncoder.encode("123456"));
-        Users users = userService.save(userDto);
+         userService.save(userDto);
 
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")

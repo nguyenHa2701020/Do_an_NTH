@@ -111,7 +111,7 @@ public class ScheduleServiceImple implements ScheduleService {
 
                 attendance.setLesson(lesson);
                 attendance.setUserss(user);
-                saveAtendance(attendance);
+           //     saveAtendance(attendance);
             }
 
         }

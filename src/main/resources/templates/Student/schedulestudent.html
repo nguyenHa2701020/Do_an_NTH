@@ -12,7 +12,7 @@
 <div th:replace="fragment/fragment::spinner"></div>
 <nav th:replace="fragment/fragment::sidebar"></nav>
 
-<div class="container">
+<div class="container" th:if="${idClass !=null}">
 
     <form action="/schedulestudent?role=std" method="post" style="margin-top: 100px;" th:if="${rolelogin}==STUDENT">
         <label for="date-input">Ngày:</label>
@@ -84,7 +84,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header align-items-center d-flex">
-                <h4 class="modal-title" id="paymentModalLabel">Add New Payment Method</h4>
+                <h4 class="modal-title" id="paymentModalLabel">Notification</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- Modal body -->
@@ -150,8 +150,8 @@
                     var listItem = $('<li class="list-group-item"></li>').addClass('list-item');
                     //đang trên mây
                     var info = $('<div>').addClass('info');
-                    var name = $('<div>').addClass('name').text(category.title);
-                    var description = $('<div>').addClass('description').text(category.content);
+                    var name = $('<div>').addClass('name').text("Title: "+category.title);
+                    var description = $('<div>').addClass('description').text("Content: "+category.content);
 
                     info.append(name, description);
                     listItem.append(info);
@@ -164,4 +164,4 @@
 </script>
 </body>
 
-</html>
+</html>                                                   

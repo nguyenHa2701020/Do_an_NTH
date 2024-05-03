@@ -3,7 +3,6 @@ package com.doan.elearning.controller;
 import java.security.Principal;
 import java.util.List;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import com.doan.elearning.entity.Result;
 import com.doan.elearning.service.ResultService;
@@ -36,7 +34,7 @@ public class ResultController {
         }
         model.addAttribute("title", "Manage questions");
         List<Result> lstResult = resultService.findResultByExam(id);
-
+        model.addAttribute("id", id);
         model.addAttribute("result", lstResult);
         model.addAttribute("size", lstResult.size());
         return "Admin/result";
@@ -55,7 +53,7 @@ public class ResultController {
         return "Admin/result";
     }
 
-    @RequestMapping(value = "/findResultId", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/findResultId", method = { RequestMethod.PUT, RequestMethod.GET })
     @ResponseBody
     public Result findExamId(Long id) {
         return resultService.findResult(id);
@@ -78,8 +76,8 @@ public class ResultController {
 
     @PostMapping("/update-result")
     public String updateProduct(@RequestParam("id") Long id,
-                                @RequestParam("speak") Float speakPoint, @RequestParam("write") Float writePoint,
-                                RedirectAttributes redirectAttributes, Principal principal, HttpServletRequest request) {
+            @RequestParam("speak") Float speakPoint, @RequestParam("write") Float writePoint,
+            RedirectAttributes redirectAttributes, Principal principal, HttpServletRequest request) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -89,7 +87,6 @@ public class ResultController {
         result.setWritePoint(writePoint);
         resultService.update(result);
         redirectAttributes.addFlashAttribute("success", "Update successfully!");
-
 
         return "redirect:/findResultByExam/" + result.getExam().getId();
     }

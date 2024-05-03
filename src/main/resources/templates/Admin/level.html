@@ -55,7 +55,7 @@
                             <th scope="col">Level Name</th>
                             <th scope="col">Course Name</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Action</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -175,8 +175,8 @@
                         console.log(result);
                         $.each(result, function (i, level) {
                           
-                            var LevelRow = '<tr style="text-align: center;">' +
-                                '<td width="20%">' + level.id + '</td>' +
+                            var LevelRow = '<tr>' +
+                                '<td>' + level.id + '</td>' +
                                 '<td>' + level.name + '</td>' +
                                 '<td>' + level.course.name + '</td>' +
                                 '<td>' + '<input type="hidden" value=' + level.id + '>'

@@ -42,10 +42,10 @@
                         <tr>
                             <th scope="col">Schedule Index</th>
                             <th scope="col">Study Time</th>
-                            <th scope="col">Class Name</th>
+                            
                             <th scope="col">Date Learn</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Action</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -193,7 +193,7 @@
                     url: "http://localhost:8888/api/schedule/",
                     success: function (result) {
                         $.each(result, function (i, schedule) {
-                            var SchedulesRow = '<tr style="text-align: center;">' +
+                            var SchedulesRow = '<tr >' +
                                 '<td width="20%">' + schedule.id + '</td>' +
                                 '<td>' + schedule.studytime + '</td>' +
 
